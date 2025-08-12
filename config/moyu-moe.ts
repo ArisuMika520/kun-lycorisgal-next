@@ -1,46 +1,39 @@
 import { SUPPORTED_TYPE_MAP } from '~/constants/resource'
 import type { KunSiteConfig } from './config'
 
-const KUN_SITE_NAME = 'TouchGal'
-const KUN_SITE_MENTION = '@touchgal'
-const KUN_SITE_TITLE = 'TouchGal - 一站式Galgame文化社区!'
+const KUN_SITE_NAME = 'LyCorisGal'
+const KUN_SITE_MENTION = '@lycorisgal'
+const KUN_SITE_TITLE = 'LyCorisGal - Gal引导资源站'
 const KUN_SITE_IMAGE =
-  'https://img.touchgalstatic.org/uploads/20241217174250074.avif'
+  'https://storage.lycorisgal.top/uploads/init/favicon.webp'
 const KUN_SITE_DESCRIPTION =
-  'TouchGal 是一个一站式 Galgame 文化社区。提供Galgame 论坛、Galgame 下载等服务。承诺永久免费, 高质量。为Galgame 爱好者提供一片净土！'
-const KUN_SITE_URL = 'https://www.touchgal.us'
-const KUN_SITE_ARCHIVE = 'https://archive.touchgal.co/'
-const KUN_SITE_FORUM = 'https://bbs.touchgal.co/'
-const KUN_SITE_NAV = 'https://gal.red'
-const KUN_SITE_TELEGRAM_GROUP = 'https://s.miku.cyou/2'
-const KUN_SITE_DISCORD_GROUP = 'https://discord.gg/e4QePvPQTB'
+  'LyCorisGal 是一个Gal引导资源站。提供Galgame 下载、补丁 下载等服务。帮助用户轻松迅速学习并获取资源'
+const KUN_SITE_URL = 'https://www.lycorisgal.top'
+const KUN_SITE_ARCHIVE = 'https://www.lycorisgal.top/'
+const KUN_SITE_FORUM = 'https://www.lycorisgal.top/'
+const KUN_SITE_NAV = 'https://www.lycorisgal.top'
+const KUN_SITE_TELEGRAM_GROUP = 'https://t.me/LyCoriseGAL'
+const KUN_SITE_DISCORD_GROUP = '#'
 const KUN_SITE_LIST = [
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.net' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.moe' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.one' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.com' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.org' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.me' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.co' },
-  { name: KUN_SITE_NAME, url: 'https://www.touchgal.io' }
+  { name: KUN_SITE_NAME, url: 'https://www.lycorisgal.top' }
 ]
 const KUN_SITE_KEYWORDS = [
-  'TouchGAL',
+  'LyCorisGal',
   'Gal',
   'Galgame',
-  '论坛',
   '网站',
   'Galgame 下载',
   'Galgame 资源',
+  'Galgame 补丁',
+  'Galgame 教程',
+  'Galgame 工具',
   'Galgame wiki',
   'Galgame 评测',
-  'Galgame 数据分析',
   'Galgame 新作动态',
   'Galgame 汉化 / 国际化',
   'Galgame 制作',
   'Galgame 讨论',
   '游戏交流',
-  '其他交流',
   ...Object.values(SUPPORTED_TYPE_MAP)
 ]
 
@@ -68,7 +61,7 @@ export const kunMoyuMoe: KunSiteConfig = {
   },
   domain: {
     main: KUN_SITE_URL,
-    imageBed: 'https://img.touchgalstatic.org',
+    imageBed: 'https://storage.lycorisgal.top',
     storage: KUN_SITE_URL,
     kungal: KUN_SITE_URL,
     telegram_group: KUN_SITE_TELEGRAM_GROUP,
