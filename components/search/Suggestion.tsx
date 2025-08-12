@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from 'react'
 import { kunFetchPost } from '~/utils/kunFetch'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'
-import { Chip } from '@nextui-org/react'
+import { Chip } from '@heroui/react'
 import { Key, Tag } from 'lucide-react'
 import { KunLoading } from '~/components/kun/Loading'
 import type { Dispatch, SetStateAction } from 'react'

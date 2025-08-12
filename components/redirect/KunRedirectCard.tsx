@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { kunMoyuMoe } from '~/config/moyu-moe'
-import { Button, Card, CardBody, CardFooter, Snippet } from '@nextui-org/react'
+import { Button, Card, CardBody, CardFooter, Snippet } from '@heroui/react'
 import { ExternalLink, ShieldAlert } from 'lucide-react'
 import { CountdownTimer } from './CountdownTimer'
 import { useSearchParams } from 'next/navigation'

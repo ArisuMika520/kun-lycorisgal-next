@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Chip, Link } from '@nextui-org/react'
+import { Card, Chip, Link } from '@heroui/react'
 import { docDirectoryLabelMap } from '~/constants/doc'
 import { formatDistanceToNow } from '~/utils/formatDistanceToNow'
 import type { HomeCarouselMetadata } from './mdx'

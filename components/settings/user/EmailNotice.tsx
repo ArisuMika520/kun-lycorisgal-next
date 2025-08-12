@@ -1,10 +1,10 @@
 'use client'
 
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
+import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card'
 import { useUserStore } from '~/store/userStore'
 import { kunFetchPost } from '~/utils/kunFetch'
 import toast from 'react-hot-toast'
-import { Switch } from '@nextui-org/react'
+import { Switch } from '@heroui/react'
 
 export const EmailNotice = () => {
   const { user, setUser } = useUserStore((state) => state)

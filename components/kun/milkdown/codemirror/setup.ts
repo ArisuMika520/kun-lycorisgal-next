@@ -16,9 +16,9 @@ import { lintKeymap } from '@codemirror/lint'
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
 import { EditorState } from '@codemirror/state'
 import {
-  EditorView,
   crosshairCursor,
   dropCursor,
+  EditorView,
   highlightActiveLine,
   highlightActiveLineGutter,
   highlightSpecialChars,

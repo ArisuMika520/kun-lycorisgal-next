@@ -1,22 +1,22 @@
 'use client'
 
-import { useState, useEffect, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Button,
+  Chip,
   Input,
   Modal,
-  ModalContent,
-  ModalHeader,
   ModalBody,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
   Switch,
-  Chip,
   useDisclosure
-} from '@nextui-org/react'
+} from '@heroui/react'
 import { useUserStore } from '~/store/userStore'
 import { kunFetchGet, kunFetchPost } from '~/utils/kunFetch'
 import toast from 'react-hot-toast'
@@ -88,7 +88,7 @@ export const TwoFactorAuth = () => {
           setAuthStatus({ ...authStatus, qrCodeUrl: url })
         })
         .catch((err) => {
-          console.error('Error generating QR code:', err)
+          throw err
         })
     }
   }, [authStatus.authUrl])

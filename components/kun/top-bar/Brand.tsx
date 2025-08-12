@@ -1,11 +1,11 @@
-import { NavbarBrand } from '@nextui-org/navbar'
+import { NavbarBrand } from '@heroui/navbar'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export const KunTopBarBrand = () => {
   return (
-    <NavbarBrand className="hidden grow-0 sm:flex">
+    <NavbarBrand className="hidden sm:flex">
       <Link className="flex items-center" href="/">
         <Image
           src="/favicon.webp"

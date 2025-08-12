@@ -2,18 +2,18 @@
 
 import { useState, useTransition } from 'react'
 import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Button,
-  Input,
   Checkbox,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Textarea,
   useDisclosure
-} from '@nextui-org/react'
-import { Plus, Pencil } from 'lucide-react'
+} from '@heroui/react'
+import { Pencil, Plus } from 'lucide-react'
 import { kunFetchPost, kunFetchPut } from '~/utils/kunFetch'
 import toast from 'react-hot-toast'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'

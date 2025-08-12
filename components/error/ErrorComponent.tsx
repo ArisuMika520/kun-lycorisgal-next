@@ -1,14 +1,8 @@
 'use client'
 
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader
-} from '@nextui-org/react'
+import { Button, Card, CardBody, CardFooter, CardHeader } from '@heroui/react'
 import { AlertTriangle, ArrowLeft, Home, RefreshCw } from 'lucide-react'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 
 interface ErrorComponentProps {
   error: string

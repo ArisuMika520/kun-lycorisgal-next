@@ -5,10 +5,10 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger
-} from '@nextui-org/dropdown'
-import { Button } from '@nextui-org/button'
-import { Card, CardHeader } from '@nextui-org/card'
-import { Select, SelectItem } from '@nextui-org/select'
+} from '@heroui/dropdown'
+import { Button } from '@heroui/button'
+import { Card, CardHeader } from '@heroui/card'
+import { Select, SelectItem } from '@heroui/select'
 import {
   ArrowDownAZ,
   ArrowUpAZ,
@@ -17,12 +17,12 @@ import {
   Filter
 } from 'lucide-react'
 import {
-  ALL_SUPPORTED_TYPE,
-  SUPPORTED_TYPE_MAP,
   ALL_SUPPORTED_LANGUAGE,
-  SUPPORTED_LANGUAGE_MAP,
   ALL_SUPPORTED_PLATFORM,
-  SUPPORTED_PLATFORM_MAP
+  ALL_SUPPORTED_TYPE,
+  SUPPORTED_LANGUAGE_MAP,
+  SUPPORTED_PLATFORM_MAP,
+  SUPPORTED_TYPE_MAP
 } from '~/constants/resource'
 import type { SortField, SortOrder } from './_sort'
 
@@ -118,7 +118,7 @@ export const FilterBar = ({
             size="sm"
           >
             {ALL_SUPPORTED_TYPE.map((type) => (
-              <SelectItem key={type} value={type} className="text-default-700">
+              <SelectItem key={type} className="text-default-700">
                 {SUPPORTED_TYPE_MAP[type]}
               </SelectItem>
             ))}
@@ -139,11 +139,7 @@ export const FilterBar = ({
             size="sm"
           >
             {ALL_SUPPORTED_LANGUAGE.map((language) => (
-              <SelectItem
-                key={language}
-                value={language}
-                className="text-default-700"
-              >
+              <SelectItem key={language} className="text-default-700">
                 {SUPPORTED_LANGUAGE_MAP[language]}
               </SelectItem>
             ))}
@@ -164,11 +160,7 @@ export const FilterBar = ({
             size="sm"
           >
             {ALL_SUPPORTED_PLATFORM.map((platform) => (
-              <SelectItem
-                key={platform}
-                value={platform}
-                className="text-default-700"
-              >
+              <SelectItem key={platform} className="text-default-700">
                 {SUPPORTED_PLATFORM_MAP[platform]}
               </SelectItem>
             ))}
@@ -200,7 +192,7 @@ export const FilterBar = ({
             size="sm"
           >
             {GALGAME_SORT_YEARS.map((year) => (
-              <SelectItem key={year} value={year} className="text-default-700">
+              <SelectItem key={year} className="text-default-700">
                 {GALGAME_SORT_YEARS_MAP[year] ?? year}
               </SelectItem>
             ))}
@@ -231,11 +223,7 @@ export const FilterBar = ({
             }
           >
             {GALGAME_SORT_MONTHS.map((month) => (
-              <SelectItem
-                key={month}
-                value={month}
-                className="text-default-700"
-              >
+              <SelectItem key={month} className="text-default-700">
                 {month === 'all' ? '全部月份' : month}
               </SelectItem>
             ))}

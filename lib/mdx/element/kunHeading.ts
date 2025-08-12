@@ -1,4 +1,4 @@
-import { createElement, isValidElement, ReactNode, ReactElement } from 'react'
+import { createElement, isValidElement, ReactElement, ReactNode } from 'react'
 
 const getTextContent = (children: ReactNode): string => {
   if (typeof children === 'string') {

@@ -2,15 +2,15 @@
 
 import {
   Button,
-  Tooltip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
-  useDisclosure,
-  Textarea
-} from '@nextui-org/react'
+  Textarea,
+  Tooltip,
+  useDisclosure
+} from '@heroui/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { kunFetchPost } from '~/utils/kunFetch'

@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarMenu, NavbarMenuItem } from '@nextui-org/navbar'
+import { NavbarMenu, NavbarMenuItem } from '@heroui/navbar'
 import Link from 'next/link'
 import Image from 'next/image'
 import { kunMoyuMoe } from '~/config/moyu-moe'

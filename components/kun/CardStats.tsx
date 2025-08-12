@@ -1,4 +1,4 @@
-import { Tooltip } from '@nextui-org/tooltip'
+import { Tooltip } from '@heroui/tooltip'
 import { Download, Eye, Heart, MessageSquare, Puzzle } from 'lucide-react'
 import { cn } from '~/utils/cn'
 import { formatNumber } from '~/utils/formatNumber'
@@ -57,7 +57,12 @@ export const KunCardStats = ({
       )}
 
       <Tooltip isDisabled={disableTooltip} content="评论数" placement="bottom">
-        <div className="flex items-center gap-1">
+        <div
+          className={cn(
+            'flex items-center gap-1',
+            isMobile && 'sm:flex hidden'
+          )}
+        >
           <MessageSquare className="size-4" />
           <span>{formatNumber(patch._count.comment || 0)}</span>
         </div>

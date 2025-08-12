@@ -1,5 +1,5 @@
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
-import { Image } from '@nextui-org/image'
+import { Card, CardBody, CardHeader } from '@heroui/card'
+import { Image } from '@heroui/image'
 import { CalendarDays } from 'lucide-react'
 import { formatDate } from '~/utils/time'
 import { KunAvatar } from '~/components/kun/floating-card/KunAvatar'

@@ -1,8 +1,9 @@
 'use client'
 
 import { Suspense } from 'react'
-import { Alert, Image, Link } from '@nextui-org/react'
+import { Alert, Image, Link } from '@heroui/react'
 import { KunRedirectCard } from './KunRedirectCard'
+import { kunMoyuMoe } from '~/config/moyu-moe'
 
 export const KunRedirectContainer = () => {
   return (
@@ -28,7 +29,10 @@ export const KunRedirectContainer = () => {
 
         <div className="w-full max-w-2xl rounded-large">
           <Link isExternal href="https://www.sailingnet.pro/">
-            <Image src="https://img.touchgalstatic.org/2024/09/6e194add9120240905110255.webp" />
+            <Image
+              alt={kunMoyuMoe.title}
+              src="https://img.touchgalstatic.org/2024/09/6e194add9120240905110255.webp"
+            />
           </Link>
         </div>
       </div>

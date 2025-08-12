@@ -1,10 +1,10 @@
 'use client'
 
 import { SetStateAction, useState } from 'react'
-import { Button } from '@nextui-org/button'
-import { Dropdown, DropdownMenu, DropdownTrigger } from '@nextui-org/dropdown'
+import { Button } from '@heroui/button'
+import { Dropdown, DropdownMenu, DropdownTrigger } from '@heroui/dropdown'
 import { MoreHorizontal, Pencil, Trash2, TriangleAlert } from 'lucide-react'
-import { DropdownItem } from '@nextui-org/dropdown'
+import { DropdownItem } from '@heroui/dropdown'
 import {
   Modal,
   ModalBody,
@@ -12,8 +12,8 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure
-} from '@nextui-org/modal'
-import { Textarea } from '@nextui-org/input'
+} from '@heroui/modal'
+import { Textarea } from '@heroui/input'
 import {
   kunFetchDelete,
   kunFetchGet,

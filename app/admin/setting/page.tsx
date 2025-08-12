@@ -1,9 +1,10 @@
 import { AdminSetting } from '~/components/admin/setting/Container'
 import { kunMetadata } from './metadata'
 import {
-  kunGetRedirectConfigActions,
-  kunGetDisableRegisterStatusActions
+  kunGetDisableRegisterStatusActions,
+  kunGetRedirectConfigActions
 } from './actions'
+import { ErrorComponent } from '~/components/error/ErrorComponent'
 import type { Metadata } from 'next'
 
 export const revalidate = 3
@@ -12,7 +13,22 @@ export const metadata: Metadata = kunMetadata
 
 export default async function Kun() {
   const setting = await kunGetRedirectConfigActions()
-  const { disableRegister } = await kunGetDisableRegisterStatusActions()
+  const response = await kunGetDisableRegisterStatusActions()
 
-  return <AdminSetting setting={setting} disableRegister={disableRegister} />
+  if (typeof response === 'string' || typeof setting === 'string') {
+    const errorText =
+      typeof response === 'string'
+        ? response
+        : typeof setting === 'string'
+          ? setting
+          : ''
+    return <ErrorComponent error={errorText} />
+  }
+
+  return (
+    <AdminSetting
+      setting={setting}
+      disableRegister={response.disableRegister}
+    />
+  )
 }

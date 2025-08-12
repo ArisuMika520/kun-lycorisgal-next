@@ -2,6 +2,7 @@ import { PatchHeaderContainer } from '~/components/patch/header/Container'
 import { ErrorComponent } from '~/components/error/ErrorComponent'
 import { generateKunMetadataTemplate } from './metadata'
 import { kunGetPatchActions, kunGetPatchIntroductionActions } from './actions'
+import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
 import type { Metadata } from 'next'
 
 export const revalidate = 3
@@ -43,9 +44,11 @@ export default async function Kun({ params }: Props) {
     return <ErrorComponent error={intro} />
   }
 
+  const payload = await verifyHeaderCookie()
+
   return (
     <div className="container py-6 mx-auto space-y-6">
-      <PatchHeaderContainer patch={patch} intro={intro} />
+      <PatchHeaderContainer patch={patch} intro={intro} uid={payload?.uid} />
     </div>
   )
 }

@@ -6,9 +6,9 @@ import {
   updateFavoriteFolderSchema
 } from '~/validations/user'
 import {
+  kunParseDeleteQuery,
   kunParseGetQuery,
   kunParsePostBody,
-  kunParseDeleteQuery,
   kunParsePutBody
 } from '~/app/api/utils/parseQuery'
 import { getFolders } from './get'

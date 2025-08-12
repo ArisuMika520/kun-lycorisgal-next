@@ -3,7 +3,8 @@ import { TagDetailContainer } from '~/components/tag/detail/Container'
 import { generateKunMetadataTemplate } from './metadata'
 import { kunGetTagByIdActions, kunTagGalgameActions } from './actions'
 import { ErrorComponent } from '~/components/error/ErrorComponent'
-import type { Metadata } from 'next'
+import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
+import { KunNull } from '~/components/kun/Null'
 import type { SortField } from '~/components/tag/detail/_sort'
 
 export const revalidate = 3
@@ -13,16 +14,7 @@ interface Props {
   searchParams?: Promise<{ page?: number; sortField: SortField }>
 }
 
-export const generateMetadata = async ({
-  params
-}: Props): Promise<Metadata> => {
-  const { id } = await params
-  const tag = await kunGetTagByIdActions({ tagId: Number(id) })
-  if (typeof tag === 'string') {
-    return {}
-  }
-  return generateKunMetadataTemplate(tag)
-}
+export const generateMetadata = generateKunMetadataTemplate()
 
 export default async function Kun({ params, searchParams }: Props) {
   const { id } = await params
@@ -45,13 +37,19 @@ export default async function Kun({ params, searchParams }: Props) {
     return <ErrorComponent error={response} />
   }
 
+  const payload = await verifyHeaderCookie()
+
   return (
     <Suspense>
-      <TagDetailContainer
-        initialTag={tag}
-        initialPatches={response.galgames}
-        total={response.total}
-      />
+      {payload?.uid ? (
+        <TagDetailContainer
+          initialTag={tag}
+          initialPatches={response.galgames}
+          total={response.total}
+        />
+      ) : (
+        <KunNull message="请登录后查看标签详细信息" />
+      )}
     </Suspense>
   )
 }

@@ -8,12 +8,12 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure
-} from '@nextui-org/modal'
-import { Button } from '@nextui-org/button'
+} from '@heroui/modal'
+import { Button } from '@heroui/button'
 import { kunFetchDelete } from '~/utils/kunFetch'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'
 import toast from 'react-hot-toast'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 import { useUserStore } from '~/store/userStore'
 import { Trash2 } from 'lucide-react'
 import type { Tag } from '~/types/api/tag'

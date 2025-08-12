@@ -2,16 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTheme } from 'next-themes'
-import { Tooltip } from '@nextui-org/tooltip'
-import {
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger
-} from '@nextui-org/dropdown'
-import { Button } from '@nextui-org/button'
+import { Tooltip } from '@heroui/tooltip'
+import { DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/dropdown'
+import { Button } from '@heroui/button'
 import { Moon, Sun, SunMoon } from 'lucide-react'
-import { Dropdown } from '@nextui-org/dropdown'
-import type { Selection } from '@nextui-org/react'
+import { Dropdown } from '@heroui/dropdown'
+import type { Selection } from '@heroui/react'
 
 enum Theme {
   dark = 'dark',

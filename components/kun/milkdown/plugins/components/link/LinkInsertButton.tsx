@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Tooltip
-} from '@nextui-org/react'
+} from '@heroui/react'
 import { Link2 } from 'lucide-react'
 import { insertKunLinkCommand } from './linkPlugin'
 import type { CmdKey } from '@milkdown/core'

@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
+import { Card, CardBody, CardHeader } from '@heroui/card'
 import Image from 'next/image'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 

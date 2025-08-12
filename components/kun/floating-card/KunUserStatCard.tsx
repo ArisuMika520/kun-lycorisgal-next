@@ -1,4 +1,4 @@
-import { Card } from '@nextui-org/card'
+import { Card } from '@heroui/card'
 
 interface UserStatCardProps {
   value: number

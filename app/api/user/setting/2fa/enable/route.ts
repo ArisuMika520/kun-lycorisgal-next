@@ -2,7 +2,7 @@ import { prisma } from '~/prisma/index'
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
 import { kunParsePostBody } from '~/app/api/utils/parseQuery'
-import { Totp, generateBackupCodes } from 'time2fa'
+import { generateBackupCodes, Totp } from 'time2fa'
 import { enableUser2FASchema } from '~/validations/user'
 
 const verifyAndEnable2FA = async (uid: number, token: string) => {

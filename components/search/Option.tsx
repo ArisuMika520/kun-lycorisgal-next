@@ -2,11 +2,11 @@
 
 import {
   Button,
+  Checkbox,
   Popover,
-  PopoverTrigger,
   PopoverContent,
-  Checkbox
-} from '@nextui-org/react'
+  PopoverTrigger
+} from '@heroui/react'
 import { Settings } from 'lucide-react'
 import { useSearchStore } from '~/store/searchStore'
 

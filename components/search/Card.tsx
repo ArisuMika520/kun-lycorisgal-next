@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Card, CardBody } from '@nextui-org/card'
-import { Image } from '@nextui-org/image'
+import { Card, CardBody } from '@heroui/card'
+import { Image } from '@heroui/image'
 import { KunCardStats } from '~/components/kun/CardStats'
 import { KunPatchAttribute } from '~/components/kun/PatchAttribute'
 

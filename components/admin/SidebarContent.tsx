@@ -6,13 +6,13 @@ import {
   Edit,
   FileClock,
   Gamepad2,
+  Mail,
+  MessageCircleQuestion,
   MessageSquare,
   Puzzle,
   Settings,
-  Users,
-  Mail,
-  MessageCircleQuestion,
-  TriangleAlert
+  TriangleAlert,
+  Users
 } from 'lucide-react'
 
 const menuItems = [

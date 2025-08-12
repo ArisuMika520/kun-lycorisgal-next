@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Card, CardBody } from '@nextui-org/card'
-import { Button } from '@nextui-org/button'
+import { Card, CardBody } from '@heroui/card'
+import { Button } from '@heroui/button'
 import { KunUser } from '~/components/kun/floating-card/KunUser'
-import { MessageCircle, ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, MessageCircle } from 'lucide-react'
 import { kunFetchGet } from '~/utils/kunFetch'
 import { formatDistanceToNow } from '~/utils/formatDistanceToNow'
 import { PublishComment } from './PublishComment'

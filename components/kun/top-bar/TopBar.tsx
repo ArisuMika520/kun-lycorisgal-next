@@ -6,7 +6,7 @@ import {
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle
-} from '@nextui-org/navbar'
+} from '@heroui/navbar'
 import Link from 'next/link'
 import { KunTopBarBrand } from './Brand'
 import { KunTopBarUser } from './User'
@@ -35,22 +35,24 @@ export const KunTopBar = () => {
         </li>
       </NavbarContent>
 
-      <KunTopBarBrand />
+      <div className="flex items-center gap-2">
+        <KunTopBarBrand />
 
-      <NavbarContent className="hidden gap-3 sm:flex">
-        {kunNavItem.map((item) => (
-          <NavbarItem key={item.href} isActive={pathname === item.href}>
-            <Link
-              className={
-                pathname === item.href ? 'text-primary' : 'text-foreground'
-              }
-              href={item.href}
-            >
-              {item.name}
-            </Link>
-          </NavbarItem>
-        ))}
-      </NavbarContent>
+        <NavbarContent className="hidden gap-3 sm:flex">
+          {kunNavItem.map((item) => (
+            <NavbarItem key={item.href} isActive={pathname === item.href}>
+              <Link
+                className={
+                  pathname === item.href ? 'text-primary' : 'text-foreground'
+                }
+                href={item.href}
+              >
+                {item.name}
+              </Link>
+            </NavbarItem>
+          ))}
+        </NavbarContent>
+      </div>
 
       <KunTopBarUser />
 

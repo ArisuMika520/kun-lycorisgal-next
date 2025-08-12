@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Link } from '@nextui-org/react'
+import { Card, Link } from '@heroui/react'
 import type { HomeCarouselMetadata } from './mdx'
 
 interface Props {

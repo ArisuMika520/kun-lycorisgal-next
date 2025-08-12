@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { kunParsePostBody } from '~/app/api/utils/parseQuery'
 import { verifyPassword } from '~/app/api/utils/algorithm'
 import {
-  generateKunToken,
-  generateKunStatelessToken
+  generateKunStatelessToken,
+  generateKunToken
 } from '~/app/api/utils/jwt'
 import { loginSchema } from '~/validations/auth'
 import { prisma } from '~/prisma/index'

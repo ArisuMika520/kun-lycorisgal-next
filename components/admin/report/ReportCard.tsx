@@ -1,4 +1,4 @@
-import { Chip, Card, CardBody, Button } from '@nextui-org/react'
+import { Button, Card, CardBody, Chip } from '@heroui/react'
 import { KunAvatar } from '~/components/kun/floating-card/KunAvatar'
 import { formatDate } from '~/utils/time'
 import Link from 'next/link'

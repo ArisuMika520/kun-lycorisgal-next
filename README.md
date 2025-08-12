@@ -18,7 +18,7 @@ LyCorisGAL 是一个 Gal 引导资源站，致力于为大家提供 Galgame 相�
 KUN_DATABASE_URL = "postgresql://postgres:kunloveren@localhost:5432/touchgal?schema=public"
 
 # 网站 URL, 不变即可
-KUN_VISUAL_NOVEL_SITE_URL = "https://www.touchgal.io"
+KUN_VISUAL_NOVEL_SITE_URL = "https://www.touchgal.us"
 
 # 开发环境 URL, 不变即可
 NEXT_PUBLIC_KUN_PATCH_ADDRESS_DEV = "http://127.0.0.1:3000"

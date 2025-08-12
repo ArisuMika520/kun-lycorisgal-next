@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import { Card, CardBody } from '@nextui-org/card'
-import { Avatar } from '@nextui-org/avatar'
-import { Chip } from '@nextui-org/chip'
+import { Card, CardBody } from '@heroui/card'
+import { Avatar } from '@heroui/avatar'
+import { Chip } from '@heroui/chip'
 import { formatDistanceToNow } from '~/utils/formatDistanceToNow'
 import {
+  AtSign,
   Bell,
   GitPullRequestArrow,
   Heart,
@@ -11,8 +12,7 @@ import {
   MessageCircle,
   MonitorCog,
   ThumbsUp,
-  Users,
-  AtSign
+  Users
 } from 'lucide-react'
 import { MESSAGE_TYPE_MAP } from '~/constants/message'
 import { KunAvatar } from '~/components/kun/floating-card/KunAvatar'

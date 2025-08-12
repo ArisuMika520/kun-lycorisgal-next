@@ -3,6 +3,7 @@ import { kunMetadata } from './metadata'
 import { Suspense } from 'react'
 import { kunGetActions } from './actions'
 import { ErrorComponent } from '~/components/error/ErrorComponent'
+import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
 import type { Metadata } from 'next'
 
 export const revalidate = 3
@@ -27,11 +28,14 @@ export default async function Kun({ searchParams }: Props) {
     return <ErrorComponent error={response} />
   }
 
+  const payload = await verifyHeaderCookie()
+
   return (
     <Suspense>
       <CardContainer
         initialComments={response.comments}
         initialTotal={response.total}
+        uid={payload?.uid}
       />
     </Suspense>
   )

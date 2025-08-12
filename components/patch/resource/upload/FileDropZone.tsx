@@ -2,7 +2,7 @@
 
 import toast from 'react-hot-toast'
 import { Upload } from 'lucide-react'
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@heroui/react'
 import { cn } from '~/utils/cn'
 import { useState } from 'react'
 import { ALLOWED_EXTENSIONS, ALLOWED_MIME_TYPES } from '~/constants/resource'

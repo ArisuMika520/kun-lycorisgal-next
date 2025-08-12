@@ -5,9 +5,9 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger
-} from '@nextui-org/dropdown'
-import { Avatar } from '@nextui-org/avatar'
-import { Button } from '@nextui-org/button'
+} from '@heroui/dropdown'
+import { Avatar } from '@heroui/avatar'
+import { Button } from '@heroui/button'
 import {
   Modal,
   ModalBody,
@@ -15,20 +15,20 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure
-} from '@nextui-org/modal'
+} from '@heroui/modal'
 import {
+  ArrowLeftRight,
   CalendarCheck,
   CircleHelp,
   LogOut,
   Lollipop,
   Settings,
-  ArrowLeftRight,
   Sparkles,
   UserRound
 } from 'lucide-react'
 import { useUserStore } from '~/store/userStore'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 import { kunFetchGet, kunFetchPost } from '~/utils/kunFetch'
 import toast from 'react-hot-toast'
 import { useMounted } from '~/hooks/useMounted'

@@ -1,4 +1,4 @@
-import { Divider } from '@nextui-org/divider'
+import { Divider } from '@heroui/divider'
 import { cn } from '~/utils/cn'
 
 interface Props {

@@ -1,6 +1,6 @@
 'use client'
 
-import { Progress } from '@nextui-org/react'
+import { Progress } from '@heroui/react'
 import { useEffect, useState } from 'react'
 
 interface CountdownTimerProps {

@@ -2,17 +2,17 @@
 
 import { useTransition } from 'react'
 import {
+  Button,
   Card,
   CardBody,
-  Button,
   Modal,
-  ModalHeader,
   ModalBody,
-  ModalFooter,
   ModalContent,
+  ModalFooter,
+  ModalHeader,
   useDisclosure
-} from '@nextui-org/react'
-import { Image } from '@nextui-org/image'
+} from '@heroui/react'
+import { Image } from '@heroui/image'
 import Link from 'next/link'
 import { KunCardStats } from '~/components/kun/CardStats'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'

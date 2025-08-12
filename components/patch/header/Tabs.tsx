@@ -1,4 +1,4 @@
-import { Tab, Tabs } from '@nextui-org/tabs'
+import { Tab, Tabs } from '@heroui/tabs'
 import { IntroductionTab } from '~/components/patch/introduction/IntroductionTab'
 import { ResourceTab } from '~/components/patch/resource/ResourceTab'
 import { CommentTab } from '~/components/patch/comment/CommentTab'
@@ -7,6 +7,8 @@ import type { Dispatch, SetStateAction } from 'react'
 
 interface PatchHeaderProps {
   id: number
+  vndbId: string
+  uid?: number
   intro: PatchIntroduction
   selected: string
   setSelected: Dispatch<SetStateAction<string>>
@@ -14,6 +16,8 @@ interface PatchHeaderProps {
 
 export const PatchHeaderTabs = ({
   id,
+  vndbId,
+  uid,
   intro,
   selected,
   setSelected
@@ -32,11 +36,11 @@ export const PatchHeaderTabs = ({
       selectedKey={selected}
     >
       <Tab key="introduction" title="游戏信息" className="p-0">
-        <IntroductionTab intro={intro} patchId={Number(id)} />
+        <IntroductionTab intro={intro} patchId={Number(id)} uid={uid} />
       </Tab>
 
       <Tab key="resources" title="资源链接" className="p-0">
-        <ResourceTab id={id} />
+        <ResourceTab id={id} vndbId={vndbId} />
       </Tab>
 
       <Tab key="comments" title="游戏评论" className="p-0">

@@ -1,5 +1,5 @@
-import { Card, CardBody } from '@nextui-org/card'
-import { MessageCircle, Puzzle, Star, MessageSquareMore } from 'lucide-react'
+import { Card, CardBody } from '@heroui/card'
+import { MessageCircle, MessageSquareMore, Puzzle, Star } from 'lucide-react'
 import type { UserInfo } from '~/types/api/user'
 
 export const UserStats = ({ user }: { user: UserInfo }) => {

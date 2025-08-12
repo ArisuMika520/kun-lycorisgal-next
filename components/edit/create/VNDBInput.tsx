@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Input, Link } from '@nextui-org/react'
+import { Button, Input, Link } from '@heroui/react'
 import { useCreatePatchStore } from '~/store/editStore'
 import toast from 'react-hot-toast'
 import { kunFetchGet } from '~/utils/kunFetch'

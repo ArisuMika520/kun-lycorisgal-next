@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { Button, Chip, Tooltip } from '@nextui-org/react'
+import { useEffect, useRef, useState } from 'react'
+import { Button, Chip, Tooltip } from '@heroui/react'
 import { cn } from '~/utils/cn'
 import type { SearchSuggestionType } from '~/types/api/search'
 import type {
@@ -31,6 +31,10 @@ export const SearchInput = ({
 }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [isFocused, setIsFocused] = useState(false)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
@@ -136,7 +140,6 @@ export const SearchInput = ({
 
         <input
           ref={inputRef}
-          autoFocus
           className="placeholder-default-500 text-default-700 min-w-[120px] flex-grow bg-transparent outline-none"
           value={query}
           onChange={handleInputChange}

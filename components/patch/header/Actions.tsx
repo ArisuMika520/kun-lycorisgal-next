@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Tooltip } from '@nextui-org/react'
-import { Download, Share2, Pencil, Trash2 } from 'lucide-react'
-import { useRouter } from 'next-nprogress-bar'
+import { Button, Tooltip } from '@heroui/react'
+import { Download, Pencil, Share2, Trash2 } from 'lucide-react'
+import { useRouter } from '@bprogress/next'
 import {
   Modal,
   ModalBody,
@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure
-} from '@nextui-org/modal'
+} from '@heroui/modal'
 import { useUserStore } from '~/store/userStore'
 import { kunFetchDelete } from '~/utils/kunFetch'
 import { kunCopy } from '~/utils/kunCopy'

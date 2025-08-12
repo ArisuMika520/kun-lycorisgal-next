@@ -3,13 +3,13 @@
 import { useState } from 'react'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 import {
+  Alert,
   Button,
   Card,
   CardBody,
   CardFooter,
-  Snippet,
-  Alert
-} from '@nextui-org/react'
+  Snippet
+} from '@heroui/react'
 import { kunFetchPost } from '~/utils/kunFetch'
 import { Mail } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'

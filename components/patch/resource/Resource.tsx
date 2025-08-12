@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import {
+  Alert,
   Button,
   Modal,
   ModalBody,
@@ -9,7 +10,7 @@ import {
   ModalFooter,
   ModalHeader,
   useDisclosure
-} from '@nextui-org/react'
+} from '@heroui/react'
 import { Plus } from 'lucide-react'
 import { kunFetchDelete, kunFetchGet } from '~/utils/kunFetch'
 import { PublishResource } from './publish/PublishResource'
@@ -21,9 +22,10 @@ import type { PatchResource } from '~/types/api/patch'
 
 interface Props {
   id: number
+  vndbId: string
 }
 
-export const Resources = ({ id }: Props) => {
+export const Resources = ({ id, vndbId }: Props) => {
   const [loading, setLoading] = useState(false)
   const [resources, setResources] = useState<PatchResource[]>([])
   useEffect(() => {
@@ -90,13 +92,26 @@ export const Resources = ({ id }: Props) => {
       {loading ? (
         <KunLoading hint="正在获取 Galgame 资源数据..." />
       ) : (
-        <ResourceTabs
-          resources={resources}
-          setEditResource={setEditResource}
-          onOpenEdit={onOpenEdit}
-          onOpenDelete={onOpenDelete}
-          setDeleteResourceId={setDeleteResourceId}
-        />
+        <>
+          <ResourceTabs
+            vndbId={vndbId}
+            resources={resources}
+            setEditResource={setEditResource}
+            onOpenEdit={onOpenEdit}
+            onOpenDelete={onOpenDelete}
+            setDeleteResourceId={setDeleteResourceId}
+          />
+
+          <Alert
+            color="warning"
+            variant="faded"
+            title="使用资源前请认真阅读资源的备注（如果有）, 以免产生问题"
+            classNames={{
+              base: 'shadow-medium',
+              title: 'font-bold'
+            }}
+          />
+        </>
       )}
 
       <Modal

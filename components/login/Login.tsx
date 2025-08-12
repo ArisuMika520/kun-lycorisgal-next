@@ -4,12 +4,12 @@ import { useTransition } from 'react'
 import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input, Link, useDisclosure } from '@nextui-org/react'
+import { Button, Input, Link, useDisclosure } from '@heroui/react'
 import { kunFetchPost } from '~/utils/kunFetch'
 import { loginSchema } from '~/validations/auth'
 import { useUserStore } from '~/store/userStore'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 import toast from 'react-hot-toast'
 import { KunCaptchaModal } from '~/components/kun/auth/CaptchaModal'
 import { KunTextDivider } from '~/components/kun/TextDivider'
@@ -55,8 +55,15 @@ export const LoginForm = () => {
     })
   }
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isPending) {
+      onOpen()
+    }
+  }
+
   return (
-    <form className="w-72">
+    <form className="w-72" onSubmit={handleSubmit}>
       <Controller
         name="name"
         control={control}
@@ -94,6 +101,7 @@ export const LoginForm = () => {
       <Button
         color="primary"
         className="w-full"
+        type="submit"
         isDisabled={isPending}
         isLoading={isPending}
         onPress={onOpen}

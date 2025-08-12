@@ -35,7 +35,7 @@ export const declineCreatorSchema = z.object({
 
 export const adminSendEmailSchema = z.object({
   templateId: z.string(),
-  variables: z.record(z.string())
+  variables: z.record(z.string(), z.string())
 })
 
 export const adminHandleFeedbackSchema = z.object({

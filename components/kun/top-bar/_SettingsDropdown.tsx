@@ -1,14 +1,14 @@
 'use client'
 
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Switch
-} from '@nextui-org/react'
-import { Settings, Eye, EyeOff } from 'lucide-react'
+} from '@heroui/react'
+import { Eye, EyeOff, Settings } from 'lucide-react'
 import { useSettingStore } from '~/store/settingStore'
 import { ThemeSwitcher } from './ThemeSwitcher'
 

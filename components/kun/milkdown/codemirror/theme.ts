@@ -5,27 +5,27 @@ import type { Extension } from '@codemirror/state'
 
 // Enhanced color palette with NextUI tokens
 const colors = {
-  primary: 'hsl(var(--nextui-primary-500))',
-  primaryLight: 'hsl(var(--nextui-primary-400))',
-  primaryDark: 'hsl(var(--nextui-primary-600))',
-  secondary: 'hsl(var(--nextui-secondary-500))',
-  secondaryLight: 'hsl(var(--nextui-secondary-400))',
-  success: 'hsl(var(--nextui-success-500))',
-  successLight: 'hsl(var(--nextui-success-400))',
-  warning: 'hsl(var(--nextui-warning-500))',
-  warningLight: 'hsl(var(--nextui-warning-400))',
-  danger: 'hsl(var(--nextui-danger-500))',
-  dangerLight: 'hsl(var(--nextui-danger-400))',
-  foreground: 'hsl(var(--nextui-foreground-500))',
-  background: 'hsl(var(--nextui-background-100))',
-  backgroundAlpha: 'hsl(var(--nextui-background-100) / 0.7)',
-  overlay: 'hsl(var(--nextui-overlay-200))',
-  overlayLight: 'hsl(var(--nextui-overlay-100))',
-  divider: 'hsl(var(--nextui-divider))',
-  content1: 'hsl(var(--nextui-content1))',
-  content2: 'hsl(var(--nextui-content2))',
-  content3: 'hsl(var(--nextui-content3))',
-  content4: 'hsl(var(--nextui-content4))'
+  primary: 'hsl(var(--heroui-primary-500))',
+  primaryLight: 'hsl(var(--heroui-primary-400))',
+  primaryDark: 'hsl(var(--heroui-primary-600))',
+  secondary: 'hsl(var(--heroui-secondary-500))',
+  secondaryLight: 'hsl(var(--heroui-secondary-400))',
+  success: 'hsl(var(--heroui-success-500))',
+  successLight: 'hsl(var(--heroui-success-400))',
+  warning: 'hsl(var(--heroui-warning-500))',
+  warningLight: 'hsl(var(--heroui-warning-400))',
+  danger: 'hsl(var(--heroui-danger-500))',
+  dangerLight: 'hsl(var(--heroui-danger-400))',
+  foreground: 'hsl(var(--heroui-foreground-500))',
+  background: 'hsl(var(--heroui-background-100))',
+  backgroundAlpha: 'hsl(var(--heroui-background-100) / 0.7)',
+  overlay: 'hsl(var(--heroui-overlay-200))',
+  overlayLight: 'hsl(var(--heroui-overlay-100))',
+  divider: 'hsl(var(--heroui-divider))',
+  content1: 'hsl(var(--heroui-content1))',
+  content2: 'hsl(var(--heroui-content2))',
+  content3: 'hsl(var(--heroui-content3))',
+  content4: 'hsl(var(--heroui-content4))'
 }
 
 export const kunCMTheme = () => {
@@ -111,7 +111,7 @@ export const kunCMTheme = () => {
       backgroundColor: 'transparent',
       border: 'none',
       borderRadius: '0.5rem',
-      fontFamily: 'var(--nextui-fonts-mono)',
+      fontFamily: 'var(--heroui-fonts-mono)',
       fontSize: '0.85em',
       padding: '0 0.5rem'
     },
@@ -135,7 +135,7 @@ export const kunCMTheme = () => {
 
     '.cm-tooltip-autocomplete': {
       '& > ul': {
-        fontFamily: 'var(--nextui-fonts-mono)',
+        fontFamily: 'var(--heroui-fonts-mono)',
         fontSize: '0.9rem',
         maxHeight: '20rem'
       },

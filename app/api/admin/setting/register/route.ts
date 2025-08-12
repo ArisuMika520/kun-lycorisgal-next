@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { kunParsePutBody } from '~/app/api/utils/parseQuery'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
 import { adminUpdateDisableRegisterSchema } from '~/validations/admin'
-import { getKv, setKv, delKv } from '~/lib/redis'
+import { delKv, getKv, setKv } from '~/lib/redis'
 import { KUN_PATCH_DISABLE_REGISTER_KEY } from '~/config/redis'
 
 export const getDisableRegisterStatus = async () => {

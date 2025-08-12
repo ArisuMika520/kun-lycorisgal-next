@@ -10,7 +10,8 @@ const options = {
 export const hashPassword = async (password: string) => {
   const salt = crypto.randomBytes(16).toString('hex')
   const derivedKey = argon2id(password, salt, options)
-  return `${salt}:${Buffer.from(derivedKey).toString('hex')}`
+  const res = Buffer.from(derivedKey).toString('hex')
+  return `${salt}:${res}`
 }
 
 export const verifyPassword = async (
@@ -19,7 +20,8 @@ export const verifyPassword = async (
 ) => {
   const [salt, hash] = hashedPassword.split(':')
   const derivedKey = argon2id(password, salt, options)
-  return Buffer.from(derivedKey).toString('hex') === hash
+  const res = Buffer.from(derivedKey).toString('hex')
+  return res === hash
 }
 
 // import { hash, compare } from 'bcrypt'

@@ -2,7 +2,7 @@
 
 import toast from 'react-hot-toast'
 import { useState } from 'react'
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { Upload } from 'lucide-react'
 import { cn } from '~/utils/cn'
 
@@ -62,14 +62,14 @@ export const KunImageUploader = ({ onImageSelect }: ImageUploaderProps) => {
     <div
       className={cn(
         'border-2 border-dashed rounded-lg p-4 text-center transition-colors  mb-4',
-        isDragging ? 'border-primary bg-primary/10' : 'border-gray-300'
+        isDragging ? 'border-primary bg-primary/10' : 'border-default-300'
       )}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
       <div className="flex flex-col items-center justify-center">
-        <Upload className="w-12 h-12 mb-4 text-gray-400" />
+        <Upload className="w-12 h-12 mb-4 text-default-400" />
         <p className="mb-2">拖放图片到此处或</p>
         <label htmlFor="image-upload">
           <Button

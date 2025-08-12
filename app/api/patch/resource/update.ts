@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { patchResourceUpdateSchema } from '~/validations/patch'
-import { uploadPatchResource, deletePatchResource } from './_helper'
+import { deletePatchResource, uploadPatchResource } from './_helper'
 import type { PatchResource } from '~/types/api/patch'
 
 export const updatePatchResource = async (

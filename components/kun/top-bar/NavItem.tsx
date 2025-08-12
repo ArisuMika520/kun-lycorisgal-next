@@ -1,6 +1,6 @@
 'use client'
 
-import { NavbarContent, NavbarItem } from '@nextui-org/navbar'
+import { NavbarContent, NavbarItem } from '@heroui/navbar'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { kunNavItem } from '~/constants/top-bar'

@@ -9,22 +9,25 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Tabs,
-  Tab
-} from '@nextui-org/react'
+  Tab,
+  Tabs
+} from '@heroui/react'
 import { Edit, MoreHorizontal, Trash2 } from 'lucide-react'
 import { useUserStore } from '~/store/userStore'
 import { ResourceInfo } from './ResourceInfo'
 import { ResourceDownload } from './ResourceDownload'
 import {
-  SUPPORTED_RESOURCE_SECTION,
-  RESOURCE_SECTION_MAP
+  RESOURCE_SECTION_MAP,
+  SUPPORTED_RESOURCE_SECTION
 } from '~/constants/resource'
+import { KunPatchTab } from './kun/KunPatchTab'
+import { KunNull } from '~/components/kun/Null'
 import type { PatchResource } from '~/types/api/patch'
 
 type ResourceSection = (typeof SUPPORTED_RESOURCE_SECTION)[number]
 
 interface Props {
+  vndbId: string
   resources: PatchResource[]
   setEditResource: (resources: PatchResource) => void
   onOpenEdit: () => void
@@ -33,6 +36,7 @@ interface Props {
 }
 
 export const ResourceTabs = ({
+  vndbId,
   resources,
   setEditResource,
   onOpenEdit,
@@ -121,13 +125,19 @@ export const ResourceTabs = ({
                 </Card>
               ))
             ) : (
-              <div className="py-8 text-center text-default-500">
-                本游戏暂无 {RESOURCE_SECTION_MAP[section]}
-              </div>
+              <KunNull
+                message={`本游戏暂无 ${RESOURCE_SECTION_MAP[section]}`}
+              />
             )}
           </div>
         </Tab>
       ))}
+
+      {vndbId && (
+        <Tab title="鲲补丁" className="w-full">
+          <KunPatchTab key="moyu-moe" vndbId={vndbId} />
+        </Tab>
+      )}
     </Tabs>
   )
 }

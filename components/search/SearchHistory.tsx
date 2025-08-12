@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { Clock, X } from 'lucide-react'
 import { useSearchStore } from '~/store/searchStore'
 import type { Dispatch, SetStateAction } from 'react'
@@ -62,7 +62,7 @@ export const SearchHistory = ({
               <div
                 key={index}
                 className="flex items-center gap-2 p-2 cursor-pointer hover:bg-default-100 rounded-2xl"
-                onClick={() => handleHistoryClick(item)}
+                onMouseDown={() => handleHistoryClick(item)}
               >
                 <Clock size={16} className="text-default-400" />
                 <span>{item}</span>

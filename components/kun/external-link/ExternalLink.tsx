@@ -1,9 +1,9 @@
 'use client'
 
-import { Link } from '@nextui-org/link'
+import { Link } from '@heroui/link'
 import { useUserStore } from '~/store/userStore'
 import type { ReactNode } from 'react'
-import type { LinkProps } from '@nextui-org/react'
+import type { LinkProps } from '@heroui/react'
 
 interface Props extends LinkProps {
   link: string
@@ -23,7 +23,7 @@ export const KunExternalLink = ({
   const userConfig = useUserStore((state) => state.user)
 
   const urlHref = () => {
-    const isExcludedDomain = userConfig.excludedDomains.some((domain) =>
+    const isExcludedDomain = userConfig.excludedDomains?.some((domain) =>
       link.includes(domain)
     )
     if (isExcludedDomain) {

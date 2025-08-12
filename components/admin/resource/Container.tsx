@@ -2,14 +2,14 @@
 
 import {
   Chip,
+  Input,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
-  TableRow,
-  Input
-} from '@nextui-org/react'
+  TableRow
+} from '@heroui/react'
 import { Search } from 'lucide-react'
 import { kunFetchGet } from '~/utils/kunFetch'
 import { useEffect, useState } from 'react'

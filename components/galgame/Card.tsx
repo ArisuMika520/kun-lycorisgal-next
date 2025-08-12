@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card'
-import { Image } from '@nextui-org/image'
+import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card'
+import { Image } from '@heroui/image'
 import { KunCardStats } from '~/components/kun/CardStats'
 import Link from 'next/link'
 import { KunPatchAttribute } from '~/components/kun/PatchAttribute'

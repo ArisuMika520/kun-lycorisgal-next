@@ -1,3 +1,5 @@
+import type { Variants } from 'framer-motion'
+
 export const toastVariants = {
   initial: {
     opacity: 0,
@@ -27,7 +29,7 @@ export const toastVariants = {
       ease: 'anticipate'
     }
   }
-}
+} satisfies Variants
 
 export const iconVariants = {
   initial: { scale: 0, rotate: -180 },
@@ -41,7 +43,7 @@ export const iconVariants = {
       delay: 0.2
     }
   }
-}
+} satisfies Variants
 
 export const textVariants = {
   initial: { opacity: 0, x: 20 },
@@ -53,4 +55,4 @@ export const textVariants = {
       delay: 0.2
     }
   }
-}
+} satisfies Variants

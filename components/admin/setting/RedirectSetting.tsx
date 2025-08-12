@@ -1,6 +1,6 @@
 'use client'
 
-import { Switch, Input, Button, Card, CardBody, Chip } from '@nextui-org/react'
+import { Button, Card, CardBody, Chip, Input, Switch } from '@heroui/react'
 import { useState } from 'react'
 import { ExternalLink, Plus } from 'lucide-react'
 import { kunFetchPut } from '~/utils/kunFetch'
@@ -95,7 +95,7 @@ export const RedirectSetting = ({ setting }: Props) => {
           <h3 className="text-lg font-semibold">
             <p>排除域名列表</p>
             <p className="text-sm font-medium text-default-500">
-              包含哪些域名的链接不用重定向, 例如 touchgal.io, nav.kungal.com
+              包含哪些域名的链接不用重定向, 例如 touchgal.us, nav.kungal.com
             </p>
           </h3>
           <div className="flex gap-2 mt-4">

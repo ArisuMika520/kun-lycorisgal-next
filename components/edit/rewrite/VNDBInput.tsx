@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Input } from '@nextui-org/react'
+import { Button, Input } from '@heroui/react'
 import { useRewritePatchStore } from '~/store/rewriteStore'
 import toast from 'react-hot-toast'
 import type { VNDBResponse } from '../VNDB'

@@ -1,4 +1,4 @@
-import { Divider } from '@nextui-org/divider'
+import { Divider } from '@heroui/divider'
 import { RedirectSetting } from './RedirectSetting'
 import { DisableRegisterSetting } from './DisableRegisterSetting'
 import type { AdminRedirectConfig } from '~/types/api/admin'

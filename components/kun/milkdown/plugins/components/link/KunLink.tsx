@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardBody, Chip } from '@nextui-org/react'
+import { Card, CardBody, Chip } from '@heroui/react'
 import { isValidURL } from '~/utils/validate'
 import { KunExternalLink } from '~/components/kun/external-link/ExternalLink'
 

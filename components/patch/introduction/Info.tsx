@@ -1,5 +1,6 @@
 import { Calendar, Clock, Link, RefreshCw } from 'lucide-react'
 import { formatDate } from '~/utils/time'
+import { Link as LinkComp } from '@heroui/react'
 import type { PatchIntroduction } from '~/types/api/patch'
 
 interface Props {
@@ -31,7 +32,19 @@ export const Info = ({ intro }: Props) => {
         {intro.vndbId && (
           <div className="flex items-center gap-2 text-sm text-default-500">
             <Link className="size-4" />
-            <span>VNDB ID: {intro.vndbId}</span>
+            <span>
+              VNDB ID:{' '}
+              {
+                <LinkComp
+                  underline="hover"
+                  size="sm"
+                  isExternal
+                  href={`https://vndb.org/${intro.vndbId}`}
+                >
+                  {intro.vndbId}
+                </LinkComp>
+              }
+            </span>
           </div>
         )}
       </div>

@@ -4,9 +4,9 @@ import { kunParseGetQuery } from '../utils/parseQuery'
 import { prisma } from '~/prisma/index'
 import { galgameSchema } from '~/validations/galgame'
 import {
-  ALL_SUPPORTED_TYPE,
   ALL_SUPPORTED_LANGUAGE,
-  ALL_SUPPORTED_PLATFORM
+  ALL_SUPPORTED_PLATFORM,
+  ALL_SUPPORTED_TYPE
 } from '~/constants/resource'
 import { GalgameCardSelectField } from '~/constants/api/select'
 import { getNSFWHeader } from '~/app/api/utils/getNSFWHeader'

@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import ReactDOM from 'react-dom/client'
 import { createRoot } from 'react-dom/client'
 import DOMPurify from 'isomorphic-dompurify'
-import { Card, CardBody, CardHeader } from '@nextui-org/card'
+import { Card, CardBody } from '@heroui/card'
 import { Info } from './Info'
 import { PatchTag } from './Tag'
 import dynamic from 'next/dynamic'
@@ -25,9 +26,10 @@ const KunPlyr = dynamic(
 interface Props {
   intro: PatchIntroduction
   patchId: number
+  uid?: number
 }
 
-export const IntroductionTab = ({ intro, patchId }: Props) => {
+export const IntroductionTab = ({ intro, patchId, uid }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const isMounted = useMounted()
 
@@ -77,7 +79,6 @@ export const IntroductionTab = ({ intro, patchId }: Props) => {
       root.className = element.className
       element.replaceWith(root)
 
-      const ReactDOM = require('react-dom/client')
       const linkRoot = ReactDOM.createRoot(root)
       linkRoot.render(<KunLink href={href} text={text} />)
     })
@@ -98,7 +99,7 @@ export const IntroductionTab = ({ intro, patchId }: Props) => {
           <h3 className="mb-4 text-xl font-medium">游戏制作商</h3>
         </div> */}
 
-        <PatchTag patchId={patchId} initialTags={intro.tag} />
+        {uid && <PatchTag patchId={patchId} initialTags={intro.tag} />}
 
         <Info intro={intro} />
       </CardBody>

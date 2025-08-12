@@ -2,12 +2,12 @@
 
 import {
   Drawer,
+  DrawerBody,
   DrawerContent,
   DrawerHeader,
-  DrawerBody,
-  useDisclosure,
-  Link
-} from '@nextui-org/react'
+  Link,
+  useDisclosure
+} from '@heroui/react'
 import { KunTreeNode } from '~/lib/mdx/types'
 import { ChevronRight } from 'lucide-react'
 import { SidebarContent } from './SidebarContent'

@@ -1,11 +1,11 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@heroui/react'
 import { Dices } from 'lucide-react'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 import toast from 'react-hot-toast'
 import { kunFetchGet } from '~/utils/kunFetch'
-import type { ButtonProps } from '@nextui-org/react'
+import type { ButtonProps } from '@heroui/react'
 
 type KunButtonProps = Omit<ButtonProps, 'startContent' | 'onPress'>
 

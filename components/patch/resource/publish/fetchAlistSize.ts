@@ -54,7 +54,6 @@ export const fetchLinkData = async (link: string) => {
     const data: AlistLinkData = await response.json()
     return data
   } catch (error) {
-    console.error(`Error fetching data for link: ${link}`, error)
     return null
   }
 }
@@ -79,7 +78,6 @@ export const fetchListData = async (link: string) => {
 
     return null
   } catch (error) {
-    console.error(`Error fetching list data for key: ${key}`, error)
     return null
   }
 }

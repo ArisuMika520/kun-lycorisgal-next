@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@nextui-org/button'
+import { Button } from '@heroui/button'
 import { BadgeCheck, Pencil, Shield } from 'lucide-react'
-import { useRouter } from 'next-nprogress-bar'
+import { useRouter } from '@bprogress/next'
 import type { UserInfo } from '~/types/api/user'
 
 interface Props {

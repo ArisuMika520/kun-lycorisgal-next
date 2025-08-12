@@ -1,7 +1,7 @@
 'use client'
 
-import { Button, useDisclosure } from '@nextui-org/react'
-import { Tooltip } from '@nextui-org/tooltip'
+import { Button, useDisclosure } from '@heroui/react'
+import { Tooltip } from '@heroui/tooltip'
 import { Heart } from 'lucide-react'
 import { useUserStore } from '~/store/userStore'
 import toast from 'react-hot-toast'

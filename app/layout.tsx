@@ -6,7 +6,7 @@ import { KunNavigationBreadcrumb } from '~/components/kun/NavigationBreadcrumb'
 import { generateKunMetadata, kunViewport } from './metadata'
 import { KunBackToTop } from '~/components/kun/BackToTop'
 import type { Metadata, Viewport } from 'next'
-import '~/styles/index.scss'
+import '~/styles/index.css'
 import './actions'
 
 export const viewport: Viewport = kunViewport

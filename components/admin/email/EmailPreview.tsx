@@ -1,7 +1,7 @@
 'use client'
 
-import { Card, CardBody, Tabs, Tab } from '@nextui-org/react'
-import { Mail, Code, Eye } from 'lucide-react'
+import { Card, CardBody, Tab, Tabs } from '@heroui/react'
+import { Code, Eye, Mail } from 'lucide-react'
 
 interface Props {
   content: string
