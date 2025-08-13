@@ -24,13 +24,13 @@ const getMarkdownFiles = (dir) => {
 }
 
 const extractLinks = (fileContent) => {
-  const linkRegex = /https:\/\/pan\.touchgal\.net\/s\/\w+/g
+  const linkRegex = /https:\/\/cloud\.arisumika\.top\/s\/\w+/g
   return fileContent.match(linkRegex) || []
 }
 
 const fetchLinkData = async (link) => {
   const key = link.split('/').pop()
-  const apiUrl = `https://pan.touchgal.net/api/v3/share/info/${key}`
+  const apiUrl = `https://cloud.arisumika.top/api/v3/share/info/${key}`
   try {
     const response = await fetch(apiUrl)
     if (!response.ok) {
@@ -45,7 +45,7 @@ const fetchLinkData = async (link) => {
 }
 
 const fetchListData = async (key) => {
-  const apiUrl = `https://pan.touchgal.net/api/v3/share/list/${key}`
+  const apiUrl = `https://cloud.arisumika.top/api/v3/share/list/${key}`
   try {
     const response = await fetch(apiUrl)
     if (!response.ok) {
