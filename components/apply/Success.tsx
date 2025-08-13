@@ -31,7 +31,7 @@ export const ApplySuccess = () => {
           >
             <BadgeCheck
               className="size-20 text-primary-foreground"
-              fill="#006FEE"
+              fill="#f791a9"
             />
           </motion.div>
 
