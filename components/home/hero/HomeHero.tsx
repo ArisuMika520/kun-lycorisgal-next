@@ -8,6 +8,7 @@ import { KunCarousel } from '../carousel/KunCarousel'
 import { getKunPosts } from '../carousel/mdx'
 import { RandomGalgameButton } from '../carousel/RandomGalgameButton'
 import { Discord } from '~/components/kun/icons/Discord'
+import { Telegram } from '~/components/kun/icons/Telegram'
 import { KunHomeNavigationItems } from '../NavigationItems'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 
@@ -18,7 +19,7 @@ export const HomeHero = () => {
     <div className="w-full mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 sm:gap-6 min-h-[300px]">
         <div className="flex-col justify-center hidden space-y-2 sm:flex sm:space-y-6">
-          <Card className="h-full border-none bg-gradient-to-br from-primary-500/20 via-secondary-500/20 to-success-500/20">
+          <Card className="h-full border-none bg-gradient-to-br from-red-400/20 via-orange-400/20 to-pink-500/20">
             <CardBody className="flex justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary-500" />
@@ -40,16 +41,16 @@ export const HomeHero = () => {
                 <RandomGalgameButton color="primary" variant="solid">
                   随机一部游戏
                 </RandomGalgameButton>
-                <Tooltip showArrow content="Discord 服务器">
+                <Tooltip showArrow content="Telegram 服务器">
                   <Button
                     isIconOnly
                     isExternal
                     as={Link}
-                    href={kunMoyuMoe.domain.discord_group}
+                    href={kunMoyuMoe.domain.telegram_group}
                     variant="flat"
                     color="secondary"
                   >
-                    <Discord />
+                    <Telegram />
                   </Button>
                 </Tooltip>
               </div>
