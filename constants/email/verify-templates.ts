@@ -95,7 +95,7 @@ export const createKunVerificationEmailTemplate = (
       .code {
         font-size: 32px;
         letter-spacing: 4px;
-        color: #006fee;
+        color: #f791a9;
         background: #e4e4e7;
         padding: 16px 32px;
         border-radius: 8px;
