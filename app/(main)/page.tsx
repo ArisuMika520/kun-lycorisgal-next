@@ -1,5 +1,5 @@
 import { HomeContainer } from '~/components/home/Container'
-import { kunGetActions } from './actions'
+import { kunGetActions } from '../actions'
 
 export const revalidate = 3
 

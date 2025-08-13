@@ -39,9 +39,9 @@ export const BannerImage = ({ errors }: Props) => {
       {errors && <p className="text-xs text-danger-500">{errors}</p>}
 
       <KunImageCropper
-        aspect={{ x: 16, y: 9 }}
+        aspect={{ x: 3, y: 4 }}
         initialImage={initialUrl}
-        description="您的预览图片将会被固定为 1920 × 1080 分辨率"
+        description="您的预览图片将会被固定为 3：4 分辨率"
         onImageComplete={onImageComplete}
         removeImage={removeBanner}
       />

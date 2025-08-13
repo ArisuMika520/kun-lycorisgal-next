@@ -30,7 +30,7 @@ export const ResourceLinksInput = ({
   const links = content.trim() ? content.trim().split(',') : ['']
 
   const checkLinkSize = async (link: string) => {
-    toast('正在尝试从 TouchGal Alist 获取文件大小')
+    toast('正在尝试从 LyCorisGal Alist 获取文件大小')
     const data = await fetchLinkData(link)
     if (data && data.code === 0) {
       let sizeInGB
@@ -49,7 +49,7 @@ export const ResourceLinksInput = ({
     if (!links.length || size) {
       return
     }
-    if (links.some((link) => link.includes('pan.touchgal.net/s/'))) {
+    if (links.some((link) => link.includes('cloud.arisumika.top/s/'))) {
       checkLinkSize(links[0])
     }
   }, [links, setSize])

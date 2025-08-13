@@ -29,7 +29,7 @@ export const HomeContainer = ({ galgames, resources }: Props) => {
             查看更多
           </Button>
         </div>
-        <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 xl:grid-cols-6">
           {galgames.map((galgame) => (
             <GalgameCard key={galgame.id} patch={galgame} />
           ))}

@@ -5,7 +5,7 @@ import {
   Navbar,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle
+  NavbarMenuToggle,
 } from '@heroui/navbar'
 import Link from 'next/link'
 import { KunTopBarBrand } from './Brand'
@@ -24,21 +24,16 @@ export const KunTopBar = () => {
 
   return (
     <Navbar
-      maxWidth="xl"
+      maxWidth="full"
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       classNames={{ wrapper: 'px-3 sm:px-6' }}
     >
-      <NavbarContent className="sm:hidden" justify="start">
-        <li className="h-full">
-          <NavbarMenuToggle />
-        </li>
-      </NavbarContent>
-
-      <div className="flex items-center gap-2">
+      {/* 左侧内容区 (Logo + 导航链接) */}
+      <NavbarContent justify="start">
+        <NavbarMenuToggle className="sm:hidden" />
         <KunTopBarBrand />
-
-        <NavbarContent className="hidden gap-3 sm:flex">
+        <div className="hidden sm:flex gap-4">
           {kunNavItem.map((item) => (
             <NavbarItem key={item.href} isActive={pathname === item.href}>
               <Link
@@ -51,11 +46,15 @@ export const KunTopBar = () => {
               </Link>
             </NavbarItem>
           ))}
-        </NavbarContent>
-      </div>
+        </div>
+      </NavbarContent>
 
-      <KunTopBarUser />
+      {/* 右侧内容区 (用户操作) */}
+      <NavbarContent justify="end">
+        <KunTopBarUser />
+      </NavbarContent>
 
+      {/* 移动端展开的菜单 */}
       <KunMobileMenu />
     </Navbar>
   )

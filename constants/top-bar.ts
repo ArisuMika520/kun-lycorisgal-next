@@ -4,18 +4,6 @@ export interface KunNavItem {
 }
 
 export const kunNavItem: KunNavItem[] = [
-  {
-    name: '游戏下载',
-    href: '/galgame'
-  },
-  {
-    name: '游戏标签',
-    href: '/tag'
-  },
-  {
-    name: '帮助文档',
-    href: '/doc'
-  }
 ]
 
 export const kunMobileNavItem: KunNavItem[] = [

@@ -22,8 +22,8 @@ export const homeNavigationItems: HomeNavItem[] = [
     isExternal: false
   },
   {
-    icon: MessageSquare,
-    label: '论坛',
+    icon: ToolCase,
+    label: '工具',
     href: kunMoyuMoe.domain.forum,
     color: 'secondary',
     isExternal: true

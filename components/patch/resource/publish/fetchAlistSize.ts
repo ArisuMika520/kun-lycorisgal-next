@@ -45,7 +45,7 @@ interface AlistListData {
 
 export const fetchLinkData = async (link: string) => {
   const key = link.split('/').pop()
-  const apiUrl = `https://pan.touchgal.net/api/v3/share/info/${key}`
+  const apiUrl = `https://cloud.arisumika.top/api/v3/share/info/${key}`
   try {
     const response = await fetch(apiUrl)
     if (!response.ok) {
@@ -60,7 +60,7 @@ export const fetchLinkData = async (link: string) => {
 
 export const fetchListData = async (link: string) => {
   const key = link.split('/').pop()
-  const apiUrl = `https://pan.touchgal.net/api/v3/share/list/${key}`
+  const apiUrl = `https://cloud.arisumika.top/api/v3/share/list/${key}`
   try {
     const response = await fetch(apiUrl)
     if (!response.ok) {

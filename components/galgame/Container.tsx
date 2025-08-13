@@ -141,7 +141,7 @@ export const CardContainer = ({ initialGalgames, initialTotal }: Props) => {
         setSelectedMonths={setSelectedMonths}
       />
 
-      <div className="grid grid-cols-2 gap-2 mx-auto mb-8 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-3 gap-4 mx-auto mb-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:gap-5">
         {galgames.map((pa) => (
           <GalgameCard key={pa.id} patch={pa} />
         ))}

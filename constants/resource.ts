@@ -109,12 +109,12 @@ export const SUPPORTED_PLATFORM_MAP: Record<string, string> = {
   other: '其它'
 }
 
-export const SUPPORTED_RESOURCE_LINK = ['touchgal', 's3', 'user']
+export const SUPPORTED_RESOURCE_LINK = ['lycorisgal', 's3', 'user']
 
 export const storageTypes = [
   {
-    value: 'touchgal',
-    label: 'TouchGal 资源盘 (官方可用)',
+    value: 'lycorisgal',
+    label: 'LyCorisGal 资源盘 (官方可用)',
     description: '此选项用于官方发布 Galgame 下载资源'
   },
   {
@@ -130,7 +130,7 @@ export const storageTypes = [
 ]
 
 export const SUPPORTED_RESOURCE_LINK_MAP: Record<string, string> = {
-  touchgal: 'TouchGal 资源盘',
+  lycorisgal: 'LyCorisGal 资源盘',
   s3: '对象存储下载',
   user: '自定义链接下载'
 }
