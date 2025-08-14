@@ -1,4 +1,4 @@
-import { Tags, MessageSquare, FileText, Gamepad2, ToolCase, TextSearch} from 'lucide-react'
+import { Tags, MessageSquare, FileText, Gamepad2, ToolCase, TextSearch } from 'lucide-react'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 import type { LucideProps } from 'lucide-react'
 import type { ForwardRefExoticComponent, RefAttributes } from 'react'
@@ -24,7 +24,7 @@ export const homeNavigationItems: HomeNavItem[] = [
   {
     icon: ToolCase,
     label: '工具',
-    href: kunMoyuMoe.domain.forum,
+    href: '/doc/tool/tool',
     color: 'secondary',
     isExternal: true
   },

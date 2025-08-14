@@ -17,6 +17,7 @@ import {
   MessagesSquare,
   Trophy,
   CheckSquare,
+  HeartMinus
 } from 'lucide-react'
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
@@ -37,6 +38,7 @@ const navSections = [
       //    image: '/touchgal.avif',
       // },
       //},
+      { name: '首页', description: '网站首页', href: '/', icon: Home },
       { name: 'Galgame', description: 'Galgame 本体获取', href: '/galgame', icon: Gamepad2 },
       { name: '补丁和存档', description: '游戏补丁与存档', href: '/resource', icon: FileText },
     ],
@@ -57,6 +59,12 @@ const navSections = [
     title: '帮助支持',
     items: [
       { name: '帮助文档', description: '使用说明文档', href: '/doc', icon: BookUser },
+    ],
+  },
+  {
+    title: '其他',
+    items: [
+      { name: '友情链接', description: '可爱的好朋友们！', href: '/friend-link', icon: HeartMinus },
     ],
   },
 ]

@@ -13,16 +13,16 @@
       "link": "https://www.kungal.com"
     },
     {
-      "name": "鸟白岛演绎厅",
-      "avatar": "https://res.summerpockets.com/favicon.ico",
-      "label": "鸟白岛演绎厅提供最全的专辑音乐收录，在这里你可以看到ACGN相关的专辑信息及其文件下载，另有交流社区可以沟通和申请收录等，快来看看吧。",
-      "link": "https://www.summerpockets.com"
-    },
-    {
       "name": "鲲 Galgame 补丁",
       "avatar": "https://www.moyu.moe/favicon.webp",
       "label": "开源, 免费, 零门槛, 纯手写, 最先进的 Galgame 补丁资源下载站, 提供 Windows, 安卓, KRKR, Tyranor 等各类平台的 Galgame 补丁资源下载。永远免费！",
       "link": "https://www.moyu.moe"
+    },
+    {
+      "name": "鸟白岛演绎厅",
+      "avatar": "https://res.summerpockets.com/favicon.ico",
+      "label": "鸟白岛演绎厅提供最全的专辑音乐收录，在这里你可以看到ACGN相关的专辑信息及其文件下载，另有交流社区可以沟通和申请收录等，快来看看吧。",
+      "link": "https://www.summerpockets.com"
     },
     {
       "name": "TouchGal",
