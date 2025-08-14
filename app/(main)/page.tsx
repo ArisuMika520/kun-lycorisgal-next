@@ -1,5 +1,20 @@
 import { HomeContainer } from '~/components/home/Container'
+import type { Metadata } from 'next'
 import { kunGetActions } from '../actions'
+import { kunMoyuMoe } from '~/config/moyu-moe'
+
+
+export const metadata: Metadata = {
+  metadataBase: new URL(kunMoyuMoe.domain.main),
+  title: {
+      default: kunMoyuMoe.title,
+      template: kunMoyuMoe.template
+    },
+  description: kunMoyuMoe.description,
+  keywords: kunMoyuMoe.keywords,
+  authors: kunMoyuMoe.author
+}
+
 
 export const revalidate = 3
 

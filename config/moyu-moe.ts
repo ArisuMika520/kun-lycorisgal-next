@@ -5,7 +5,7 @@ const KUN_SITE_NAME = 'LyCorisGal'
 const KUN_SITE_MENTION = '@lycorisgal'
 const KUN_SITE_TITLE = 'LyCorisGal - Gal引导资源站'
 const KUN_SITE_IMAGE =
-  'https://storage.lycorisgal.top/uploads/init/favicon.webp'
+  'https://storage.r2.lycorisgal.com/uploads/init/favicon.webp'
 const KUN_SITE_DESCRIPTION =
   'LyCorisGal 是一个Gal引导资源站。提供Galgame 下载、补丁 下载等服务。帮助用户轻松迅速学习并获取资源'
 const KUN_SITE_URL = 'https://www.lycorisgal.com'
@@ -61,7 +61,7 @@ export const kunMoyuMoe: KunSiteConfig = {
   },
   domain: {
     main: KUN_SITE_URL,
-    imageBed: 'https://storage.lycorisgal.top',
+    imageBed: 'https://r2.lycorisgal.com',
     storage: KUN_SITE_URL,
     kungal: KUN_SITE_URL,
     telegram_group: KUN_SITE_TELEGRAM_GROUP,

@@ -24,7 +24,7 @@ export const homeNavigationItems: HomeNavItem[] = [
   {
     icon: ToolCase,
     label: '工具',
-    href: '/doc/tool/tool',
+    href: '/tag/1',
     color: 'secondary',
     isExternal: false
   },
