@@ -9,15 +9,27 @@ export const kunNavItem: KunNavItem[] = [
 export const kunMobileNavItem: KunNavItem[] = [
   ...kunNavItem,
   {
-    name: '评论列表',
-    href: '/comment'
+    name: 'Galame',
+    href: '/galgame'
   },
   {
-    name: '下载资源列表',
+    name: '游戏补丁',
     href: '/resource'
   },
   {
-    name: '联系我们',
-    href: '/doc/notice/feedback'
+    name: '标签列表',
+    href: '/tag'
+  },
+  {
+    name: '评论列表',
+    href: '/tag'
+  },
+  {
+    name: '帮助文档',
+    href: '/doc'
+  },
+  {
+    name: '加入我们',
+    href: 'https://t.me/LyCoriseGAL'
   }
 ]

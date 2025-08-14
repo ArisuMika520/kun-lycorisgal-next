@@ -6,7 +6,7 @@ module.exports = {
       name: 'kun-touchgal-next',
       port: 3000,
       cwd: path.join(__dirname),
-      instances: 1,
+      instances: 2,
       autorestart: true,
       watch: false,
       max_memory_restart: '2G',
