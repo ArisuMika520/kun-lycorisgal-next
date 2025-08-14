@@ -1,148 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://127.0.0.1:3000/(main)</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/apply</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/apply</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/friend-link</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/friend-link</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/redirect</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/redirect</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/comment</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/comment</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/galgame</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/galgame</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/login</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/login</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/register</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/register</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/resource</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/resource</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/search</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/search</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/tag</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/tag</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/apply/pending</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/apply/pending</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/apply/success</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/apply/success</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/auth/email-notice</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/auth/email-notice</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/auth/forgot</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/auth/forgot</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/(main)/login/2fa</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/(main)/login/2fa</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/doc</loc>
-    <lastmod>2025-08-14T15:29:54.450Z</lastmod>
+    <loc>https://www.lycorisgal.com/doc</loc>
+    <lastmod>2025-08-14T16:45:33.439Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/b5cb9374</loc>
-    <lastmod>2025-08-13T23:12:32.812Z</lastmod>
+    <lastmod>2025-08-14T10:51:05.902Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/9fb13c56</loc>
-    <lastmod>2025-08-13T23:54:24.713Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.lycorisgal.com/dc90bfe1</loc>
-    <lastmod>2025-08-13T23:13:06.181Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.lycorisgal.com/e725379f</loc>
-    <lastmod>2025-08-13T23:28:02.730Z</lastmod>
+    <lastmod>2025-08-14T10:49:47.117Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -155,22 +141,36 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/e725379f</loc>
+    <lastmod>2025-08-14T10:12:55.086Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/1e9c1442</loc>
-    <lastmod>2025-08-13T23:28:46.948Z</lastmod>
+    <lastmod>2025-08-14T10:49:45.914Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/bda75cb3</loc>
-    <lastmod>2025-08-13T23:38:26.465Z</lastmod>
+    <lastmod>2025-08-14T10:13:02.999Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/d862bc25</loc>
-    <lastmod>2025-08-13T23:39:46.564Z</lastmod>
+    <lastmod>2025-08-14T10:13:03.696Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/dc90bfe1</loc>
+    <lastmod>2025-08-14T10:49:43.896Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -225,49 +225,7 @@
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/doc/notice/feedback</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/notice/fromproblem</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/teach/download</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/teach/mdf</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/teach/release</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/teach/windows-old</loc>
-    <lastmod>2025-8-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/doc/tool/tooldown</loc>
+    <loc>https://www.lycorisgal.com/doc/tool/tooldown</loc>
     <lastmod>2025-8-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

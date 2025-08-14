@@ -8,14 +8,14 @@ const KUN_SITE_IMAGE =
   'https://storage.lycorisgal.top/uploads/init/favicon.webp'
 const KUN_SITE_DESCRIPTION =
   'LyCorisGal 是一个Gal引导资源站。提供Galgame 下载、补丁 下载等服务。帮助用户轻松迅速学习并获取资源'
-const KUN_SITE_URL = 'https://www.lycorisgal.top'
-const KUN_SITE_ARCHIVE = 'https://www.lycorisgal.top/'
-const KUN_SITE_FORUM = 'https://www.lycorisgal.top/'
-const KUN_SITE_NAV = 'https://www.lycorisgal.top'
+const KUN_SITE_URL = 'https://www.lycorisgal.com'
+const KUN_SITE_ARCHIVE = 'https://www.lycorisgal.com/'
+const KUN_SITE_FORUM = 'https://www.lycorisgal.com/'
+const KUN_SITE_NAV = 'https://www.lycorisgal.com'
 const KUN_SITE_TELEGRAM_GROUP = 'https://t.me/LyCoriseGAL'
 const KUN_SITE_DISCORD_GROUP = '#'
 const KUN_SITE_LIST = [
-  { name: KUN_SITE_NAME, url: 'https://www.lycorisgal.top' }
+  { name: KUN_SITE_NAME, url: 'https://www.lycorisgal.com' }
 ]
 const KUN_SITE_KEYWORDS = [
   'LyCorisGal',

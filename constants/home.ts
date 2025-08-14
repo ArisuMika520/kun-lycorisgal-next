@@ -26,7 +26,7 @@ export const homeNavigationItems: HomeNavItem[] = [
     label: '工具',
     href: '/doc/tool/tool',
     color: 'secondary',
-    isExternal: true
+    isExternal: false
   },
   {
     icon: FileText,
