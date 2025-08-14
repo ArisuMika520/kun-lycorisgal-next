@@ -63,7 +63,7 @@ export const LoginForm = () => {
   }
 
   return (
-    <form className="w-72" onSubmit={handleSubmit}>
+    <form className="p-3 z-10 w-full justify-start shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex flex-col items-center pt-8 space-y-6" onSubmit={handleSubmit}>
       <Controller
         name="name"
         control={control}

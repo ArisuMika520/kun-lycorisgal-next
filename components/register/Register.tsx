@@ -58,7 +58,7 @@ export const RegisterForm = () => {
   }
 
   return (
-    <form className="flex flex-col space-y-4 w-72">
+    <form className="p-3 z-10 w-full justify-start shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex flex-col items-center pt-8 space-y-6">
       <Controller
         name="name"
         control={control}
