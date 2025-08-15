@@ -2,119 +2,119 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://127.0.0.1:3000/(main)</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/friend-link</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/redirect</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/comment</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/galgame</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/register</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/resource</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/search</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/tag</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply/pending</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply/success</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/auth/email-notice</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/auth/forgot</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login/2fa</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/doc</loc>
-    <lastmod>2025-08-15T16:35:13.178Z</lastmod>
+    <lastmod>2025-08-15T17:45:31.729Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
