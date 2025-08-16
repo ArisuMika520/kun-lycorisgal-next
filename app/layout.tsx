@@ -1,4 +1,5 @@
 import '~/styles/index.css'
+import Script from 'next/script'
 import { Providers } from '~/app/providers'
 import { Toaster } from 'react-hot-toast'
 import { KunNavigationBreadcrumb } from '~/components/kun/NavigationBreadcrumb'
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="e9ab7228-7489-4a5f-841d-bf643f09e517"></script>
+      </head>
       <body className={cn('min-h-screen bg-background antialiased')}>
         <Providers>
           <div className="relative flex flex-col h-screen">
