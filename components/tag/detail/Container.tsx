@@ -156,7 +156,7 @@ export const TagDetailContainer = ({
         <KunLoading hint="正在获取 Galgame 中..." />
       ) : (
         <>
-          <div className="grid grid-cols-2 gap-2 mx-auto sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4 xl:grid-cols-6">
             {patches.map((pa) => (
               <GalgameCard key={pa.id} patch={pa} />
             ))}
