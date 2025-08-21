@@ -12,7 +12,7 @@ const KUN_SITE_URL = 'https://www.lycorisgal.com'
 const KUN_SITE_ARCHIVE = 'https://www.lycorisgal.com/'
 const KUN_SITE_FORUM = 'https://www.lycorisgal.com/'
 const KUN_SITE_NAV = 'https://gal.sakinori.top'
-const KUN_SITE_TELEGRAM_GROUP = 'https://t.me/LyCoriseGAL'
+const KUN_SITE_TELEGRAM_GROUP = 'https://t.me/+Gitp0H3pXLU5N2Fl'
 const KUN_SITE_DISCORD_GROUP = '#'
 const KUN_SITE_LIST = [
   { name: KUN_SITE_NAME, url: 'https://www.lycorisgal.com' }
