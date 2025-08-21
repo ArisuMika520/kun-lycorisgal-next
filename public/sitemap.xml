@@ -2,121 +2,135 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.lycorisgal.com/(main)</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/apply</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/friend-link</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/redirect</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/comment</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/galgame</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/login</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/register</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/resource</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/search</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/tag</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/apply/pending</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/apply/success</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/auth/email-notice</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/auth/forgot</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/(main)/login/2fa</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://www.lycorisgal.com/doc</loc>
-    <lastmod>2025-08-21T14:14:37.453Z</lastmod>
+    <lastmod>2025-08-21T17:27:21.809Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/e31b40e7</loc>
+    <lastmod>2025-08-21T17:15:31.551Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/8f66fe3e</loc>
+    <lastmod>2025-08-21T16:02:15.668Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <url>
@@ -129,6 +143,20 @@
   <url>
     <loc>https://www.lycorisgal.com/dfdb0975</loc>
     <lastmod>2025-08-18T20:56:12.905Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/92dbc73a</loc>
+    <lastmod>2025-08-21T17:15:27.460Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/95425983</loc>
+    <lastmod>2025-08-21T17:17:12.399Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -148,8 +176,15 @@
   </url>
 
   <url>
-    <loc>https://www.lycorisgal.com/8f04034b</loc>
-    <lastmod>2025-08-21T09:34:13.256Z</lastmod>
+    <loc>https://www.lycorisgal.com/c84aa5c5</loc>
+    <lastmod>2025-08-21T16:02:23.904Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/8dcd0164</loc>
+    <lastmod>2025-08-21T16:02:27.993Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -162,8 +197,36 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/0d74373e</loc>
+    <lastmod>2025-08-21T17:03:04.709Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/8692f905</loc>
+    <lastmod>2025-08-21T16:11:53.921Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/1d0a817d</loc>
+    <lastmod>2025-08-21T17:02:42.400Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/e67238f0</loc>
     <lastmod>2025-08-21T02:54:10.156Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/f07083fa</loc>
+    <lastmod>2025-08-21T15:19:36.615Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -183,15 +246,8 @@
   </url>
 
   <url>
-    <loc>https://www.lycorisgal.com/afa1ce3b</loc>
-    <lastmod>2025-08-20T19:33:22.179Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.lycorisgal.com/1db4d3dc</loc>
-    <lastmod>2025-08-21T09:08:55.443Z</lastmod>
+    <loc>https://www.lycorisgal.com/3fa6a73a</loc>
+    <lastmod>2025-08-21T17:19:39.756Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -211,6 +267,13 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/1db4d3dc</loc>
+    <lastmod>2025-08-21T16:08:25.507Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/935c72e1</loc>
     <lastmod>2025-08-21T14:06:19.949Z</lastmod>
     <changefreq>daily</changefreq>
@@ -220,6 +283,27 @@
   <url>
     <loc>https://www.lycorisgal.com/715caf6e</loc>
     <lastmod>2025-08-20T16:06:56.662Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/90bd7a17</loc>
+    <lastmod>2025-08-21T16:02:31.217Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/afa1ce3b</loc>
+    <lastmod>2025-08-21T16:09:49.718Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/ce582554</loc>
+    <lastmod>2025-08-21T16:02:20.865Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -239,6 +323,20 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/20cee924</loc>
+    <lastmod>2025-08-21T16:02:16.648Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/b771319d</loc>
+    <lastmod>2025-08-21T16:02:27.093Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/b3bca370</loc>
     <lastmod>2025-08-20T07:09:17.962Z</lastmod>
     <changefreq>daily</changefreq>
@@ -246,8 +344,22 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/3aa87618</loc>
+    <lastmod>2025-08-21T16:02:20.253Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/ae2f720f</loc>
     <lastmod>2025-08-20T06:02:39.398Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/9c6707e1</loc>
+    <lastmod>2025-08-21T16:02:43.801Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -274,6 +386,13 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/d6de9ead</loc>
+    <lastmod>2025-08-21T16:02:14.809Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/4bc35813</loc>
     <lastmod>2025-08-19T14:01:18.704Z</lastmod>
     <changefreq>daily</changefreq>
@@ -288,8 +407,22 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/ea3785e8</loc>
+    <lastmod>2025-08-21T16:02:24.590Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/a9d16167</loc>
     <lastmod>2025-08-19T14:01:31.974Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/79dbce88</loc>
+    <lastmod>2025-08-21T17:15:28.250Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -323,8 +456,29 @@
   </url>
 
   <url>
-    <loc>https://www.lycorisgal.com/f07083fa</loc>
-    <lastmod>2025-08-21T11:30:06.272Z</lastmod>
+    <loc>https://www.lycorisgal.com/23e90017</loc>
+    <lastmod>2025-08-21T17:15:29.834Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/57e551dc</loc>
+    <lastmod>2025-08-21T17:21:46.195Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/bf7b0ecf</loc>
+    <lastmod>2025-08-21T17:18:31.854Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/1694cb14</loc>
+    <lastmod>2025-08-21T16:02:19.377Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -332,6 +486,13 @@
   <url>
     <loc>https://www.lycorisgal.com/ec4dc970</loc>
     <lastmod>2025-08-21T03:28:19.327Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/310f4961</loc>
+    <lastmod>2025-08-21T17:02:40.733Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -365,8 +526,15 @@
   </url>
 
   <url>
-    <loc>https://www.lycorisgal.com/57e551dc</loc>
-    <lastmod>2025-08-20T20:46:29.710Z</lastmod>
+    <loc>https://www.lycorisgal.com/b3e79b4b</loc>
+    <lastmod>2025-08-21T16:02:21.716Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/bddccdba</loc>
+    <lastmod>2025-08-21T16:02:29.070Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -414,8 +582,22 @@
   </url>
 
   <url>
+    <loc>https://www.lycorisgal.com/532bec1e</loc>
+    <lastmod>2025-08-21T16:02:28.290Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://www.lycorisgal.com/6d1c8225</loc>
     <lastmod>2025-08-21T09:38:24.067Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/b1d915a9</loc>
+    <lastmod>2025-08-21T16:02:29.867Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -430,6 +612,20 @@
   <url>
     <loc>https://www.lycorisgal.com/578a270f</loc>
     <lastmod>2025-08-21T09:42:13.097Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/8f04034b</loc>
+    <lastmod>2025-08-21T16:10:21.416Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/e3d9e275</loc>
+    <lastmod>2025-08-21T16:43:03.748Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -451,6 +647,111 @@
   <url>
     <loc>https://www.lycorisgal.com/7c513f86</loc>
     <lastmod>2025-08-21T09:11:01.886Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/80dcd60d</loc>
+    <lastmod>2025-08-21T17:18:25.595Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/edc154d9</loc>
+    <lastmod>2025-08-21T17:02:45.536Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/7eb029a7</loc>
+    <lastmod>2025-08-21T17:18:30.318Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/b4c30bea</loc>
+    <lastmod>2025-08-21T17:15:30.422Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/cc6ab09a</loc>
+    <lastmod>2025-08-21T17:02:43.901Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/e49ef057</loc>
+    <lastmod>2025-08-21T17:18:27.218Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/d63bdae5</loc>
+    <lastmod>2025-08-21T17:18:29.099Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/f11afe74</loc>
+    <lastmod>2025-08-21T17:02:44.683Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/2e250876</loc>
+    <lastmod>2025-08-21T16:51:48.782Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/89116324</loc>
+    <lastmod>2025-08-21T17:02:46.330Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/9ef9a948</loc>
+    <lastmod>2025-08-21T17:15:29.096Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/57a1daff</loc>
+    <lastmod>2025-08-21T17:02:41.414Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/8a3b9dec</loc>
+    <lastmod>2025-08-21T17:18:27.952Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/e62c332d</loc>
+    <lastmod>2025-08-21T17:15:30.809Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.lycorisgal.com/f7e81a38</loc>
+    <lastmod>2025-08-21T17:18:26.604Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
