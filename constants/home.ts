@@ -15,9 +15,9 @@ interface HomeNavItem {
 
 export const homeNavigationItems: HomeNavItem[] = [
   {
-    icon: Tags,
-    label: '标签',
-    href: '/tag',
+    icon: TextSearch,
+    label: '教程',
+    href: '/doc/teach/teachdoc',
     color: 'primary',
     isExternal: false
   },
