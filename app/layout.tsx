@@ -16,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="U_BmJbgXvmhmO7Zf5_6b0Aiy60_Nh3sTycpHDp5loYw" />
         <script defer src="https://cloud.umami.is/script.js" data-website-id="e9ab7228-7489-4a5f-841d-bf643f09e517"></script>
         <script defer src="https://was.arisumika.top/script.js" data-website-id="a7f17bf9-67ae-4dc9-b273-5bc1144d6039"></script>
       </head>
