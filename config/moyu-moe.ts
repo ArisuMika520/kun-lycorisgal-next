@@ -3,11 +3,11 @@ import type { KunSiteConfig } from './config'
 
 const KUN_SITE_NAME = 'LyCorisGal'
 const KUN_SITE_MENTION = '@lycorisgal'
-const KUN_SITE_TITLE = 'LyCorisGal - Gal引导资源站'
+const KUN_SITE_TITLE = 'LyCorisGal - Galgame引导资源站'
 const KUN_SITE_IMAGE =
   'https://r2.lycorisgal.com/uploads/init/favicon.webp'
 const KUN_SITE_DESCRIPTION =
-  'LyCorisGal 是一个Gal引导资源站。提供Galgame 下载、补丁 下载等服务。帮助用户轻松迅速学习并获取资源'
+  'LyCorisGal 是一个Galgame引导资源站。提供Galgame下载、补丁下载、Galgame工具下载、Galgame教程等服务。帮助用户轻松迅速学习并获取资源'
 const KUN_SITE_URL = 'https://www.lycorisgal.com'
 const KUN_SITE_ARCHIVE = 'https://www.lycorisgal.com/'
 const KUN_SITE_FORUM = 'https://www.lycorisgal.com/'
