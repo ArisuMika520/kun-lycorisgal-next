@@ -22,6 +22,7 @@ const KUN_SITE_KEYWORDS = [
   'Gal',
   'Galgame',
   '网站',
+  'galgame资源站',
   'Galgame 下载',
   'Galgame 资源',
   'Galgame 补丁',
