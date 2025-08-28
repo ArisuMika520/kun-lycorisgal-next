@@ -32,7 +32,7 @@ export const MessageNav = () => {
 
   useEffect(() => {
     const readAllMessage = async () => {
-      const res = await kunFetchPut<KunResponse<{}>>('/message/read')
+      const res = await kunFetchPut<KunResponse<{}>>('/api/message/read')
       if (typeof res === 'string') {
         toast.error(res)
       }

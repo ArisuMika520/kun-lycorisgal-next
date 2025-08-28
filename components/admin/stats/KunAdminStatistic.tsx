@@ -16,13 +16,16 @@ export const KunAdminStatistic: FC = () => {
     newActiveUser: 0,
     newGalgame: 0,
     newGalgameResource: 0,
-    newComment: 0
+    newComment: 0,
+    newTopic: 0,
+    totalTopics: 0,
+    pinnedTopics: 0
   })
   const [days, setDays] = useState(1)
   const [debouncedDays] = useDebounce(days, 300)
 
   const fetchOverview = async (days: number) => {
-    const res = await kunFetchGet<KunResponse<OverviewData>>('/admin/stats', {
+    const res = await kunFetchGet<KunResponse<OverviewData>>('/api/admin/stats', {
       days
     })
     kunErrorHandler(res, setOverview)

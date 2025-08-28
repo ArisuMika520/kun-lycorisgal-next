@@ -1,0 +1,341 @@
+/* Prism.js 代码高亮样式 - 基于 One Dark 主题 */
+
+/* 代码块容器 */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #abb2bf;
+  background: none;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 4;
+  hyphens: none;
+}
+
+/* 代码块背景 - 黑色背景 */
+pre[class*="language-"] {
+  position: relative;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  overflow: auto;
+  background: #000000 !important;
+  border-radius: 6px;
+  border: 1px solid #333333;
+  color: #ffffff;
+}
+
+/* 浅色模式下的代码块 - 也使用黑色背景 */
+.light pre[class*="language-"],
+html:not(.dark) pre[class*="language-"] {
+  background: #000000 !important;
+  border: 1px solid #333333;
+  color: #ffffff;
+}
+
+/* 深色模式下的代码块 - 黑色背景 */
+.dark pre[class*="language-"] {
+  background: #000000 !important;
+  border: 1px solid #333333;
+  color: #ffffff;
+}
+
+/* 浅色模式下的语法高亮 */
+.light .token.comment,
+.light .token.prolog,
+.light .token.doctype,
+.light .token.cdata,
+html:not(.dark) .token.comment,
+html:not(.dark) .token.prolog,
+html:not(.dark) .token.doctype,
+html:not(.dark) .token.cdata {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.light .token.punctuation,
+html:not(.dark) .token.punctuation {
+  color: #24292f;
+}
+
+.light .token.selector,
+.light .token.tag,
+html:not(.dark) .token.selector,
+html:not(.dark) .token.tag {
+  color: #d73a49;
+}
+
+.light .token.property,
+.light .token.boolean,
+.light .token.number,
+.light .token.constant,
+.light .token.symbol,
+.light .token.attr-name,
+.light .token.deleted,
+html:not(.dark) .token.property,
+html:not(.dark) .token.boolean,
+html:not(.dark) .token.number,
+html:not(.dark) .token.constant,
+html:not(.dark) .token.symbol,
+html:not(.dark) .token.attr-name,
+html:not(.dark) .token.deleted {
+  color: #005cc5;
+}
+
+.light .token.string,
+.light .token.char,
+.light .token.attr-value,
+.light .token.builtin,
+.light .token.inserted,
+html:not(.dark) .token.string,
+html:not(.dark) .token.char,
+html:not(.dark) .token.attr-value,
+html:not(.dark) .token.builtin,
+html:not(.dark) .token.inserted {
+  color: #032f62;
+}
+
+.light .token.operator,
+.light .token.entity,
+.light .token.url,
+.light .language-css .token.string,
+.light .style .token.string,
+html:not(.dark) .token.operator,
+html:not(.dark) .token.entity,
+html:not(.dark) .token.url,
+html:not(.dark) .language-css .token.string,
+html:not(.dark) .style .token.string {
+  color: #d73a49;
+}
+
+.light .token.atrule,
+.light .token.keyword,
+html:not(.dark) .token.atrule,
+html:not(.dark) .token.keyword {
+  color: #d73a49;
+}
+
+.light .token.function,
+html:not(.dark) .token.function {
+  color: #6f42c1;
+}
+
+.light .token.regex,
+.light .token.important,
+.light .token.variable,
+html:not(.dark) .token.regex,
+html:not(.dark) .token.important,
+html:not(.dark) .token.variable {
+  color: #e36209;
+}
+
+/* 行内代码 */
+:not(pre) > code[class*="language-"] {
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background: #f6f8fa;
+  color: #24292f;
+  border: 1px solid #d1d9e0;
+}
+
+/* 深色模式下的行内代码 */
+.dark :not(pre) > code[class*="language-"] {
+  background: #21262d;
+  color: #f0f6fc;
+  border: 1px solid #30363d;
+}
+
+/* Token 样式 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #abb2bf;
+}
+
+.token.selector,
+.token.tag {
+  color: #e06c75;
+}
+
+.token.property,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.attr-name,
+.token.deleted {
+  color: #d19a66;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.builtin,
+.token.inserted {
+  color: #98c379;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #56b6c2;
+}
+
+.token.atrule,
+.token.keyword {
+  color: #c678dd;
+}
+
+.token.function {
+  color: #61afef;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e06c75;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* 行号样式 - 黑色背景适配 */
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid #666666;
+  background: transparent;
+  padding: 0;
+  width: 3em;
+}
+
+.line-numbers-rows > span:before {
+  color: #888888 !important;
+  padding-right: 0.8em;
+  padding-left: 0.4em;
+  font-size: 0.875em;
+}
+
+/* 浅色模式下的行号 - 黑色背景适配 */
+.light .line-numbers .line-numbers-rows,
+html:not(.dark) .line-numbers .line-numbers-rows {
+  border-right: 1px solid #666666;
+}
+
+.light .line-numbers-rows > span:before,
+html:not(.dark) .line-numbers-rows > span:before {
+  color: #888888 !important;
+}
+
+/* 深色模式下的行号 - 黑色背景适配 */
+.dark .line-numbers .line-numbers-rows {
+  border-right: 1px solid #666666;
+}
+
+.dark .line-numbers-rows > span:before {
+  color: #888888 !important;
+}
+
+/* 高亮行 */
+.highlight-line {
+  background-color: rgba(255, 255, 255, 0.1);
+  display: block;
+  margin-right: -1rem;
+  margin-left: -1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+/* 语言标签 - 简约样式 */
+pre[class*="language-"]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #3e4451;
+  color: #abb2bf;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  border-bottom-left-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* 浅色模式下的语言标签 */
+.light pre[class*="language-"]::before,
+html:not(.dark) pre[class*="language-"]::before {
+  background: #d1d9e0;
+  color: #586069;
+}
+
+/* 深色模式下的语言标签 */
+.dark pre[class*="language-"]::before {
+  background: #21262d;
+  color: #8b949e;
+}
+
+/* 特定语言的颜色 */
+pre[data-language="javascript"]::before,
+pre[data-language="js"]::before {
+  background: #f7df1e;
+  color: #000;
+}
+
+pre[data-language="typescript"]::before,
+pre[data-language="ts"]::before {
+  background: #3178c6;
+  color: #fff;
+}
+
+pre[data-language="python"]::before {
+  background: #3776ab;
+  color: #fff;
+}
+
+pre[data-language="css"]::before {
+  background: #1572b6;
+  color: #fff;
+}
+
+pre[data-language="html"]::before {
+  background: #e34f26;
+  color: #fff;
+}
+
+pre[data-language="json"]::before {
+  background: #000;
+  color: #fff;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-size: 13px;
+  }
+  
+  pre[class*="language-"] {
+    padding: 0.75rem;
+    margin: 1rem 0;
+  }
+}

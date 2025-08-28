@@ -18,7 +18,11 @@ export const BlogHeader = ({ frontmatter }: BlogHeaderProps) => {
             isZoomed
             alt={frontmatter.title}
             className="object-cover"
-            src={frontmatter.banner}
+            src={
+              frontmatter.banner && frontmatter.banner.trim() !== ''
+                ? frontmatter.banner
+                : '/touchgal.avif'
+            }
             width="100%"
             height="100%"
           />

@@ -61,7 +61,7 @@ export const CommentDropdown = ({ comment, setComments }: Props) => {
     }
 
     setUpdating(true)
-    const res = await kunFetchPut<KunResponse<PatchComment>>('/patch/comment', {
+    const res = await kunFetchPut<KunResponse<PatchComment>>('/api/patch/comment', {
       commentId,
       content: editContent.trim()
     })
@@ -89,7 +89,7 @@ export const CommentDropdown = ({ comment, setComments }: Props) => {
   const [deleting, setDeleting] = useState(false)
   const handleDeleteComment = async () => {
     setDeleting(true)
-    const res = await kunFetchDelete<KunResponse<{}>>('/patch/comment', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/api/patch/comment', {
       commentId: comment.id
     })
     kunErrorHandler(res, () => {
@@ -109,7 +109,7 @@ export const CommentDropdown = ({ comment, setComments }: Props) => {
   const [reporting, setReporting] = useState(false)
   const handleSubmitReport = async () => {
     setReporting(true)
-    const res = await kunFetchPost<KunResponse<{}>>('/patch/comment/report', {
+    const res = await kunFetchPost<KunResponse<{}>>('/api/patch/comment/report', {
       commentId: comment.id,
       patchId: comment.patchId,
       content: reportValue

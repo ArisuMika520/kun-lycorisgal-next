@@ -24,7 +24,10 @@ export const ADMIN_STATS_MAP: Record<keyof OverviewData, string> = {
   newActiveUser: '新活跃用户',
   newGalgame: '新发布 Galgame',
   newGalgameResource: '新发布资源',
-  newComment: '新发布评论'
+  newComment: '新发布评论',
+  newTopic: '新发布话题',
+  totalTopics: '话题总数',
+  pinnedTopics: '置顶话题数'
 }
 
 export const ADMIN_STATS_SUM_MAP: Record<string, string> = {
@@ -32,5 +35,7 @@ export const ADMIN_STATS_SUM_MAP: Record<string, string> = {
   galgameCount: 'Galgame 总数',
   galgameResourceCount: 'Galgame 资源总数',
   galgamePatchResourceCount: 'Galgame 补丁总数',
-  galgameCommentCount: '评论总数'
+  galgameCommentCount: '评论总数',
+  topicCount: '话题总数',
+  pinnedTopicCount: '置顶话题数'
 }

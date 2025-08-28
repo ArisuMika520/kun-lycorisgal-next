@@ -8,19 +8,25 @@ export const uploadIntroductionImage = async (
   image: ArrayBuffer,
   uid: number
 ) => {
-  const minImage = await sharp(image)
-    .resize(1920, 1080, {
-      fit: 'inside',
-      withoutEnlargement: true
-    })
-    .avif({ quality: 30 })
-    .toBuffer()
+  try {
+    const minImage = await sharp(image)
+      .resize(1920, 1080, {
+        fit: 'inside',
+        withoutEnlargement: true
+      })
+      .avif({ quality: 30 })
+      .toBuffer()
 
-  if (!checkBufferSize(minImage, 1.007)) {
-    return '图片体积过大'
+    if (!checkBufferSize(minImage, 1.007)) {
+      return '图片体积过大'
+    }
+
+    const s3Key = `user/image/${uid}/${name}.avif`
+
+    await uploadImageToS3(s3Key, minImage)
+    return { success: true }
+  } catch (error) {
+    console.error('图片处理或上传失败:', error)
+    return '图片处理或上传失败'
   }
-
-  const s3Key = `user/image/${uid}/${name}.avif`
-
-  await uploadImageToS3(s3Key, minImage)
 }

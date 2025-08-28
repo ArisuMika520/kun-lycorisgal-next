@@ -2,7 +2,9 @@ import { kunAuthMiddleware } from '~/middleware/auth'
 import type { NextRequest } from 'next/server'
 
 export const config = {
-  matcher: ['/admin/:path*', '/user/:path*', '/comment/:path*', '/edit/:path*']
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ]
 }
 
 export const middleware = async (request: NextRequest) => {

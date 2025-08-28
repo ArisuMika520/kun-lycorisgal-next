@@ -40,7 +40,7 @@ export const PublishComment = ({
   const handlePublishComment = async () => {
     setLoading(true)
     const res = await kunFetchPost<KunResponse<PatchComment>>(
-      '/patch/comment',
+      '/api/patch/comment',
       {
         patchId,
         parentId,

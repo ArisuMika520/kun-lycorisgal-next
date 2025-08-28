@@ -47,7 +47,7 @@ export const User = ({ initialUsers, initialTotal }: Props) => {
     const { users, total } = await kunFetchGet<{
       users: AdminUser[]
       total: number
-    }>('/admin/user', {
+    }>('/api/admin/user', {
       page,
       limit: 30,
       search: debouncedQuery

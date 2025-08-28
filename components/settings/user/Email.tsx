@@ -36,7 +36,7 @@ export const Email = () => {
     setLoading(true)
 
     const res = await kunFetchPost<KunResponse<{}>>(
-      '/user/setting/email',
+      '/api/user/setting/email',
       watch()
     )
     kunErrorHandler(res, () => {

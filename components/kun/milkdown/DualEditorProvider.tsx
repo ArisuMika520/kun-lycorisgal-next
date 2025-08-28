@@ -6,10 +6,11 @@ import { Code, Edit } from 'lucide-react'
 import { Codemirror } from './codemirror/Codemirror'
 import { useCreatePatchStore } from '~/store/editStore'
 import { useRewritePatchStore } from '~/store/rewriteStore'
+import { useCreateTopicStore } from '~/store/topicStore'
 import { KunEditor } from './Editor'
 
 interface Props {
-  storeName: 'patchCreate' | 'patchRewrite'
+  storeName: 'patchCreate' | 'patchRewrite' | 'topicCreate'
 }
 
 export const KunDualEditorProvider = ({ storeName }: Props) => {
@@ -21,6 +22,8 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
   const setCreatePatchData = useCreatePatchStore((state) => state.setData)
   const getRewritePatchData = useRewritePatchStore((state) => state.getData)
   const setRewritePatchData = useRewritePatchStore((state) => state.setData)
+  const getCreateTopicData = useCreateTopicStore((state) => state.getData)
+  const setCreateTopicData = useCreateTopicStore((state) => state.setData)
 
   const saveMarkdown = useCallback(
     (markdown: string) => {
@@ -31,6 +34,8 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
           ...getRewritePatchData(),
           introduction: markdown
         })
+      } else if (storeName === 'topicCreate') {
+        setCreateTopicData({ ...getCreateTopicData(), content: markdown })
       }
       cmAPI.update(markdown)
     },
@@ -40,6 +45,8 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
       getRewritePatchData,
       setCreatePatchData,
       setRewritePatchData,
+      getCreateTopicData,
+      setCreateTopicData,
       storeName
     ]
   )
@@ -49,9 +56,11 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
       return getCreatePatchData().introduction
     } else if (storeName === 'patchRewrite') {
       return getRewritePatchData().introduction
+    } else if (storeName === 'topicCreate') {
+      return getCreateTopicData().content
     }
     return ''
-  }, [getCreatePatchData, getRewritePatchData, storeName])
+  }, [getCreatePatchData, getRewritePatchData, getCreateTopicData, storeName])
 
   const onCodemirrorChange = useCallback(
     (getCode: () => string) => {
@@ -60,6 +69,8 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
         setCreatePatchData({ ...getCreatePatchData(), introduction: value })
       } else if (storeName === 'patchRewrite') {
         setRewritePatchData({ ...getRewritePatchData(), introduction: value })
+      } else if (storeName === 'topicCreate') {
+        setCreateTopicData({ ...getCreateTopicData(), content: value })
       }
     },
     [
@@ -67,6 +78,8 @@ export const KunDualEditorProvider = ({ storeName }: Props) => {
       getRewritePatchData,
       setCreatePatchData,
       setRewritePatchData,
+      getCreateTopicData,
+      setCreateTopicData,
       storeName
     ]
   )

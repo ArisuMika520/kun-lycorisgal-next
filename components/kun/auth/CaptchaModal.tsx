@@ -49,7 +49,7 @@ export const KunCaptchaModal = ({
     const { images, sessionId } = await kunFetchGet<{
       images: KunCaptchaImage[]
       sessionId: string
-    }>('/auth/captcha')
+    }>('/api/auth/captcha')
 
     setImages(images)
     setSessionId(sessionId)
@@ -70,7 +70,7 @@ export const KunCaptchaModal = ({
 
   const handleVerify = async () => {
     const response = await kunFetchPost<KunResponse<{ code: string }>>(
-      '/auth/captcha',
+      '/api/auth/captcha',
       { sessionId, selectedIds: Array.from(selectedImages) }
     )
     if (typeof response === 'string') {

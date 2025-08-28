@@ -19,7 +19,11 @@ export const PatchCard = ({ patch }: Props) => {
         <div className="relative w-full pb-[56.25%]">
           <Image
             removeWrapper
-            src={patch.banner.replace(/\.avif$/, '-mini.avif')}
+            src={
+              patch.banner && patch.banner.trim() !== ''
+                ? patch.banner.replace(/\.avif$/, '-mini.avif')
+                : '/touchgal.avif'
+            }
             alt={patch.name}
             className="absolute inset-0 object-cover rounded-lg size-full"
             radius="lg"

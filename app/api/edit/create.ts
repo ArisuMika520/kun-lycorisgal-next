@@ -14,22 +14,28 @@ export const createGalgame = async (
   },
   uid: number
 ) => {
-  const {
-    name,
-    vndbId,
-    alias,
-    banner,
-    tag,
-    introduction,
-    released,
-    contentLimit
-  } = input
+  try {
+    console.log('开始创建游戏，用户ID:', uid)
+    const {
+      name,
+      vndbId,
+      alias,
+      banner,
+      tag,
+      introduction,
+      released,
+      contentLimit
+    } = input
 
-  const bannerArrayBuffer = banner as ArrayBuffer
-  const galgameUniqueId = crypto.randomBytes(4).toString('hex')
+    console.log('游戏信息:', { name, vndbId, introduction, released, contentLimit })
+    const bannerArrayBuffer = banner as ArrayBuffer
+    console.log('Banner大小:', bannerArrayBuffer.byteLength)
+    const galgameUniqueId = crypto.randomBytes(4).toString('hex')
+    console.log('生成的游戏ID:', galgameUniqueId)
 
   const res = await prisma.$transaction(
     async (prisma) => {
+      console.log('开始数据库事务')
       const patch = await prisma.patch.create({
         data: {
           name,
@@ -42,13 +48,17 @@ export const createGalgame = async (
           content_limit: contentLimit
         }
       })
+      console.log('创建patch成功，ID:', patch.id)
 
       const newId = patch.id
 
+      console.log('开始上传banner图片')
       const uploadResult = await uploadPatchBanner(bannerArrayBuffer, newId)
       if (typeof uploadResult === 'string') {
+        console.error('图片上传失败:', uploadResult)
         return uploadResult
       }
+      console.log('图片上传成功')
       const imageLink = `${process.env.KUN_VISUAL_NOVEL_IMAGE_BED_URL}/patch/${newId}/banner/banner.avif`
 
       await prisma.patch.update({
@@ -94,4 +104,9 @@ export const createGalgame = async (
   }
 
   return { uniqueId: galgameUniqueId }
+  } catch (error) {
+    console.error('创建游戏时发生错误:', error)
+    console.error('错误堆栈:', error instanceof Error ? error.stack : 'Unknown error')
+    return `创建游戏失败: ${error instanceof Error ? error.message : '未知错误'}`
+  }
 }

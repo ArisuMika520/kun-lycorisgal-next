@@ -8,7 +8,8 @@ import { sliceUntilDelimiterFromEnd } from '~/app/api/utils/sliceUntilDelimiterF
 import { createMessage } from '~/app/api/utils/message'
 
 export const handleFeedback = async (
-  input: z.infer<typeof adminHandleFeedbackSchema>
+  input: z.infer<typeof adminHandleFeedbackSchema>,
+  adminUid: number
 ) => {
   const message = await prisma.user_message.findUnique({
     where: { id: input.messageId }
@@ -34,6 +35,7 @@ export const handleFeedback = async (
     await createMessage({
       type: 'feedback',
       content: feedbackContent,
+      sender_id: adminUid,
       recipient_id: message?.sender_id ?? undefined,
       link: '/'
     })
@@ -43,18 +45,26 @@ export const handleFeedback = async (
 }
 
 export const POST = async (req: NextRequest) => {
-  const input = await kunParsePostBody(req, adminHandleFeedbackSchema)
-  if (typeof input === 'string') {
-    return NextResponse.json(input)
-  }
-  const payload = await verifyHeaderCookie(req)
-  if (!payload) {
-    return NextResponse.json('用户未登录')
-  }
-  if (payload.role < 3) {
-    return NextResponse.json('本页面仅管理员可访问')
-  }
+  try {
+    const input = await kunParsePostBody(req, adminHandleFeedbackSchema)
+    if (typeof input === 'string') {
+      return NextResponse.json({ error: input }, { status: 400 })
+    }
+    const payload = await verifyHeaderCookie(req)
+    if (!payload) {
+      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
+    }
+    if (payload.role < 3) {
+      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
+    }
 
-  const response = await handleFeedback(input)
-  return NextResponse.json(response)
+    const response = await handleFeedback(input, payload.uid)
+    if (typeof response === 'string') {
+      return NextResponse.json({ error: response }, { status: 500 })
+    }
+    return NextResponse.json(response)
+  } catch (error) {
+    console.error('Error in POST /api/admin/feedback/handle:', error)
+    return NextResponse.json({ error: '处理反馈时发生错误' }, { status: 500 })
+  }
 }

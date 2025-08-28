@@ -93,7 +93,7 @@ export const EditTagModal = ({ tag, isOpen, onClose, onSuccess }: Props) => {
 
     setIsSubmitting(true)
 
-    const res = await kunFetchPut<KunResponse<TagDetail>>('/tag', watch())
+    const res = await kunFetchPut<KunResponse<TagDetail>>('/api/tag', watch())
 
     kunErrorHandler(res, (value) => {
       reset()

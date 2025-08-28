@@ -46,7 +46,7 @@ export const EmailVerification = ({ username, email, type }: Props) => {
         toast.error('用户名不可为空')
         return
       }
-      res = await kunFetchPost<KunResponse<{}>>('/auth/send-register-code', {
+      res = await kunFetchPost<KunResponse<{}>>('/api/auth/send-register-code', {
         name: username,
         email,
         captcha: code

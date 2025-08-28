@@ -25,7 +25,7 @@ export const Feedback = ({ initialFeedbacks, total }: Props) => {
     const { feedbacks } = await kunFetchGet<{
       feedbacks: AdminFeedback[]
       total: number
-    }>('/admin/feedback', {
+    }>('/api/admin/feedback', {
       page,
       limit: 30
     })

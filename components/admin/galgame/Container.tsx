@@ -47,7 +47,7 @@ export const Galgame = ({ initialGalgames, initialTotal }: Props) => {
     const { galgames, total } = await kunFetchGet<{
       galgames: AdminGalgame[]
       total: number
-    }>('/admin/galgame', {
+    }>('/api/admin/galgame', {
       page,
       limit: 30,
       search: debouncedQuery
