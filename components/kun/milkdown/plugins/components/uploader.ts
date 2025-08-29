@@ -32,7 +32,7 @@ export const kunUploader: Uploader = async (files, schema) => {
         KunResponse<{
           imageLink: string
         }>
-      >('/api/user/image', formData)
+      >('/user/image', formData)
       if (typeof res === 'string') {
         toast.error(res)
         return

@@ -8,8 +8,7 @@ import { sliceUntilDelimiterFromEnd } from '~/app/api/utils/sliceUntilDelimiterF
 import { createMessage } from '~/app/api/utils/message'
 
 export const handleReport = async (
-  input: z.infer<typeof adminHandleReportSchema>,
-  adminUid: number
+  input: z.infer<typeof adminHandleReportSchema>
 ) => {
   const message = await prisma.user_message.findUnique({
     where: { id: input.messageId }
@@ -35,7 +34,6 @@ export const handleReport = async (
     await createMessage({
       type: 'report',
       content: reportContent,
-      sender_id: adminUid,
       recipient_id: message?.sender_id ?? undefined,
       link: '/'
     })
@@ -45,26 +43,18 @@ export const handleReport = async (
 }
 
 export const POST = async (req: NextRequest) => {
-  try {
-    const input = await kunParsePostBody(req, adminHandleReportSchema)
-    if (typeof input === 'string') {
-      return NextResponse.json({ error: input }, { status: 400 })
-    }
-    const payload = await verifyHeaderCookie(req)
-    if (!payload) {
-      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
-    }
-    if (payload.role < 3) {
-      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
-    }
-
-    const response = await handleReport(input, payload.uid)
-    if (typeof response === 'string') {
-      return NextResponse.json({ error: response }, { status: 500 })
-    }
-    return NextResponse.json(response)
-  } catch (error) {
-    console.error('Error in POST /api/admin/report/handle:', error)
-    return NextResponse.json({ error: '处理举报时发生错误' }, { status: 500 })
+  const input = await kunParsePostBody(req, adminHandleReportSchema)
+  if (typeof input === 'string') {
+    return NextResponse.json(input)
   }
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
+  const response = await handleReport(input)
+  return NextResponse.json(response)
 }

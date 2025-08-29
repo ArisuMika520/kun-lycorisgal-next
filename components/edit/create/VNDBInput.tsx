@@ -19,7 +19,7 @@ export const VNDBInput = ({ errors }: Props) => {
       return
     }
 
-    const res = await kunFetchGet<KunResponse<{}>>('/api/edit/duplicate', {
+    const res = await kunFetchGet<KunResponse<{}>>('/edit/duplicate', {
       vndbId: data.vndbId
     })
     if (typeof res === 'string') {

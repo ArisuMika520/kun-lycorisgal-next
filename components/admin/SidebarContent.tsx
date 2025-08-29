@@ -6,7 +6,6 @@ import {
   Edit,
   FileClock,
   Gamepad2,
-  Hash,
   Mail,
   MessageCircleQuestion,
   MessageSquare,
@@ -46,11 +45,6 @@ const menuItems = [
     name: '评论管理',
     href: '/admin/comment',
     icon: MessageSquare
-  },
-  {
-    name: '话题管理',
-    href: '/admin/topic',
-    icon: Hash
   },
   {
     name: 'Gal 反馈管理',

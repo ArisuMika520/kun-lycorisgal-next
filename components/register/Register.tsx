@@ -43,7 +43,7 @@ export const RegisterForm = () => {
 
     setLoading(true)
     const res = await kunFetchPost<KunResponse<UserState>>(
-      '/api/auth/register',
+      '/auth/register',
       watch()
     )
 

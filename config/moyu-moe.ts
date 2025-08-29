@@ -62,7 +62,7 @@ export const kunMoyuMoe: KunSiteConfig = {
   },
   domain: {
     main: KUN_SITE_URL,
-    imageBed: 'https://galtest.lycorisgal.com',
+    imageBed: 'https://r2.lycorisgal.com',
     storage: KUN_SITE_URL,
     kungal: KUN_SITE_URL,
     telegram_group: KUN_SITE_TELEGRAM_GROUP,

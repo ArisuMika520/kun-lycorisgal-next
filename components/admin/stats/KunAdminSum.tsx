@@ -13,13 +13,11 @@ export const KunAdminSum: FC = () => {
     galgameCount: 0,
     galgameResourceCount: 0,
     galgamePatchResourceCount: 0,
-    galgameCommentCount: 0,
-    topicCount: 0,
-    pinnedTopicCount: 0
+    galgameCommentCount: 0
   })
 
   const fetchSummaryData = async () => {
-    const res = await kunFetchGet<KunResponse<SumData>>('/api/admin/stats/sum')
+    const res = await kunFetchGet<KunResponse<SumData>>('/admin/stats/sum')
     kunErrorHandler(res, setSum)
   }
 

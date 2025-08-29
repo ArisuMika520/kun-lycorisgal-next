@@ -36,11 +36,7 @@ export const KunAboutCard = ({ post }: Props) => {
             className={`size-full object-cover transition-all duration-300 ${
               imageLoaded ? 'scale-100 opacity-90' : 'scale-105 opacity-0'
             }`}
-            src={
-              post.banner && post.banner.trim() !== ''
-                ? post.banner
-                : '/touchgal.avif'
-            }
+            src={post.banner}
             style={{ aspectRatio: '16/9' }}
             onLoad={() => setImageLoaded(true)}
           />

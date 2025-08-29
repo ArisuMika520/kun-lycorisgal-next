@@ -17,7 +17,7 @@ const checkStringArrayValid = (type: 'alias' | 'tag', aliasString: string) => {
   if (maxLength) {
     return `单个${label}的长度不可超过 500 个字符`
   }
-  const minLength = aliasArray.some((alias) => alias.trim().length === 0)
+  const minLength = aliasArray.some((alias) => alias.trim.length)
   if (minLength) {
     return `单个${label}至少一个字符`
   }
@@ -93,19 +93,8 @@ export const PUT = async (req: NextRequest) => {
     if (!payload) {
       return NextResponse.json({ error: '用户未登录' }, { status: 401 })
     }
-
-    // 检查用户是否有权限编辑该游戏（游戏创建者或管理员）
-    const patch = await prisma.patch.findUnique({ 
-      where: { id: input.id },
-      select: { user_id: true }
-    })
-    
-    if (!patch) {
-      return NextResponse.json({ error: '游戏不存在' }, { status: 404 })
-    }
-    
-    if (payload.uid !== patch.user_id && payload.role < 3) {
-      return NextResponse.json({ error: '您没有权限编辑此游戏' }, { status: 403 })
+    if (payload.role < 3) {
+      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
     }
 
     const response = await updateGalgame(input, payload.uid);
@@ -114,7 +103,7 @@ export const PUT = async (req: NextRequest) => {
       return NextResponse.json({ error: response }, { status: 500 })
     }
     
-    return NextResponse.json(response)
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error in PUT /api/edit:', error)
     return NextResponse.json({ error: '更新游戏时发生错误' }, { status: 500 })

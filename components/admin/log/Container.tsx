@@ -28,7 +28,7 @@ export const Log = ({ initialLogs, total }: Props) => {
         logs: AdminLog[]
         total: number
       }>
-    >('/api/admin/log', {
+    >('/admin/log', {
       page,
       limit: 30
     })

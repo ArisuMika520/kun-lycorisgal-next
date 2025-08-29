@@ -67,7 +67,7 @@ export const TwoFactorAuth = () => {
         enabled: boolean
         hasSecret: boolean
         backupCodeLength: number
-      }>('/api/user/setting/2fa/status')
+      }>('/user/setting/2fa/status')
       setAuthStatus({
         ...authStatus,
         isEnabled2FA: response.enabled,
@@ -105,7 +105,10 @@ export const TwoFactorAuth = () => {
         user: user.name || user.uid.toString()
       })
 
-      const res = await kunFetchPost<KunResponse<{}>>(        '/api/user/setting/2fa/save-secret',        { secret: key.secret }      )
+      const res = await kunFetchPost<KunResponse<{}>>(
+        '/user/setting/2fa/save-secret',
+        { secret: key.secret }
+      )
 
       kunErrorHandler(res, () => {
         setAuthStatus({
@@ -136,7 +139,10 @@ export const TwoFactorAuth = () => {
         return
       }
 
-      const res = await kunFetchPost<KunResponse<{ backupCode: string[] }>>(        '/api/user/setting/2fa/enable',        { token: authStatus.token }      )
+      const res = await kunFetchPost<KunResponse<{ backupCode: string[] }>>(
+        '/user/setting/2fa/enable',
+        { token: authStatus.token }
+      )
 
       kunErrorHandler(res, (value) => {
         setAuthStatus({
@@ -153,7 +159,9 @@ export const TwoFactorAuth = () => {
 
   const disable2FA = async () => {
     startTransition(async () => {
-      const res = await kunFetchPost<KunResponse<{}>>(        '/api/user/setting/2fa/disable'      )
+      const res = await kunFetchPost<KunResponse<{}>>(
+        '/user/setting/2fa/disable'
+      )
 
       kunErrorHandler(res, () => {
         setAuthStatus(initialStatus)

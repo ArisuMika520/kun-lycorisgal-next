@@ -32,7 +32,7 @@ export const SearchSuggestion = ({
 
     startTransition(async () => {
       const res = await kunFetchPost<KunResponse<SearchSuggestionType[]>>(
-        '/api/search/tag',
+        '/search/tag',
         { query: searchQuery.split('|').filter((term) => term.length > 0) }
       )
 

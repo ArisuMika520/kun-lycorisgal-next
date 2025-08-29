@@ -8,7 +8,7 @@ import type { AvatarProps } from '@heroui/avatar'
 
 interface KunAvatarProps extends AvatarProps {
   name: string
-  src?: string
+  src: string
 }
 
 interface Props {
@@ -19,12 +19,9 @@ interface Props {
 export const KunAvatar = ({ uid, avatarProps }: Props) => {
   const router = useRouter()
 
-  const { alt, name, src, ...rest } = avatarProps
+  const { alt, name, ...rest } = avatarProps
   const username = name?.charAt(0).toUpperCase() ?? '杂鱼'
   const altString = alt ? alt : username
-  
-  // 添加缓存破坏参数来确保头像更新后能正确显示
-  const avatarSrc = src && src.trim() !== '' ? `${src}?t=${Date.now()}` : undefined
 
   return (
     <Tooltip
@@ -36,7 +33,6 @@ export const KunAvatar = ({ uid, avatarProps }: Props) => {
       <Avatar
         name={username}
         alt={altString}
-        {...(avatarSrc && { src: avatarSrc })}
         className="transition-transform duration-200 cursor-pointer shrink-0 hover:scale-110"
         onClick={(event) => {
           event.preventDefault()

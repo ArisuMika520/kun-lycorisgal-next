@@ -31,7 +31,7 @@ export const Resources = ({ id, vndbId }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
-      const res = await kunFetchGet<PatchResource[]>('/api/patch/resource', {
+      const res = await kunFetchGet<PatchResource[]>('/patch/resource', {
         patchId: Number(id)
       })
       setLoading(false)
@@ -63,7 +63,7 @@ export const Resources = ({ id, vndbId }: Props) => {
   const handleDeleteResource = async () => {
     setDeleting(true)
 
-    await kunFetchDelete<KunResponse<{}>>('/api/patch/resource', {
+    await kunFetchDelete<KunResponse<{}>>('/patch/resource', {
       resourceId: deleteResourceId
     })
 

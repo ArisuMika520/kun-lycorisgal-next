@@ -28,7 +28,7 @@ export const UserDelete = ({ user }: Props) => {
   const [deleting, setDeleting] = useState(false)
   const handleUpdateUserInfo = async () => {
     setDeleting(true)
-    const res = await kunFetchDelete<KunResponse<{}>>('/api/admin/user', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/admin/user', {
       uid: user.id
     })
     kunErrorHandler(res, () => {

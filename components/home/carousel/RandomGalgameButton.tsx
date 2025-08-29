@@ -14,7 +14,7 @@ export const RandomGalgameButton = (props: KunButtonProps) => {
 
   const fetchRandomUniqueId = async () => {
     const response =
-      await kunFetchGet<KunResponse<{ uniqueId: string }>>('/api/home/random')
+      await kunFetchGet<KunResponse<{ uniqueId: string }>>('/home/random')
 
     if (typeof response === 'string') {
       toast.error(response)

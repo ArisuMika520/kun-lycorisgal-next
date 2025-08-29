@@ -25,7 +25,7 @@ export const Report = ({ initialReports, total }: Props) => {
     const { reports } = await kunFetchGet<{
       reports: AdminReport[]
       total: number
-    }>('/api/admin/report', {
+    }>('/admin/report', {
       page,
       limit: 30
     })

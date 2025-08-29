@@ -45,7 +45,6 @@ export const approveCreator = async (
     await createMessage({
       type: 'apply',
       content: `您的创作者申请被拒绝, 理由: ${reason}`,
-      sender_id: adminUid,
       recipient_id: message.sender_id ?? undefined,
       link: '/'
     })
@@ -63,26 +62,18 @@ export const approveCreator = async (
 }
 
 export const PUT = async (req: NextRequest) => {
-  try {
-    const input = await kunParsePutBody(req, declineCreatorSchema)
-    if (typeof input === 'string') {
-      return NextResponse.json({ error: input }, { status: 400 })
-    }
-    const payload = await verifyHeaderCookie(req)
-    if (!payload) {
-      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
-    }
-    if (payload.role < 3) {
-      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
-    }
-
-    const response = await approveCreator(input, payload.uid)
-    if (typeof response === 'string') {
-      return NextResponse.json({ error: response }, { status: 500 })
-    }
-    return NextResponse.json(response)
-  } catch (error) {
-    console.error('Error in PUT /api/admin/creator/decline:', error)
-    return NextResponse.json({ error: '拒绝创作者申请时发生错误' }, { status: 500 })
+  const input = await kunParsePutBody(req, declineCreatorSchema)
+  if (typeof input === 'string') {
+    return NextResponse.json(input)
   }
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
+  const response = await approveCreator(input, payload.uid)
+  return NextResponse.json(response)
 }

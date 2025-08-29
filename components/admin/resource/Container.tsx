@@ -49,7 +49,7 @@ export const Resource = ({ initialResources, initialTotal }: Props) => {
     const { resources, total } = await kunFetchGet<{
       resources: AdminResource[]
       total: number
-    }>('/api/admin/resource', {
+    }>('/admin/resource', {
       page,
       limit: 30,
       search: debouncedQuery

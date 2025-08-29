@@ -38,7 +38,7 @@ export const CommentEdit = ({ initialComment }: Props) => {
   const [deleting, setDeleting] = useState(false)
   const handleDeleteComment = async () => {
     setDeleting(true)
-    const res = await kunFetchDelete<KunResponse<{}>>('/api/admin/comment', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/admin/comment', {
       commentId: initialComment.id
     })
     if (typeof res === 'string') {
@@ -62,7 +62,7 @@ export const CommentEdit = ({ initialComment }: Props) => {
       return
     }
     setUpdating(true)
-    const res = await kunFetchPut<KunResponse<AdminComment>>('/api/admin/comment', {
+    const res = await kunFetchPut<KunResponse<AdminComment>>('/admin/comment', {
       commentId: initialComment.id,
       content: editContent.trim()
     })
