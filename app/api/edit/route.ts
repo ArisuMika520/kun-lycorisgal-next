@@ -85,35 +85,48 @@ export const POST = async (req: NextRequest) => {
 
 export const PUT = async (req: NextRequest) => {
   try {
+    console.log('PUT /api/edit 开始处理请求')
     const input = await kunParsePutBody(req, patchUpdateSchema)
     if (typeof input === 'string') {
+      console.error('PUT请求数据解析失败:', input)
       return NextResponse.json({ error: input }, { status: 400 })
     }
+    console.log('PUT请求数据解析成功，游戏ID:', input.id)
+    
     const payload = await verifyHeaderCookie(req)
     if (!payload) {
+      console.error('用户未登录')
       return NextResponse.json({ error: '用户未登录' }, { status: 401 })
     }
+    console.log('用户验证成功，用户ID:', payload.uid)
 
     // 检查用户是否有权限编辑该游戏（游戏创建者或管理员）
+    console.log('检查游戏权限...')
     const patch = await prisma.patch.findUnique({ 
       where: { id: input.id },
       select: { user_id: true }
     })
     
     if (!patch) {
+      console.error('游戏不存在，ID:', input.id)
       return NextResponse.json({ error: '游戏不存在' }, { status: 404 })
     }
     
     if (payload.uid !== patch.user_id && payload.role < 3) {
+      console.error('用户无权限编辑游戏，用户ID:', payload.uid, '游戏创建者ID:', patch.user_id)
       return NextResponse.json({ error: '您没有权限编辑此游戏' }, { status: 403 })
     }
+    console.log('权限检查通过')
 
+    console.log('开始更新游戏信息...')
     const response = await updateGalgame(input, payload.uid)
     
     if (typeof response === 'string') {
+      console.error('updateGalgame返回错误:', response)
       return NextResponse.json({ error: response }, { status: 500 })
     }
     
+    console.log('游戏信息更新成功')
     return NextResponse.json(response)
   } catch (error) {
     console.error('Error in PUT /api/edit:', error)

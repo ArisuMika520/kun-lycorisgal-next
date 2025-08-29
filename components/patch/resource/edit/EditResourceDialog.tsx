@@ -52,7 +52,7 @@ export const EditResourceDialog = ({
   const handleUpdateResource = async () => {
     setEditing(true)
     const res = await kunFetchPut<KunResponse<PatchResource>>(
-      `/${type}/resource`,
+      `/api/${type}/resource`,
       { resourceId: resource.id, ...watch() }
     )
     kunErrorHandler(res, (value) => {
