@@ -69,7 +69,7 @@ export const PublishButton = ({ setErrors }: Props) => {
       KunResponse<{
         uniqueId: string
       }>
-    >('/api/edit', formDataToSend)
+    >('/edit', formDataToSend)
     kunErrorHandler(res, async (value) => {
       resetData()
       await localforage.removeItem('kun-patch-banner')

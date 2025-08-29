@@ -40,7 +40,7 @@ export const ResourceEdit = ({ initialResource }: Props) => {
   const handleDeleteResource = async () => {
     setDeleting(true)
 
-    const res = await kunFetchDelete<KunResponse<{}>>('/api/admin/resource', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/admin/resource', {
       resourceId: initialResource.id
     })
     if (typeof res === 'string') {

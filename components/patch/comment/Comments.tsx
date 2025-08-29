@@ -35,7 +35,7 @@ export const Comments = ({ id }: Props) => {
     }
 
     const fetchData = async () => {
-      const res = await kunFetchGet<PatchComment[]>('/api/patch/comment', {
+      const res = await kunFetchGet<PatchComment[]>('/patch/comment', {
         patchId: Number(id)
       })
       setComments(res)

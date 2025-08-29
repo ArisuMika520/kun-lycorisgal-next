@@ -40,7 +40,7 @@ export const Username = () => {
       setLoading(true)
 
       const res = await kunFetchPost<KunResponse<{}>>(
-        '/api/user/setting/username',
+        '/user/setting/username',
         { username }
       )
       kunErrorHandler(res, () => {

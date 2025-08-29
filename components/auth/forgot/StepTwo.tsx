@@ -45,7 +45,7 @@ export const StepTwo = ({ name, setStep }: Props) => {
     }
 
     setLoading(true)
-    const res = await kunFetchPost<KunResponse<undefined>>('/api/auth/forgot/two', {
+    const res = await kunFetchPost<KunResponse<undefined>>('/forgot/two', {
       ...data,
       name
     })

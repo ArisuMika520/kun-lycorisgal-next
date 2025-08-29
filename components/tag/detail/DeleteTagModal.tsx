@@ -30,7 +30,7 @@ export const DeleteTagModal = ({ tag }: Props) => {
   const [deleting, setDeleting] = useState(false)
   const handleDeleteTag = async () => {
     setDeleting(true)
-    const res = await kunFetchDelete<KunResponse<{}>>('/api/tag', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/tag', {
       tagId: tag.id
     })
     kunErrorHandler(res, () => {

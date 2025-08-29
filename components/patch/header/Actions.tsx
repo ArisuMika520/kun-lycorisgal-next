@@ -43,7 +43,7 @@ export const PatchHeaderActions = ({
 
   const handleDelete = async () => {
     setDeleting(true)
-    const res = await kunFetchDelete<KunResponse<{}>>('/api/patch', {
+    const res = await kunFetchDelete<KunResponse<{}>>('/patch', {
       patchId: patch.id
     })
 

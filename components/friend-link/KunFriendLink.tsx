@@ -39,11 +39,7 @@ export const KunFriendLink = () => {
                   <Image
                     alt={friend.name}
                     className="object-cover w-24 h-24 rounded-lg"
-                    src={
-                      friend.avatar && friend.avatar.trim() !== ''
-                        ? friend.avatar
-                        : '/touchgal.avif'
-                    }
+                    src={friend.avatar}
                   />
                 </div>
               </CardBody>

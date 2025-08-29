@@ -1,6 +1,6 @@
 import { KunAvatar } from '~/components/kun/floating-card/KunAvatar'
 import { Card, CardBody } from '@heroui/card'
-import { ThumbsUp, MessageSquare, FileText } from 'lucide-react'
+import { ThumbsUp } from 'lucide-react'
 import { formatDate } from '~/utils/time'
 import Link from 'next/link'
 import { CommentEdit } from './CommentEdit'
@@ -20,36 +20,20 @@ export const CommentCard = ({ comment }: Props) => {
               uid={comment.user.id}
               avatarProps={{
                 name: comment.user.name,
-                src: comment.user.avatar || undefined
+                src: comment.user.avatar
               }}
             />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="font-semibold">{comment.user.name}</h2>
-                <span className="text-small text-default-500 flex items-center gap-1">
-                  {comment.type === 'patch' ? (
-                    <>
-                      <FileText size={14} />
-                      评论在 Galgame{' '}
-                      <Link
-                        className="text-primary-500"
-                        href={`/${comment.uniqueId}`}
-                      >
-                        {comment.patchName}
-                      </Link>
-                    </>
-                  ) : (
-                    <>
-                      <MessageSquare size={14} />
-                      评论在话题{' '}
-                      <Link
-                        className="text-primary-500"
-                        href={`/topic/${comment.patchId}`}
-                      >
-                        {comment.patchName}
-                      </Link>
-                    </>
-                  )}
+                <span className="text-small text-default-500">
+                  评论在{' '}
+                  <Link
+                    className="text-primary-500"
+                    href={`/${comment.uniqueId}`}
+                  >
+                    {comment.patchName}
+                  </Link>
                 </span>
               </div>
               <p className="mt-1">{comment.content}</p>

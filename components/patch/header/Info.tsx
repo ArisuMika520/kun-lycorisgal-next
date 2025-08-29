@@ -30,21 +30,15 @@ export const PatchHeaderInfo = ({
       <CardBody className="p-0">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <div className="relative w-full h-full overflow-hidden md:col-span-1 aspect-video md:rounded-l-xl">
-            {patch.banner && patch.banner.trim() !== '' ? (
-              <Image
-                src={patch.banner}
-                alt={patch.name}
-                className="object-cover"
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                priority
-                unoptimized
-              />
-            ) : (
-              <div className="flex items-center justify-center w-full h-full bg-gray-200 dark:bg-gray-700">
-                <span className="text-gray-500 dark:text-gray-400">暂无封面</span>
-              </div>
-            )}
+            <Image
+              src={patch.banner}
+              alt={patch.name}
+              className="object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority
+              unoptimized
+            />
 
             <EditBanner patch={patch} />
           </div>

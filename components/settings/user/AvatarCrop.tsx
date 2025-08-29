@@ -76,7 +76,7 @@ export const AvatarCrop = () => {
 
     setLoading(true)
     const res = await kunFetchFormData<KunResponse<{ avatar: string }>>(
-      '/api/user/setting/avatar',
+      '/user/setting/avatar',
       formData
     )
     if (typeof res === 'string') {
@@ -85,9 +85,7 @@ export const AvatarCrop = () => {
       setLoading(false)
       toast.success('更新头像成功!')
       setCroppedImage(base64Image)
-      // 添加时间戳参数来破坏缓存，确保新头像立即显示
-      const avatarWithTimestamp = `${res.avatar}?t=${Date.now()}`
-      setUser({ ...user, avatar: avatarWithTimestamp })
+      setUser({ ...user, avatar: res.avatar })
       onClose()
     }
   }

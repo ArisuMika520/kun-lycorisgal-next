@@ -16,7 +16,7 @@ export const getOverviewData = async (days: number): Promise<OverviewData> => {
   const time = new Date()
   time.setDate(time.getDate() - days)
 
-  const [newUser, newActiveUser, newGalgame, newGalgameResource, newComment, newTopic, totalTopics, pinnedTopics] =
+  const [newUser, newActiveUser, newGalgame, newGalgameResource, newComment] =
     await Promise.all([
       prisma.user.count({
         where: {
@@ -52,43 +52,25 @@ export const getOverviewData = async (days: number): Promise<OverviewData> => {
             gte: time
           }
         }
-      }),
-      prisma.topic.count({
-        where: {
-          created: {
-            gte: time
-          }
-        }
-      }),
-      prisma.topic.count(),
-      prisma.topic.count({
-        where: {
-          is_pinned: true
-        }
       })
     ])
 
-  return { newUser, newActiveUser, newGalgame, newGalgameResource, newComment, newTopic, totalTopics, pinnedTopics }
+  return { newUser, newActiveUser, newGalgame, newGalgameResource, newComment }
 }
 
 export const GET = async (req: NextRequest) => {
-  try {
-    const input = kunParseGetQuery(req, daysSchema)
-    if (typeof input === 'string') {
-      return NextResponse.json({ error: input }, { status: 400 })
-    }
-    const payload = await verifyHeaderCookie(req)
-    if (!payload) {
-      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
-    }
-    if (payload.role < 3) {
-      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
-    }
-
-    const data = await getOverviewData(input.days)
-    return NextResponse.json(data)
-  } catch (error) {
-    console.error('Error in GET /api/admin/stats:', error)
-    return NextResponse.json({ error: '获取统计数据时发生错误' }, { status: 500 })
+  const input = kunParseGetQuery(req, daysSchema)
+  if (typeof input === 'string') {
+    return NextResponse.json(input)
   }
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
+  const data = await getOverviewData(input.days)
+  return NextResponse.json(data)
 }

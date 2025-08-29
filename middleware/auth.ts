@@ -2,22 +2,10 @@ import { NextResponse } from 'next/server'
 import { parseCookies } from '~/utils/cookies'
 import type { NextRequest } from 'next/server'
 
-const protectedPaths = ['/admin', '/comment', '/edit']
-const userProtectedPaths = ['/user']
+const protectedPaths = ['/admin', '/user', '/comment', '/edit']
 
-export const isProtectedRoute = (pathname: string) => {
-  // API路由不需要认证
-  if (pathname.startsWith('/api/')) {
-    return false
-  }
-  
-  // 用户相关页面需要认证，但排除profile API和status API
-  if (pathname.startsWith('/user/')) {
-    return !pathname.startsWith('/user/profile/') && !pathname.startsWith('/user/status')
-  }
-  
-  return protectedPaths.some((path) => pathname.startsWith(path))
-}
+export const isProtectedRoute = (pathname: string) =>
+  protectedPaths.some((path) => pathname.startsWith(path))
 
 const redirectToLogin = (request: NextRequest) => {
   const loginUrl = new URL('/login', request.url)

@@ -36,7 +36,7 @@ export const LoginForm = () => {
       onClose()
       const res = await kunFetchPost<
         KunResponse<(UserState | KunUser) & { require2FA: boolean }>
-      >('/api/auth/login', {
+      >('/auth/login', {
         ...watch(),
         captcha: code
       })

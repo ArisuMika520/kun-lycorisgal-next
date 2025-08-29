@@ -67,26 +67,21 @@ const checkRequestValid = async (req: NextRequest) => {
 }
 
 export async function POST(req: NextRequest) {
-  try {
-    const validData = await checkRequestValid(req)
-    if (typeof validData === 'string') {
-      return NextResponse.json({ error: validData }, { status: 400 })
-    }
-
-    const { buffer, file, fileSizeInMB } = validData
-
-    const fileName = sanitizeFileName(file.name)
-    const res = await calculateFileStreamHash(buffer, 'uploads', fileName)
-
-    await setKv(res.fileHash, res.finalFilePath, 24 * 60 * 60)
-
-    return NextResponse.json({
-      filetype: 's3',
-      fileHash: res.fileHash,
-      fileSize: `${fileSizeInMB.toFixed(3)} MB`
-    })
-  } catch (error) {
-    console.error('资源上传错误:', error)
-    return NextResponse.json({ error: '资源上传失败，请稍后重试' }, { status: 500 })
+  const validData = await checkRequestValid(req)
+  if (typeof validData === 'string') {
+    return NextResponse.json(validData)
   }
+
+  const { buffer, file, fileSizeInMB } = validData
+
+  const fileName = sanitizeFileName(file.name)
+  const res = await calculateFileStreamHash(buffer, 'uploads', fileName)
+
+  await setKv(res.fileHash, res.finalFilePath, 24 * 60 * 60)
+
+  return NextResponse.json({
+    filetype: 's3',
+    fileHash: res.fileHash,
+    fileSize: `${fileSizeInMB.toFixed(3)} MB`
+  })
 }

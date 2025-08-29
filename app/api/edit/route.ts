@@ -16,7 +16,7 @@ const checkStringArrayValid = (type: 'alias' | 'tag', aliasString: string) => {
   if (maxLength) {
     return `单个${label}的长度不可超过 500 个字符`
   }
-  const minLength = aliasArray.some((alias) => alias.trim().length === 0)
+  const minLength = aliasArray.some((alias) => alias.trim.length)
   if (minLength) {
     return `单个${label}至少一个字符`
   }
@@ -24,87 +24,49 @@ const checkStringArrayValid = (type: 'alias' | 'tag', aliasString: string) => {
 }
 
 export const POST = async (req: NextRequest) => {
-  try {
-    console.log('POST /api/edit 开始处理请求')
-    const input = await kunParseFormData(req, patchCreateSchema)
-    if (typeof input === 'string') {
-      console.error('表单数据解析失败:', input)
-      return NextResponse.json({ error: input }, { status: 400 })
-    }
-    console.log('表单数据解析成功')
-    
-    const payload = await verifyHeaderCookie(req)
-    if (!payload) {
-      console.error('用户未登录')
-      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
-    }
-    console.log('用户验证成功，用户ID:', payload.uid)
-    
-    // 允许所有登录用户创建游戏
-    // if (payload.role < 3) {
-    //   return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
-    // }
-
-    const { alias, banner, tag, ...rest } = input
-    console.log('开始验证别名和标签')
-    
-    const aliasResult = checkStringArrayValid('alias', alias)
-    if (typeof aliasResult === 'string') {
-      console.error('别名验证失败:', aliasResult)
-      return NextResponse.json({ error: aliasResult }, { status: 400 })
-    }
-    
-    const tagResult = checkStringArrayValid('tag', tag)
-    if (typeof tagResult === 'string') {
-      console.error('标签验证失败:', tagResult)
-      return NextResponse.json({ error: tagResult }, { status: 400 })
-    }
-    
-    console.log('别名和标签验证成功')
-    console.log('开始处理banner图片')
-    const bannerArrayBuffer = await new Response(banner)?.arrayBuffer()
-    console.log('Banner处理完成，调用createGalgame')
-
-    const response = await createGalgame(
-      { alias: aliasResult, tag: tagResult, banner: bannerArrayBuffer, ...rest },
-      payload.uid
-    )
-    console.log('createGalgame调用完成')
-    
-    if (typeof response === 'string') {
-      return NextResponse.json({ error: response }, { status: 500 })
-    }
-    
-    return NextResponse.json(response)
-  } catch (error) {
-    console.error('Error in POST /api/edit:', error)
-    return NextResponse.json({ error: '创建游戏时发生错误' }, { status: 500 })
+  const input = await kunParseFormData(req, patchCreateSchema)
+  if (typeof input === 'string') {
+    return NextResponse.json(input)
   }
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
+  const { alias, banner, tag, ...rest } = input
+  const aliasResult = checkStringArrayValid('alias', alias)
+  if (typeof aliasResult === 'string') {
+    return NextResponse.json(aliasResult)
+  }
+  const tagResult = checkStringArrayValid('tag', tag)
+  if (typeof tagResult === 'string') {
+    return NextResponse.json(tagResult)
+  }
+  const bannerArrayBuffer = await new Response(banner)?.arrayBuffer()
+
+  const response = await createGalgame(
+    { alias: aliasResult, tag: tagResult, banner: bannerArrayBuffer, ...rest },
+    payload.uid
+  )
+  return NextResponse.json(response)
 }
 
 export const PUT = async (req: NextRequest) => {
-  try {
-    const input = await kunParsePutBody(req, patchUpdateSchema)
-    if (typeof input === 'string') {
-      return NextResponse.json({ error: input }, { status: 400 })
-    }
-    const payload = await verifyHeaderCookie(req)
-    if (!payload) {
-      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
-    }
-    if (payload.role < 3) {
-      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
-    }
-
-    const response = await updateGalgame(input, payload.uid)
-    
-    if (typeof response === 'string') {
-      return NextResponse.json({ error: response }, { status: 500 })
-    }
-    
-    return NextResponse.json(response)
-  } catch (error) {
-    console.error('Error in PUT /api/edit:', error)
-    return NextResponse.json({ error: '更新游戏时发生错误' }, { status: 500 })
+  const input = await kunParsePutBody(req, patchUpdateSchema)
+  if (typeof input === 'string') {
+    return NextResponse.json(input)
   }
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
+  const response = await updateGalgame(input, payload.uid)
+  return NextResponse.json(response)
 }
