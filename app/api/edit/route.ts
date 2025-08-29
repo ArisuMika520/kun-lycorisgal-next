@@ -76,7 +76,7 @@ export const POST = async (req: NextRequest) => {
       return NextResponse.json({ error: response }, { status: 500 })
     }
     
-    return NextResponse.json(response)
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Error in POST /api/edit:', error)
     return NextResponse.json({ error: '创建游戏时发生错误' }, { status: 500 })
@@ -108,7 +108,7 @@ export const PUT = async (req: NextRequest) => {
       return NextResponse.json({ error: '您没有权限编辑此游戏' }, { status: 403 })
     }
 
-    const response = await updateGalgame(input, payload.uid)
+    const response = await updateGalgame(input, payload.uid);
     
     if (typeof response === 'string') {
       return NextResponse.json({ error: response }, { status: 500 })
