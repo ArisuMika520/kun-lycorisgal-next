@@ -2,211 +2,119 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://127.0.0.1:3000/(main)</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/friend-link</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/redirect</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/comment</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/debug-code</loc>
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/galgame</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/(main)/comment</loc>
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/register</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/resource</loc>
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/search</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/resource</loc>
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/tag</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/topic</loc>
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply/pending</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/apply/success</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/auth/email-notice</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/apply/success</loc>
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/auth/forgot</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login/2fa</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/topic/create</loc>
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/doc</loc>
-<<<<<<< HEAD
-    <lastmod>2025-08-29T17:48:31.958Z</lastmod>
-=======
-    <lastmod>2025-08-27T05:27:05.282Z</lastmod>
->>>>>>> fc3bc8acf5ca2604d5eed4ac719c5f20195b1928
+    <lastmod>2025-08-29T17:54:36.302Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
