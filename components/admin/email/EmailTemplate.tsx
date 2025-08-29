@@ -57,7 +57,7 @@ export const EmailTemplate = () => {
 
     setIsSending(true)
     const response = await kunFetchPost<KunResponse<{ count: number }>>(
-      '/admin/mail',
+      '/api/admin/mail',
       { templateId: selectedTemplate, variables: templateVars }
     )
     if (typeof response === 'string') {

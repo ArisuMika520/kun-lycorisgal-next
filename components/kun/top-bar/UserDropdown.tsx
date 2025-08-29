@@ -48,20 +48,21 @@ export const UserDropdown = () => {
     if (!isMounted) {
       return
     }
-    if (!user.uid) {
+    // 只有当用户已登录（uid > 0 且有name）时才调用API
+    if (!user.uid || user.uid === 0 || !user.name) {
       return
     }
 
     const getUserStatus = async () => {
-      const user = await kunFetchGet<UserState>('/user/status')
-      setUser(user)
+      const userStatus = await kunFetchGet<UserState>('/api/user/status')
+      setUser(userStatus)
     }
     getUserStatus()
-  }, [isMounted])
+  }, [isMounted, user.uid, user.name])
 
   const handleLogOut = async () => {
     setLoading(true)
-    await kunFetchPost<KunResponse<{}>>('/user/status/logout')
+    await kunFetchPost<KunResponse<{}>>('/api/user/status/logout')
     setLoading(false)
     logout()
     router.push('/login')
@@ -79,7 +80,7 @@ export const UserDropdown = () => {
       KunResponse<{
         randomMoemoepoints: number
       }>
-    >('/user/status/check-in')
+    >('/api/user/status/check-in')
     kunErrorHandler(res, (value) => {
       showKunSooner(
         value
@@ -106,7 +107,7 @@ export const UserDropdown = () => {
             color="secondary"
             name={user.name.charAt(0).toUpperCase()}
             size="sm"
-            src={user.avatar}
+            {...(user.avatar && user.avatar.trim() !== '' && { src: user.avatar })}
             showFallback
           />
         </DropdownTrigger>

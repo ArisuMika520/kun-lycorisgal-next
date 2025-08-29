@@ -17,6 +17,7 @@ import {
   MessagesSquare,
   Trophy,
   CheckSquare,
+  Hash,
   HeartMinus
 } from 'lucide-react'
 import { Button } from '@heroui/button'
@@ -53,6 +54,7 @@ const navSections = [
     title: '社区交流',
     items: [
       { name: '评论列表', description: '最新评论动态', href: '/comment', icon: MessagesSquare },
+      { name: '话题列表', description: '最新话题', href: '/topic', icon: Hash },
     ],
   },
   {
@@ -99,7 +101,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
       )}
     >
       <div className="h-16" />
-      <div className="flex-1 px-3 py-4 overflow-y-auto">
+      <div className="flex-1 px-3 py-4 overflow-y-auto scrollbar-hide">
         {navSections.map((section, index) => (
           <div key={section.title} className={cn(!isCollapsed && 'mb-2')}>
             {index > 0 && (

@@ -19,11 +19,10 @@ export const getComment = async (
       }
     : {}
 
-  const [data, total] = await Promise.all([
+  // 获取Galgame评论
+  const [patchComments, patchTotal] = await Promise.all([
     prisma.patch_comment.findMany({
       where,
-      take: limit,
-      skip: offset,
       orderBy: { created: 'desc' },
       include: {
         patch: {
@@ -49,16 +48,67 @@ export const getComment = async (
     prisma.patch_comment.count({ where })
   ])
 
-  const comments: AdminComment[] = data.map((comment) => ({
-    id: comment.id,
-    uniqueId: comment.patch.unique_id,
-    user: comment.user,
-    content: markdownToText(comment.content).slice(0, 233),
-    patchName: comment.patch.name,
-    patchId: comment.patch_id,
-    like: comment._count.like_by,
-    created: comment.created
-  }))
+  // 获取话题评论
+  const [topicComments, topicTotal] = await Promise.all([
+    prisma.topic_comment.findMany({
+      where,
+      orderBy: { created: 'desc' },
+      include: {
+        topic: {
+          select: {
+            title: true,
+            id: true
+          }
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            avatar: true
+          }
+        },
+        _count: {
+          select: {
+            like_by: true
+          }
+        }
+      }
+    }),
+    prisma.topic_comment.count({ where })
+  ])
 
-  return { comments, total }
+  // 合并并转换评论数据
+  const allComments: AdminComment[] = [
+    ...patchComments.map((comment) => ({
+      id: comment.id,
+      uniqueId: comment.patch.unique_id,
+      user: comment.user,
+      content: markdownToText(comment.content).slice(0, 233),
+      patchName: comment.patch.name,
+      patchId: comment.patch_id,
+      like: comment._count.like_by,
+      created: comment.created,
+      type: 'patch' as const
+    })),
+    ...topicComments.map((comment) => ({
+      id: comment.id,
+      uniqueId: `topic-${comment.topic.id}`,
+      user: comment.user,
+      content: markdownToText(comment.content).slice(0, 233),
+      patchName: comment.topic.title,
+      patchId: comment.topic_id,
+      like: comment._count.like_by,
+      created: comment.created,
+      type: 'topic' as const
+    }))
+  ]
+
+  // 按创建时间排序
+  allComments.sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
+
+  // 分页处理
+  const total = patchTotal + topicTotal
+  const paginatedComments = allComments.slice(offset, offset + limit)
+
+  return { comments: paginatedComments, total }
 }

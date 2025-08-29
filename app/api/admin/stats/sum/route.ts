@@ -9,7 +9,9 @@ export const getSumData = async (): Promise<SumData> => {
     galgameCount,
     galgameResourceCount,
     galgamePatchResourceCount,
-    galgameCommentCount
+    galgameCommentCount,
+    topicCount,
+    pinnedTopicCount
   ] = await Promise.all([
     prisma.user.count(),
     prisma.patch.count(),
@@ -19,7 +21,11 @@ export const getSumData = async (): Promise<SumData> => {
     prisma.patch_resource.count({
       where: { section: 'patch' }
     }),
-    prisma.patch_comment.count()
+    prisma.patch_comment.count(),
+    prisma.topic.count(),
+    prisma.topic.count({
+      where: { is_pinned: true }
+    })
   ])
 
   return {
@@ -27,7 +33,9 @@ export const getSumData = async (): Promise<SumData> => {
     galgameCount,
     galgameResourceCount,
     galgamePatchResourceCount,
-    galgameCommentCount
+    galgameCommentCount,
+    topicCount,
+    pinnedTopicCount
   }
 }
 

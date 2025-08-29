@@ -12,7 +12,7 @@ export const getMessage = async (uid: number) => {
 export const GET = async (req: NextRequest) => {
   const payload = await verifyHeaderCookie(req)
   if (!payload) {
-    return NextResponse.json('用户未登录')
+    return NextResponse.json({ message: '用户未登录' }, { status: 401 })
   }
 
   const response = await getMessage(payload.uid)

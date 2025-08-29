@@ -35,7 +35,7 @@ export const Password = () => {
     setLoading(true)
 
     const res = await kunFetchPost<KunResponse<{}>>(
-      '/user/setting/password',
+      '/api/user/setting/password',
       watch()
     )
     kunErrorHandler(res, () => {

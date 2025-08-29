@@ -33,17 +33,25 @@ export const uploadImage = async (uid: number, image: ArrayBuffer) => {
 }
 
 export const POST = async (req: NextRequest) => {
-  const input = await kunParseFormData(req, imageSchema)
-  if (typeof input === 'string') {
-    return NextResponse.json(input)
-  }
-  const payload = await verifyHeaderCookie(req)
-  if (!payload) {
-    return NextResponse.json('用户未登录')
-  }
+  try {
+    const input = await kunParseFormData(req, imageSchema)
+    if (typeof input === 'string') {
+      return NextResponse.json({ error: input }, { status: 400 })
+    }
+    const payload = await verifyHeaderCookie(req)
+    if (!payload) {
+      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
+    }
 
-  const image = await new Response(input.image)?.arrayBuffer()
+    const image = await new Response(input.image)?.arrayBuffer()
 
-  const res = await uploadImage(payload.uid, image)
-  return NextResponse.json(res)
+    const res = await uploadImage(payload.uid, image)
+    if (typeof res === 'string') {
+      return NextResponse.json({ error: res }, { status: 400 })
+    }
+    return NextResponse.json(res)
+  } catch (error) {
+    console.error('图片上传错误:', error)
+    return NextResponse.json({ error: '图片上传失败，请稍后重试' }, { status: 500 })
+  }
 }

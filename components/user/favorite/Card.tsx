@@ -57,7 +57,11 @@ export const UserGalgameCard = ({
         <div className="flex flex-col gap-4 sm:flex-row">
           <div className="relative w-full sm:h-auto sm:w-40">
             <Image
-              src={galgame.banner.replace(/\.avif$/, '-mini.avif')}
+              src={
+                galgame.banner && galgame.banner.trim() !== ''
+                  ? galgame.banner.replace(/\.avif$/, '-mini.avif')
+                  : '/touchgal.avif'
+              }
               alt={galgame.name}
               className="object-cover rounded-lg size-full max-h-52"
               radius="lg"

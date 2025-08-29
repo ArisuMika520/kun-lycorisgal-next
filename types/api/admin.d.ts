@@ -15,6 +15,8 @@ export interface SumData {
   galgameResourceCount: number
   galgamePatchResourceCount: number
   galgameCommentCount: number
+  topicCount: number
+  pinnedTopicCount: number
 }
 
 export interface OverviewData {
@@ -23,6 +25,9 @@ export interface OverviewData {
   newGalgame: number
   newGalgameResource: number
   newComment: number
+  newTopic: number
+  totalTopics: number
+  pinnedTopics: number
 }
 
 export interface AdminUser {
@@ -62,7 +67,21 @@ export interface AdminResource extends PatchResource {
   patchName: string
 }
 
-export type AdminComment = PatchComment
+export interface AdminComment {
+  id: number
+  uniqueId: string
+  user: {
+    id: number
+    name: string
+    avatar: string | null
+  }
+  content: string
+  patchName: string
+  patchId: number
+  like: number
+  created: Date | string
+  type: 'patch' | 'topic'
+}
 
 export type AdminFeedback = Message
 

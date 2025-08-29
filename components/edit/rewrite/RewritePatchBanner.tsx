@@ -37,7 +37,7 @@ export const RewritePatchBanner = ({ patchId, onClose }: Props) => {
     setUpdating(true)
 
     const res = await kunFetchFormData<KunResponse<{}>>(
-      '/patch/banner',
+      '/api/patch/banner',
       formData
     )
     kunErrorHandler(res, () => {

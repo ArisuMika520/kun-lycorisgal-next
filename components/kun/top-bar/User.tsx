@@ -29,22 +29,23 @@ export const KunTopBarUser = () => {
     if (!isMounted) {
       return
     }
-    if (!user.uid) {
+    // 只有当用户已登录（uid > 0 且有name）时才调用API
+    if (!user.uid || user.uid === 0 || !user.name) {
       return
     }
 
     const getUserStatus = async () => {
-      const res = await kunFetchGet<KunResponse<UserState>>('/user/status')
+      const res = await kunFetchGet<KunResponse<UserState>>('/api/user/status')
       if (typeof res === 'string') {
         toast.error(res)
         router.push('/login')
       } else {
-        setUser(user)
+        setUser(res)
       }
     }
 
     const getUserUnreadMessage = async () => {
-      const message = await kunFetchGet<Message | null>('/message/unread')
+      const message = await kunFetchGet<Message | null>('/api/message/unread')
       if (message) {
         setHasUnread(true)
       }
@@ -52,7 +53,7 @@ export const KunTopBarUser = () => {
 
     getUserStatus()
     getUserUnreadMessage()
-  }, [isMounted])
+  }, [isMounted, user.uid, user.name])
 
   return (
     <NavbarContent as="div" className="items-center" justify="end">

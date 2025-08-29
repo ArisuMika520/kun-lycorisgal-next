@@ -18,7 +18,7 @@ export const KunUserCard = ({ uid }: UserCardProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const user = await kunFetchGet<FloatingCardUser>(
-        '/user/profile/floating',
+        '/api/user/profile/floating',
         { uid }
       )
       setUser(user)

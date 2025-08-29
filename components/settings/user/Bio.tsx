@@ -24,7 +24,7 @@ export const Bio = () => {
       setUser({ ...user, bio })
       setLoading(true)
 
-      await kunFetchPost<KunResponse<{}>>('/user/setting/bio', { bio })
+      await kunFetchPost<KunResponse<{}>>('/api/user/setting/bio', { bio })
 
       setLoading(false)
       toast.success('更新签名成功')

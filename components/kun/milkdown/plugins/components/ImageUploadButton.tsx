@@ -39,7 +39,7 @@ export const ImageUploadButton = ({
       KunResponse<{
         imageLink: string
       }>
-    >('/user/image', formData)
+    >('/api/user/image', formData)
     if (typeof res === 'string') {
       toast.error(res)
       return

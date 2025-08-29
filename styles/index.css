@@ -1,6 +1,7 @@
 @import './tailwindcss.css';
 @import './blog.css';
 @import './prose.css';
+@import './prism.css';
 
 [data-overlay-container='true'] {
   height: 100%;

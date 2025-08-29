@@ -2,19 +2,42 @@ import { Button } from '@heroui/button'
 import { ChevronRight } from 'lucide-react'
 import { GalgameCard } from '~/components/galgame/Card'
 import { ResourceCard } from '~/components/resource/ResourceCard'
+import { TopicCard } from '~/components/topic/TopicCard'
 import Link from 'next/link'
 import { HomeHero } from './hero/HomeHero'
 import type { HomeResource } from '~/types/api/home'
+import type { TopicCard as TopicCardType } from '~/types/api/topic'
 
 interface Props {
   galgames: GalgameCard[]
   resources: HomeResource[]
+  topics: TopicCardType[]
 }
 
-export const HomeContainer = ({ galgames, resources }: Props) => {
+export const HomeContainer = ({ galgames, resources, topics }: Props) => {
   return (
     <div className="mx-auto space-y-8 max-w-7xl">
       <HomeHero />
+      
+      <section className="space-y-6">
+        <div className="flex items-center space-x-4">
+          <h2 className="text-lg font-bold sm:text-2xl">最新话题</h2>
+          <Button
+            variant="light"
+            as={Link}
+            color="primary"
+            endContent={<ChevronRight className="size-4" />}
+            href="/topic"
+          >
+            查看更多
+          </Button>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+          {topics.map((topic) => (
+            <TopicCard key={topic.id} topic={topic} />
+          ))}
+        </div>
+      </section>
 
       <section className="space-y-6">
         <div className="flex items-center space-x-4">

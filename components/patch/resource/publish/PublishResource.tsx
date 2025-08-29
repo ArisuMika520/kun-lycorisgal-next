@@ -78,7 +78,7 @@ export const PublishResource = ({
   const handleRewriteResource = async () => {
     setCreating(true)
     const res = await kunFetchPost<KunResponse<PatchResource>>(
-      '/patch/resource',
+      '/api/patch/resource',
       watch()
     )
     setCreating(false)

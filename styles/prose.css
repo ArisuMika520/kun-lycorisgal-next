@@ -58,18 +58,28 @@
 }
 
 /* Code blocks with improved styling */
-.kun-prose code {
+.kun-prose code:not([class*="language-"]) {
   @apply text-sm bg-default-100 px-1.5 py-0.5 rounded-md font-mono
          text-default-800 border border-default-200;
 }
 
-.kun-prose pre {
+.kun-prose pre:not([class*="language-"]) {
   @apply bg-default-50 rounded-xl p-4 my-6 overflow-x-auto border border-default-200
          ring-1 ring-default-200/50 shadow-sm;
 }
 
-.kun-prose pre code {
+.kun-prose pre:not([class*="language-"]) code {
   @apply bg-transparent border-0 p-0 text-default-800 shadow-none;
+}
+
+/* Prism.js 代码块样式 */
+.kun-prose pre[class*="language-"] {
+  @apply my-6 rounded-xl shadow-sm;
+  position: relative;
+}
+
+.kun-prose pre[class*="language-"] code {
+  @apply bg-transparent border-0 p-0 shadow-none;
 }
 
 /* Quotes with refined styling */

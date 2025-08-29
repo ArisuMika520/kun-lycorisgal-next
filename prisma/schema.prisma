@@ -7,89 +7,79 @@ datasource db {
   url      = env("KUN_DATABASE_URL")
 }
 
-// role: 1 - user, 2 - publisher, 3 - admin, 4 - super admin
 model user {
-  id            Int      @id @default(autoincrement())
-  name          String   @unique @db.VarChar(17)
-  email         String   @unique @db.VarChar(1007)
-  password      String   @db.VarChar(1007)
-  ip            String   @default("") @db.VarChar(233)
-  avatar        String   @default("") @db.VarChar(233)
-  role          Int      @default(1)
-  status        Int      @default(0)
-  register_time DateTime @default(now())
-  moemoepoint   Int      @default(0)
-  bio           String   @default("") @db.VarChar(107)
-
-  enable_email_notice Boolean @default(true)
-  daily_image_count   Int     @default(0)
-  daily_check_in      Int     @default(0)
-  daily_upload_size   Float   @default(0)
-  last_login_time     String  @default("")
-
-  enable_2fa        Boolean  @default(false)
-  two_factor_secret String   @default("")
-  two_factor_backup String[] @default([])
-
-  admin_log admin_log[]
-  patch_tag patch_tag[]
-
+  id                    Int                                 @id @default(autoincrement())
+  name                  String                              @unique @db.VarChar(17)
+  email                 String                              @unique @db.VarChar(1007)
+  password              String                              @db.VarChar(1007)
+  ip                    String                              @default("") @db.VarChar(233)
+  avatar                String                              @default("") @db.VarChar(233)
+  role                  Int                                 @default(1)
+  status                Int                                 @default(0)
+  register_time         DateTime                            @default(now())
+  moemoepoint           Int                                 @default(0)
+  bio                   String                              @default("") @db.VarChar(107)
+  enable_email_notice   Boolean                             @default(true)
+  daily_image_count     Int                                 @default(0)
+  daily_check_in        Int                                 @default(0)
+  daily_upload_size     Float                               @default(0)
+  last_login_time       String                              @default("")
+  enable_2fa            Boolean                             @default(false)
+  two_factor_secret     String                              @default("")
+  two_factor_backup     String[]                            @default([])
+  created               DateTime                            @default(now())
+  updated               DateTime                            @updatedAt
+  admin_log             admin_log[]
+  patch                 patch[]                             @relation("user_patch")
+  patch_comment         patch_comment[]                     @relation("user_patch_comment")
+  patch_resource        patch_resource[]                    @relation("user_patch_resource")
+  patch_tag             patch_tag[]
+  topics                topic[]                             @relation("user_topic")
+  topic_comments        topic_comment[]                     @relation("user_topic_comment")
+  topic_comment_likes   topic_comment_like[]                @relation("user_topic_comment_like")
+  topic_likes           topic_like[]                        @relation("user_topic_like")
+  follower              user_follow_relation[]              @relation("user_follower")
+  following             user_follow_relation[]              @relation("user_following")
+  receive_message       user_message[]                      @relation("user_receive_message")
+  send_message          user_message[]                      @relation("user_send_message")
   patch_comment_like    user_patch_comment_like_relation[]
-  patch_resource_like   user_patch_resource_like_relation[]
   patch_favorite_folder user_patch_favorite_folder[]
-
-  following       user_follow_relation[] @relation("user_following")
-  follower        user_follow_relation[] @relation("user_follower")
-  patch           patch[]                @relation("user_patch")
-  patch_comment   patch_comment[]        @relation("user_patch_comment")
-  patch_resource  patch_resource[]       @relation("user_patch_resource")
-  send_message    user_message[]         @relation("user_send_message")
-  receive_message user_message[]         @relation("user_receive_message")
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  patch_resource_like   user_patch_resource_like_relation[]
 }
 
 model admin_log {
-  id      Int    @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   type    String
-  content String @db.VarChar(10007)
-  status  Int    @default(0)
-
+  content String   @db.VarChar(10007)
+  status  Int      @default(0)
   user_id Int
-  user    user @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
   created DateTime @default(now())
   updated DateTime @updatedAt
+  user    user     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model user_follow_relation {
-  id Int @id @default(autoincrement())
-
+  id           Int  @id @default(autoincrement())
   follower_id  Int
   following_id Int
-
-  follower  user @relation("user_follower", fields: [follower_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  following user @relation("user_following", fields: [following_id], references: [id])
+  follower     user @relation("user_follower", fields: [follower_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  following    user @relation("user_following", fields: [following_id], references: [id])
 
   @@unique([follower_id, following_id])
 }
 
-// status: 0 - unread, 1 - read, 2 - approve, 3 - decline
 model user_message {
-  id      Int    @id @default(autoincrement())
-  type    String
-  content String @db.VarChar(10007)
-  status  Int    @default(0)
-  link    String @default("") @db.VarChar(1007)
-
+  id           Int      @id @default(autoincrement())
+  type         String
+  content      String   @db.VarChar(10007)
+  status       Int      @default(0)
+  link         String   @default("") @db.VarChar(1007)
   sender_id    Int?
-  sender       user? @relation("user_send_message", fields: [sender_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   recipient_id Int?
-  recipient    user? @relation("user_receive_message", fields: [recipient_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created      DateTime @default(now())
+  updated      DateTime @updatedAt
+  recipient    user?    @relation("user_receive_message", fields: [recipient_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  sender       user?    @relation("user_send_message", fields: [sender_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model user_patch_favorite_folder {
@@ -98,10 +88,10 @@ model user_patch_favorite_folder {
   description String                                @default("") @db.VarChar(500)
   is_public   Boolean                               @default(false)
   user_id     Int
-  user        user                                  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  patch       user_patch_favorite_folder_relation[]
   created     DateTime                              @default(now())
   updated     DateTime                              @updatedAt
+  user        user                                  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  patch       user_patch_favorite_folder_relation[]
 
   @@unique([user_id, name])
 }
@@ -110,158 +100,194 @@ model user_patch_favorite_folder_relation {
   id        Int                        @id @default(autoincrement())
   folder_id Int
   patch_id  Int
-  folder    user_patch_favorite_folder @relation(fields: [folder_id], references: [id], onDelete: Cascade)
-  patch     patch                      @relation(fields: [patch_id], references: [id], onDelete: Cascade)
   created   DateTime                   @default(now())
   updated   DateTime                   @updatedAt
+  folder    user_patch_favorite_folder @relation(fields: [folder_id], references: [id], onDelete: Cascade)
+  patch     patch                      @relation(fields: [patch_id], references: [id], onDelete: Cascade)
 
   @@unique([folder_id, patch_id])
 }
 
 model user_patch_comment_like_relation {
-  id Int @id @default(autoincrement())
-
+  id         Int           @id @default(autoincrement())
   user_id    Int
-  user       user          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   comment_id Int
+  created    DateTime      @default(now())
+  updated    DateTime      @updatedAt
   comment    patch_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  user       user          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([user_id, comment_id])
 }
 
 model user_patch_resource_like_relation {
-  id Int @id @default(autoincrement())
-
+  id          Int            @id @default(autoincrement())
   user_id     Int
-  user        user           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   resource_id Int
+  created     DateTime       @default(now())
+  updated     DateTime       @updatedAt
   resource    patch_resource @relation(fields: [resource_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  user        user           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([user_id, resource_id])
 }
 
 model patch {
-  id                   Int      @id @default(autoincrement())
-  unique_id            String   @unique @db.VarChar(8)
-  name                 String   @db.VarChar(1007)
-  vndb_id              String?  @unique @db.VarChar(107)
-  banner               String   @default("") @db.VarChar(1007)
-  introduction         String   @default("") @db.VarChar(100007)
-  released             String   @default("unknown") @db.VarChar(107)
-  content_limit        String   @default("") @db.VarChar(107)
-  status               Int      @default(0)
-  download             Int      @default(0)
-  view                 Int      @default(0)
-  resource_update_time DateTime @default(now())
+  id                   Int                                   @id @default(autoincrement())
+  unique_id            String                                @unique @db.VarChar(8)
+  name                 String                                @db.VarChar(1007)
+  vndb_id              String?                               @unique @db.VarChar(107)
+  banner               String                                @default("") @db.VarChar(1007)
+  introduction         String                                @default("") @db.VarChar(100007)
+  released             String                                @default("unknown") @db.VarChar(107)
+  content_limit        String                                @default("") @db.VarChar(107)
+  status               Int                                   @default(0)
+  download             Int                                   @default(0)
+  view                 Int                                   @default(0)
+  resource_update_time DateTime                              @default(now())
   type                 String[]
   language             String[]
   engine               String[]
   platform             String[]
-
-  user_id Int
-  user    user @relation("user_patch", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  alias           patch_alias[]
-  tag             patch_tag_relation[]
-  favorite_folder user_patch_favorite_folder_relation[]
-
-  resource patch_resource[] @relation("patch_resource")
-  comment  patch_comment[]  @relation("patch_comment")
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  user_id              Int
+  created              DateTime                              @default(now())
+  updated              DateTime                              @updatedAt
+  user                 user                                  @relation("user_patch", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  alias                patch_alias[]
+  comment              patch_comment[]                       @relation("patch_comment")
+  resource             patch_resource[]                      @relation("patch_resource")
+  tag                  patch_tag_relation[]
+  favorite_folder      user_patch_favorite_folder_relation[]
 }
 
 model patch_alias {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(1007)
+  id       Int      @id @default(autoincrement())
+  name     String   @db.VarChar(1007)
   patch_id Int
-  patch    patch  @relation(fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created  DateTime @default(now())
+  updated  DateTime @updatedAt
+  patch    patch    @relation(fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([patch_id])
   @@index([name])
 }
 
 model patch_tag {
-  id           Int      @id @default(autoincrement())
-  name         String   @unique @db.VarChar(107)
-  introduction String   @default("") @db.VarChar(10007)
-  count        Int      @default(0)
-  alias        String[]
-
-  patch_relation patch_tag_relation[]
+  id             Int                  @id @default(autoincrement())
+  name           String               @unique @db.VarChar(107)
+  introduction   String               @default("") @db.VarChar(10007)
+  count          Int                  @default(0)
+  alias          String[]
   user_id        Int
+  created        DateTime             @default(now())
+  updated        DateTime             @updatedAt
   user           user                 @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  patch_relation patch_tag_relation[]
 }
 
 model patch_tag_relation {
   id       Int       @id @default(autoincrement())
   patch_id Int
-  patch    patch     @relation(fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tag_id   Int
+  created  DateTime  @default(now())
+  updated  DateTime  @updatedAt
+  patch    patch     @relation(fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tag      patch_tag @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
 
   @@unique([patch_id, tag_id])
 }
 
 model patch_resource {
-  id       Int      @id @default(autoincrement())
-  storage  String   @db.VarChar(107)
-  section  String   @db.VarChar(107)
-  name     String   @default("") @db.VarChar(300)
-  size     String   @default("") @db.VarChar(107)
-  code     String   @default("") @db.VarChar(1007)
-  password String   @default("") @db.VarChar(1007)
-  note     String   @default("") @db.VarChar(10007)
-  hash     String   @default("")
-  content  String   @default("")
+  id       Int                                 @id @default(autoincrement())
+  storage  String                              @db.VarChar(107)
+  section  String                              @db.VarChar(107)
+  name     String                              @default("") @db.VarChar(300)
+  size     String                              @default("") @db.VarChar(107)
+  code     String                              @default("") @db.VarChar(1007)
+  password String                              @default("") @db.VarChar(1007)
+  note     String                              @default("") @db.VarChar(10007)
+  hash     String                              @default("")
+  content  String                              @default("")
   type     String[]
   language String[]
   platform String[]
-  download Int      @default(0)
-  status   Int      @default(0)
-
-  like_by user_patch_resource_like_relation[]
-
+  download Int                                 @default(0)
+  status   Int                                 @default(0)
   user_id  Int
-  user     user  @relation("user_patch_resource", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   patch_id Int
-  patch    patch @relation("patch_resource", fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created  DateTime                            @default(now())
+  updated  DateTime                            @updatedAt
+  patch    patch                               @relation("patch_resource", fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user     user                                @relation("user_patch_resource", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  like_by  user_patch_resource_like_relation[]
 }
 
 model patch_comment {
-  id      Int    @id @default(autoincrement())
-  content String @default("") @db.VarChar(10007)
-  edit    String @default("")
-
-  like_by user_patch_comment_like_relation[]
-
-  reply     patch_comment[] @relation("comment_reply")
+  id        Int                                @id @default(autoincrement())
+  content   String                             @default("") @db.VarChar(10007)
+  edit      String                             @default("")
   parent_id Int?
-  parent    patch_comment?  @relation("comment_reply", fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   user_id   Int
-  user      user            @relation("user_patch_comment", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   patch_id  Int
-  patch     patch           @relation("patch_comment", fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  created   DateTime                           @default(now())
+  updated   DateTime                           @updatedAt
+  parent    patch_comment?                     @relation("comment_reply", fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  reply     patch_comment[]                    @relation("comment_reply")
+  patch     patch                              @relation("patch_comment", fields: [patch_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user      user                               @relation("user_patch_comment", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  like_by   user_patch_comment_like_relation[]
+}
 
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+model topic {
+  id             Int             @id @default(autoincrement())
+  title          String          @db.VarChar(200)
+  content        String          @db.VarChar(50000)
+  status         Int             @default(0)
+  is_pinned      Boolean         @default(false)
+  view_count     Int             @default(0)
+  like_count     Int             @default(0)
+  user_id        Int
+  created        DateTime        @default(now())
+  updated        DateTime        @updatedAt
+  user           user            @relation("user_topic", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  topic_comments topic_comment[]
+  topic_likes    topic_like[]
+}
+
+model topic_like {
+  id       Int      @id @default(autoincrement())
+  user_id  Int
+  topic_id Int
+  created  DateTime @default(now())
+  topic    topic    @relation(fields: [topic_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user     user     @relation("user_topic_like", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, topic_id])
+}
+
+model topic_comment {
+  id         Int                  @id @default(autoincrement())
+  content    String               @db.VarChar(10000)
+  like_count Int                  @default(0)
+  user_id    Int
+  topic_id   Int
+  parent_id  Int?
+  created    DateTime             @default(now())
+  updated    DateTime             @updatedAt
+  parent     topic_comment?       @relation("comment_reply", fields: [parent_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  replies    topic_comment[]      @relation("comment_reply")
+  topic      topic                @relation(fields: [topic_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user       user                 @relation("user_topic_comment", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  like_by    topic_comment_like[]
+}
+
+model topic_comment_like {
+  id         Int           @id @default(autoincrement())
+  user_id    Int
+  comment_id Int
+  created    DateTime      @default(now())
+  comment    topic_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user       user          @relation("user_topic_comment_like", fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, comment_id])
 }

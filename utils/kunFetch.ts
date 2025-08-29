@@ -22,9 +22,9 @@ const kunFetchRequest = async <T>(
 
     const fetchAddress =
       process.env.NODE_ENV === 'development'
-        ? process.env.NEXT_PUBLIC_KUN_PATCH_ADDRESS_DEV
+        ? '' // 开发环境使用相对路径
         : process.env.NEXT_PUBLIC_KUN_PATCH_ADDRESS_PROD
-    const fullUrl = `${fetchAddress}/api${url}${queryString}`
+    const fullUrl = `${fetchAddress}${url}${queryString}`
 
     const fetchOptions: RequestInit = {
       method,
