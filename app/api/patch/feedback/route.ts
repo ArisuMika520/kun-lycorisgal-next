@@ -30,15 +30,26 @@ export const createFeedback = async (
 }
 
 export const POST = async (req: NextRequest) => {
-  const input = await kunParsePostBody(req, createPatchFeedbackSchema)
-  if (typeof input === 'string') {
-    return NextResponse.json(input)
-  }
-  const payload = await verifyHeaderCookie(req)
-  if (!payload) {
-    return NextResponse.json('用户未登录')
-  }
+  try {
+    const body = await req.json()
+    const result = createPatchFeedbackSchema.safeParse(body)
+    
+    if (!result.success) {
+      // 提取第一个错误的消息
+      const firstError = result.error.errors[0]
+      const errorMessage = firstError?.message || '输入数据格式错误'
+      return NextResponse.json({ error: errorMessage }, { status: 400 })
+    }
+    
+    const payload = await verifyHeaderCookie(req)
+    if (!payload) {
+      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
+    }
 
-  const response = await createFeedback(input, payload.uid)
-  return NextResponse.json(response)
+    const response = await createFeedback(result.data, payload.uid)
+    return NextResponse.json(response)
+  } catch (error) {
+    console.error('创建反馈失败:', error)
+    return NextResponse.json({ error: '提交反馈失败' }, { status: 500 })
+  }
 }

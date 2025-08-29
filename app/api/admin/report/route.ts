@@ -14,7 +14,11 @@ export const getReport = async (
 
   const [data, total] = await Promise.all([
     prisma.user_message.findMany({
-      where: { type: 'report', sender_id: { not: null } },
+      where: { 
+        type: 'report', 
+        sender_id: { not: null },
+        recipient_id: { not: null } // 只显示用户提交的原始举报（发送给管理员的消息）
+      },
       include: {
         sender: {
           select: {
@@ -29,7 +33,11 @@ export const getReport = async (
       take: limit
     }),
     prisma.user_message.count({
-      where: { type: 'report', sender_id: { not: null } }
+      where: { 
+        type: 'report', 
+        sender_id: { not: null },
+        recipient_id: { not: null } // 只计算用户提交的原始举报数量
+      }
     })
   ])
 

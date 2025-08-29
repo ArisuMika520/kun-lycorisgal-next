@@ -39,7 +39,7 @@ export const CardContainer = ({
     const { comments } = await kunFetchGet<{
       comments: PatchComment[]
       total: number
-    }>('/comment', {
+    }>('/api/comment', {
       sortField,
       sortOrder,
       page,

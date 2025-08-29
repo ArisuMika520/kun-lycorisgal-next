@@ -14,7 +14,7 @@ export const DisableRegisterSetting = ({ disableRegister }: Props) => {
   const [isDisable, setIsDisable] = useState(disableRegister)
 
   const handleSwitch = async (value: boolean) => {
-    const res = await kunFetchPut<KunResponse<{}>>('/admin/setting/register', {
+    const res = await kunFetchPut<KunResponse<{}>>('/api/admin/setting/register', {
       disableRegister: value
     })
     if (typeof res === 'string') {

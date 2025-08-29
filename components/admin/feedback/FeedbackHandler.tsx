@@ -40,7 +40,7 @@ export const FeedbackHandler = ({ initialFeedback }: Props) => {
   const handleUpdateFeedback = async () => {
     setUpdating(true)
     const res = await kunFetchPost<KunResponse<AdminFeedback>>(
-      '/admin/feedback/handle',
+      '/api/admin/feedback/handle',
       {
         messageId: initialFeedback.id,
         content: handleContent.trim()

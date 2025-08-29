@@ -28,7 +28,7 @@ export const FeedbackButton = ({ patch }: Props) => {
 
   const handleSubmitFeedback = async () => {
     setSubmitting(true)
-    const res = await kunFetchPost<KunResponse<{}>>('/patch/feedback', {
+    const res = await kunFetchPost<KunResponse<{}>>('/api/patch/feedback', {
       patchId: patch.id,
       content: inputValue
     })

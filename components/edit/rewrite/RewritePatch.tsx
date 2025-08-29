@@ -54,12 +54,18 @@ export const RewritePatch = () => {
 
     setRewriting(true)
 
-    const res = kunFetchPut<KunResponse<{}>>('/edit', { ...data })
-    kunErrorHandler(res, async () => {
-      router.push(`/${data.uniqueId}`)
-    })
-    toast.success('重新编辑成功, 由于缓存影响, 您的更改将在至多 30 秒后生效')
-    setRewriting(false)
+    try {
+      const res = await kunFetchPut<KunResponse<{}>>('/api/edit', { ...data })
+      await kunErrorHandler(res, async () => {
+        toast.success('重新编辑成功, 由于缓存影响, 您的更改将在至多 30 秒后生效')
+        router.push(`/${data.uniqueId}`)
+      })
+    } catch (error) {
+      console.error('编辑游戏信息失败:', error)
+      toast.error('编辑失败，请稍后重试')
+    } finally {
+      setRewriting(false)
+    }
   }
 
   return (

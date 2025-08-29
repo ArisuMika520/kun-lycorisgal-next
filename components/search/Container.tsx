@@ -73,7 +73,7 @@ export const SearchPage = () => {
     const { galgames, total } = await kunFetchPost<{
       galgames: GalgameCard[]
       total: number
-    }>('/search', {
+    }>('/api/search', {
       queryString: JSON.stringify(selectedSuggestions),
       limit: 12,
       searchOption: {

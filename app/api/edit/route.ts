@@ -4,6 +4,7 @@ import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
 import { patchCreateSchema, patchUpdateSchema } from '~/validations/edit'
 import { createGalgame } from './create'
 import { updateGalgame } from './update'
+import { prisma } from '~/prisma'
 
 const checkStringArrayValid = (type: 'alias' | 'tag', aliasString: string) => {
   const label = type === 'alias' ? '别名' : '标签'
@@ -55,17 +56,18 @@ export const POST = async (req: NextRequest) => {
 }
 
 export const PUT = async (req: NextRequest) => {
-  const input = await kunParsePutBody(req, patchUpdateSchema)
-  if (typeof input === 'string') {
-    return NextResponse.json(input)
-  }
-  const payload = await verifyHeaderCookie(req)
-  if (!payload) {
-    return NextResponse.json('用户未登录')
-  }
-  if (payload.role < 3) {
-    return NextResponse.json('本页面仅管理员可访问')
-  }
+  try {
+    const input = await kunParsePutBody(req, patchUpdateSchema)
+    if (typeof input === 'string') {
+      return NextResponse.json({ error: input }, { status: 400 })
+    }
+    const payload = await verifyHeaderCookie(req)
+    if (!payload) {
+      return NextResponse.json({ error: '用户未登录' }, { status: 401 })
+    }
+    if (payload.role < 3) {
+      return NextResponse.json({ error: '本页面仅管理员可访问' }, { status: 403 })
+    }
 
   const response = await updateGalgame(input, payload.uid)
   return NextResponse.json(response)
