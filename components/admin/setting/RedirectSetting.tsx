@@ -33,7 +33,7 @@ export const RedirectSetting = ({ setting }: Props) => {
   const [isSetting, setIsSetting] = useState(false)
   const handleApplyRedirect = async () => {
     setIsSetting(true)
-    const res = await kunFetchPut<KunResponse<{}>>('/admin/setting/redirect', {
+    const res = await kunFetchPut<KunResponse<{}>>('/api/admin/setting/redirect', {
       enableRedirect: isEnabled,
       excludedDomains,
       delaySeconds: delay

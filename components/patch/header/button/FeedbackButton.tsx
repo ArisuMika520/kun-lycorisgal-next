@@ -28,15 +28,34 @@ export const FeedbackButton = ({ patch }: Props) => {
 
   const handleSubmitFeedback = async () => {
     setSubmitting(true)
-    const res = await kunFetchPost<KunResponse<{}>>('/api/patch/feedback', {
-      patchId: patch.id,
-      content: inputValue
-    })
-    if (typeof res === 'string') {
-      toast.error(res)
-    } else {
-      setInputValue('')
-      toast.success('提交反馈成功')
+    try {
+      const response = await fetch('/api/patch/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          patchId: patch.id,
+          content: inputValue
+        })
+      })
+      
+      const data = await response.json()
+      
+      if (!response.ok) {
+        // 处理错误响应
+        if (data.error) {
+          toast.error(data.error)
+        } else {
+          toast.error('提交反馈失败')
+        }
+      } else {
+        // 成功响应
+        setInputValue('')
+        toast.success('提交反馈成功')
+      }
+    } catch (error) {
+      console.error('提交反馈失败:', error)
+      toast.error('提交反馈失败')
     }
     onClose()
     setSubmitting(false)

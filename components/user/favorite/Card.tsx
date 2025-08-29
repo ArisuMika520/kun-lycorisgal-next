@@ -40,7 +40,7 @@ export const UserGalgameCard = ({
   const handleRemoveFavorite = () => {
     startTransition(async () => {
       const res = await kunFetchPut<KunResponse<{ added: boolean }>>(
-        `/patch/favorite`,
+        `/api/patch/favorite`,
         { patchId: galgame.id, folderId }
       )
       kunErrorHandler(res, () => {

@@ -51,7 +51,6 @@ export const KunPagination = ({
     if (newPage >= 1 && newPage <= total) {
       setInputValue(String(newPage))
       onPageChange(newPage)
-      updateURL(newPage)
     }
   }
 

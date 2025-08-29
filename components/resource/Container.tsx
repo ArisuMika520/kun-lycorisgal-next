@@ -33,7 +33,7 @@ export const CardContainer = ({ initialResources, initialTotal }: Props) => {
     const { resources } = await kunFetchGet<{
       resources: PatchResource[]
       total: number
-    }>('/resource', {
+    }>('/api/resource', {
       sortField,
       sortOrder,
       page,

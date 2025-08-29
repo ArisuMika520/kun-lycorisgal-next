@@ -46,12 +46,12 @@ export const EditFolderModal = ({
 
       if (action === 'create') {
         res = await kunFetchPost<KunResponse<UserFavoritePatchFolder>>(
-          '/user/profile/favorite/folder',
+          '/api/user/profile/favorite/folder',
           newFolder
         )
       } else {
         res = await kunFetchPut<KunResponse<UserFavoritePatchFolder>>(
-          '/user/profile/favorite/folder',
+          '/api/user/profile/favorite/folder',
           { folderId, ...newFolder }
         )
       }

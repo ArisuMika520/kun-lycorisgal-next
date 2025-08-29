@@ -46,12 +46,41 @@ export const CardContainer = ({ initialGalgames, initialTotal }: Props) => {
   )
   const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
 
-  useEffect(() => {
+  const fetchPatches = async () => {
+    setLoading(true)
+
+    try {
+      const { galgames, total } = await kunFetchGet<{
+        galgames: GalgameCard[]
+        total: number
+      }>('/api/galgame', {
+        selectedType,
+        selectedLanguage,
+        selectedPlatform,
+        sortField,
+        sortOrder,
+        page,
+        limit: 24,
+        yearString: JSON.stringify(selectedYears),
+        monthString: JSON.stringify(selectedMonths)
+      })
+
+      setGalgames(galgames)
+      setTotal(total)
+    } catch (error) {
+      console.error('Failed to fetch galgames:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateURLAndFetch = async () => {
     if (!isMounted) {
       return
     }
-    const params = new URLSearchParams()
 
+    // 更新URL
+    const params = new URLSearchParams()
     params.set('type', selectedType)
     params.set('language', selectedLanguage)
     params.set('platform', selectedPlatform)
@@ -63,49 +92,31 @@ export const CardContainer = ({ initialGalgames, initialTotal }: Props) => {
 
     const queryString = params.toString()
     const url = queryString ? `?${queryString}` : ''
+    router.push(url, { scroll: false })
 
-    router.push(url)
-  }, [
-    selectedType,
-    selectedLanguage,
-    selectedPlatform,
-    sortField,
-    sortOrder,
-    selectedYears,
-    selectedMonths,
-    page,
-    isMounted,
-    router
-  ])
-
-  const fetchPatches = async () => {
-    setLoading(true)
-
-    const { galgames, total } = await kunFetchGet<{
-      galgames: GalgameCard[]
-      total: number
-    }>('/galgame', {
-      selectedType,
-      selectedLanguage,
-      selectedPlatform,
-      sortField,
-      sortOrder,
-      page,
-      limit: 24,
-      yearString: JSON.stringify(selectedYears),
-      monthString: JSON.stringify(selectedMonths)
-    })
-
-    setGalgames(galgames)
-    setTotal(total)
-    setLoading(false)
+    // 获取数据
+    await fetchPatches()
   }
 
+  // 当筛选条件改变时，重置页码为1
   useEffect(() => {
-    if (!isMounted) {
-      return
+    if (isMounted && page !== 1) {
+      setPage(1)
     }
-    fetchPatches()
+  }, [
+    sortField,
+    sortOrder,
+    selectedType,
+    selectedLanguage,
+    selectedPlatform,
+    selectedYears,
+    selectedMonths,
+    isMounted
+  ])
+
+  // 当页码或筛选条件改变时，更新URL和获取数据
+  useEffect(() => {
+    updateURLAndFetch()
   }, [
     sortField,
     sortOrder,
@@ -114,7 +125,8 @@ export const CardContainer = ({ initialGalgames, initialTotal }: Props) => {
     selectedPlatform,
     page,
     selectedYears,
-    selectedMonths
+    selectedMonths,
+    isMounted
   ])
 
   return (

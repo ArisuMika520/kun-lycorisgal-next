@@ -21,7 +21,7 @@ export const FavoriteModal = ({ patchId, isOpen, onClose }: Props) => {
 
   const fetchFolders = async () => {
     const response = await kunFetchGet<UserFavoritePatchFolder[]>(
-      '/user/profile/favorite/folder',
+      '/api/user/profile/favorite/folder',
       { patchId }
     )
     setFolders(response)
@@ -36,7 +36,7 @@ export const FavoriteModal = ({ patchId, isOpen, onClose }: Props) => {
   const handleAddToFolder = async (folderId: number) => {
     startTransition(async () => {
       const res = await kunFetchPut<KunResponse<{ added: boolean }>>(
-        `/patch/favorite`,
+        `/api/patch/favorite`,
         { patchId, folderId }
       )
       kunErrorHandler(res, (value) => {

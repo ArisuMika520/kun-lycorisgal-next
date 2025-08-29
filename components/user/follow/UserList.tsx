@@ -26,11 +26,11 @@ export const UserList = ({ userId, type }: UserListProps) => {
     let results = []
 
     if (type === 'followers') {
-      results = await kunFetchGet<UserFollowType[]>('/user/follow/follower', {
+      results = await kunFetchGet<UserFollowType[]>('/api/user/follow/follower', {
         uid: userId
       })
     } else {
-      results = await kunFetchGet<UserFollowType[]>('/user/follow/following', {
+      results = await kunFetchGet<UserFollowType[]>('/api/user/follow/following', {
         uid: userId
       })
     }

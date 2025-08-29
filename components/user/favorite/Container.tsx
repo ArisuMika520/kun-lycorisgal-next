@@ -53,7 +53,7 @@ export const UserFavorite = ({
     startTransition(async () => {
       const res = await kunFetchGet<
         KunResponse<{ patches: GalgameCard[]; total: number }>
-      >(`/user/profile/favorite/folder/patch`, { folderId, page, limit: 48 })
+      >(`/api/user/profile/favorite/folder/patch`, { folderId, page, limit: 48 })
       kunErrorHandler(res, (value) => {
         setPatches(value.patches)
         setTotal(value.total)
@@ -75,7 +75,7 @@ export const UserFavorite = ({
   const handleDeleteFolder = async () => {
     startTransition(async () => {
       const res = await kunFetchDelete<KunResponse<{}>>(
-        `/user/profile/favorite/folder`,
+        `/api/user/profile/favorite/folder`,
         { folderId: selectedFolder?.id ?? 0 }
       )
       kunErrorHandler(res, () => {
@@ -137,7 +137,7 @@ export const UserFavorite = ({
                 {folder.description}
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-small">{folder._count.patch} 个补丁</span>
+                <span className="text-small">{folder._count.patch} 个资源</span>
                 {folder.is_public ? (
                   <span className="text-small text-primary">公开</span>
                 ) : (

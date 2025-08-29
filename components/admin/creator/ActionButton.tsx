@@ -30,7 +30,7 @@ export const ActionButton = ({ creator }: Props) => {
   const handleApprove = async () => {
     setApproving(true)
 
-    const res = await kunFetchPut<KunResponse<{}>>('/admin/creator/approve', {
+    const res = await kunFetchPut<KunResponse<{}>>('/api/admin/creator/approve', {
       messageId: creator.id,
       uid: creator.sender?.id
     })
@@ -51,7 +51,7 @@ export const ActionButton = ({ creator }: Props) => {
   const handleDecline = async () => {
     serDeclining(true)
 
-    const res = await kunFetchPut<KunResponse<{}>>('/admin/creator/decline', {
+    const res = await kunFetchPut<KunResponse<{}>>('/api/admin/creator/decline', {
       messageId: creator.id,
       reason
     })

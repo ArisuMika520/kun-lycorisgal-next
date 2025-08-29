@@ -37,7 +37,7 @@ export const TwoFactor = () => {
     }
 
     startTransition(async () => {
-      const response = await kunFetchPost<UserState>('/auth/verify-2fa', {
+      const response = await kunFetchPost<UserState>('/api/auth/verify-2fa', {
         token,
         isBackupCode: isUsingBackupCode
       })
