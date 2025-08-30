@@ -18,11 +18,15 @@ import {
   Trophy,
   CheckSquare,
   Hash,
-  HeartMinus
+  HeartMinus,
+  Eye,
+  EyeOff,
+  Shield
 } from 'lucide-react'
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
 import { Image } from '@heroui/image'
+import { useSettingStore } from '~/store/settingStore'
 
 const navSections = [
   {
@@ -92,6 +96,49 @@ interface SidebarProps {
 
 export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
   const pathname = usePathname()
+  const settings = useSettingStore((state) => state.data)
+
+  const NSFWNotice = () => {
+    if (isCollapsed) return null
+    
+    const isSFW = settings.kunNsfwEnable === 'sfw'
+    const isNSFW = settings.kunNsfwEnable === 'nsfw'
+    const isAll = settings.kunNsfwEnable === 'all'
+    
+    if (isSFW) {
+      return (
+        <div className="mx-3 mb-4 p-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg">
+          <div className="flex items-start gap-2">
+            <Shield className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
+            <div className="text-xs text-orange-700 dark:text-orange-300">
+              <div className="font-medium mb-1">部分 Galgame 已被隐藏</div>
+              <div className="text-orange-600 dark:text-orange-400">
+                网站未启用 NSFW, 部分 Galgame 不可见, 要查看所有 Galgame, 请在网站右上角设置打开 NSFW
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    if (isNSFW || isAll) {
+      return (
+        <div className="mx-3 mb-4 p-3 bg-pink-50 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-800 rounded-lg">
+          <div className="flex items-start gap-2">
+            <Eye className="w-4 h-4 text-pink-500 mt-0.5 flex-shrink-0" />
+            <div className="text-xs text-pink-700 dark:text-pink-300">
+              <div className="font-medium mb-1">网站已进入♡全面涩涩模式♡</div>
+              <div className="text-pink-600 dark:text-pink-400">
+                网站已启用 NSFW, 杂鱼~♡ 杂鱼~♡, 请注意您周围没有人
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+    
+    return null
+  }
 
   return (
     <aside
@@ -100,7 +147,9 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         isCollapsed ? 'w-20' : 'w-64'
       )}
     >
-      <div className="h-16" />
+      <div className="pt-4 pb-2">
+        <NSFWNotice />
+      </div>
       <div className="flex-1 px-3 py-4 overflow-y-auto scrollbar-hide">
         {navSections.map((section, index) => (
           <div key={section.title} className={cn(!isCollapsed && 'mb-2')}>
