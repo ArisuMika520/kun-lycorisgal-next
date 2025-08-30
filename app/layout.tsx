@@ -7,6 +7,7 @@ import { cn } from '~/utils/cn'
 import { KunTopBar } from '~/components/kun/top-bar/TopBar'
 import { KunBackToTop } from '~/components/kun/BackToTop'
 import { AppShell } from '~/components/layout/AppShell'
+import { AdSettings } from '~/components/ads/AdSettings'
 
 export default function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default function RootLayout({
             <Toaster />
             <AppShell>{children}</AppShell>
             <KunBackToTop />
+            <AdSettings />
           </div>
         </Providers>
       </body>

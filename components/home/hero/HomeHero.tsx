@@ -5,15 +5,18 @@ import { Card, CardBody } from '@heroui/card'
 import { Chip } from '@heroui/chip'
 import { Sparkles } from 'lucide-react'
 import { KunCarousel } from '../carousel/KunCarousel'
-import { getKunPosts } from '../carousel/mdx'
 import { RandomGalgameButton } from '../carousel/RandomGalgameButton'
 import { Discord } from '~/components/kun/icons/Discord'
 import { Telegram } from '~/components/kun/icons/Telegram'
 import { KunHomeNavigationItems } from '../NavigationItems'
 import { kunMoyuMoe } from '~/config/moyu-moe'
+import type { HomeCarouselMetadata } from '../carousel/mdx'
 
-export const HomeHero = () => {
-  const posts = getKunPosts()
+interface HomeHeroProps {
+  posts?: HomeCarouselMetadata[]
+}
+
+export const HomeHero = ({ posts = [] }: HomeHeroProps) => {
 
   return (
     <div className="w-full mx-auto">

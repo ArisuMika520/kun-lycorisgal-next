@@ -18,8 +18,20 @@ export const KunCarousel = ({ posts }: KunCarouselProps) => {
   const [isHovered, setIsHovered] = useState(false)
   const [direction, setDirection] = useState(0)
 
+  // 如果没有 posts 数据，显示占位内容
+  if (!posts || posts.length === 0) {
+    return (
+      <div className="relative h-[300px] overflow-hidden flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl">
+        <div className="text-center space-y-4">
+          <div className="text-2xl font-bold text-foreground/60">暂无轮播内容</div>
+          <div className="text-sm text-foreground/40">请稍后再试</div>
+        </div>
+      </div>
+    )
+  }
+
   useEffect(() => {
-    if (!isHovered) {
+    if (!isHovered && posts.length > 0) {
       const timer = setInterval(() => {
         setDirection(1)
         setCurrentSlide((prev) => (prev + 1) % posts.length)

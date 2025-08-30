@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '~/utils/cn'
@@ -23,8 +24,15 @@ import {
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
 import { Image } from '@heroui/image'
+import { NSFWStatusNotice } from '~/components/kun/sidebar/NSFWStatusNotice'
+import { AdNavItem } from '~/components/ads/AdNavItem'
+import { SidebarAd, getSidebarNavAdData } from '~/components/ads/AdInterface'
 
 const navSections = [
+  {
+    title: '推荐内容',
+    items: [], // 将在组件内部动态填充
+  },
   {
     title: '核心功能',
     items: [
@@ -92,6 +100,54 @@ interface SidebarProps {
 
 export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
   const pathname = usePathname()
+  const [recommendedItems, setRecommendedItems] = useState<any[]>([])
+  
+  useEffect(() => {
+    // 获取推荐内容导航项（包含广告）
+    const getRecommendedItems = () => {
+      const items = []
+      
+      // 添加广告导航项
+      for (let i = 0; i < 3; i++) {
+        const adData = getSidebarNavAdData(i)
+        if (adData) {
+          items.push({
+            ...adData,
+            icon: i === 0 ? Trophy : i === 1 ? Users : CheckSquare
+          })
+        }
+      }
+      
+      return items
+    }
+    
+    setRecommendedItems(getRecommendedItems())
+    
+    // 监听localStorage变化和自定义事件
+    const handleStorageChange = () => {
+      setRecommendedItems(getRecommendedItems())
+    }
+    
+    const handleAdConfigUpdate = () => {
+      setRecommendedItems(getRecommendedItems())
+    }
+    
+    const handleUserPreferencesUpdate = () => {
+      setRecommendedItems(getRecommendedItems())
+    }
+    
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', handleStorageChange)
+      window.addEventListener('adConfigUpdated', handleAdConfigUpdate)
+      window.addEventListener('userAdPreferencesUpdated', handleUserPreferencesUpdate)
+      
+      return () => {
+        window.removeEventListener('storage', handleStorageChange)
+        window.removeEventListener('adConfigUpdated', handleAdConfigUpdate)
+        window.removeEventListener('userAdPreferencesUpdated', handleUserPreferencesUpdate)
+      }
+    }
+  }, [])
 
   return (
     <aside
@@ -100,28 +156,60 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         isCollapsed ? 'w-20' : 'w-64'
       )}
     >
-      <div className="h-16" />
+      <div className="h-24 flex items-center">
+        {!isCollapsed && (
+          <div className="px-4 w-full">
+            <NSFWStatusNotice />
+          </div>
+        )}
+      </div>
+      
       <div className="flex-1 px-3 py-4 overflow-y-auto scrollbar-hide">
-        {navSections.map((section, index) => (
-          <div key={section.title} className={cn(!isCollapsed && 'mb-2')}>
-            {index > 0 && (
-              <div
-                className={cn(
-                  'transition-opacity my-2 border-t border-divider',
-                  isCollapsed && 'mx-auto w-4/5'
+        {navSections.map((section, index) => {
+          // 为推荐内容部分使用动态的recommendedItems
+          const items = section.title === '推荐内容' ? recommendedItems : section.items
+          
+          return (
+            <div key={section.title}>
+              <div className={cn(!isCollapsed && 'mb-2')}>
+                {index > 0 && (
+                  <div
+                    className={cn(
+                      'transition-opacity my-2 border-t border-divider',
+                      isCollapsed && 'mx-auto w-4/5'
+                    )}
+                  />
                 )}
-              />
-            )}
-            <h2
-              className={cn(
-                'text-xs font-semibold text-default-400 uppercase px-2 py-1 transition-opacity duration-300',
-                isCollapsed && 'opacity-0 h-0 p-0 m-0 hidden'
-              )}
-            >
-              {section.title}
-            </h2>
-            <ul className="space-y-1 font-medium">
-              {section.items.map((item: any) => {
+                <h2
+                  className={cn(
+                    'text-xs font-semibold text-default-400 uppercase px-2 py-1 transition-opacity duration-300',
+                    isCollapsed && 'opacity-0 h-0 p-0 m-0 hidden'
+                  )}
+                >
+                  {section.title}
+                </h2>
+                <ul className="space-y-1 font-medium">
+              {items.map((item: any) => {
+                // 如果是广告项，使用 AdNavItem 组件
+                if (item.isAd) {
+                  return (
+                    <li key={item.name}>
+                      <AdNavItem
+                        name={item.name}
+                        description={item.description}
+                        href={item.href}
+                        icon={item.icon}
+                        adImage={item.adImage}
+                        adTitle={item.adTitle}
+                        adDescription={item.adDescription}
+                        isActive={pathname === item.href}
+                        isCollapsed={isCollapsed}
+                      />
+                    </li>
+                  )
+                }
+
+                // 普通导航项的原有逻辑
                 const linkContent = (
                   <Link
                     href={item.href}
@@ -170,10 +258,15 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
                   </li>
                 )
               })}
-            </ul>
-          </div>
-        ))}
+                </ul>
+              </div>
+            </div>
+          )
+        })}
       </div>
+
+
+      
       <div className="p-3 mt-auto border-t border-divider">
         <Button
           isIconOnly={isCollapsed}
