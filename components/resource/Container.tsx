@@ -9,7 +9,6 @@ import { KunLoading } from '~/components/kun/Loading'
 import { KunHeader } from '../kun/Header'
 import { useSearchParams } from 'next/navigation'
 import { KunPagination } from '~/components/kun/Pagination'
-
 import type { SortDirection, SortOption } from './_sort'
 import type { PatchResource } from '~/types/api/resource'
 
@@ -27,7 +26,6 @@ export const CardContainer = ({ initialResources, initialTotal }: Props) => {
   const isMounted = useMounted()
   const searchParams = useSearchParams()
   const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
-
 
   const fetchData = async () => {
     setLoading(true)
@@ -60,8 +58,6 @@ export const CardContainer = ({ initialResources, initialTotal }: Props) => {
         name="Galgame 补丁资源"
         description="这里展示了所有的 Galgame 补丁资源列表"
       />
-
-
 
       <FilterBar
         sortField={sortField}

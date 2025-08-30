@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@heroui/button'
 import { ChevronRight } from 'lucide-react'
 import { GalgameCard } from '~/components/galgame/Card'
@@ -7,8 +5,6 @@ import { ResourceCard } from '~/components/resource/ResourceCard'
 import { TopicCard } from '~/components/topic/TopicCard'
 import Link from 'next/link'
 import { HomeHero } from './hero/HomeHero'
-import { HomeBannerRowAd } from '~/components/ads/AdInterface'
-
 import type { HomeResource } from '~/types/api/home'
 import type { TopicCard as TopicCardType } from '~/types/api/topic'
 
@@ -16,17 +12,12 @@ interface Props {
   galgames: GalgameCard[]
   resources: HomeResource[]
   topics: TopicCardType[]
-  posts?: any[] // 轮播图数据
 }
 
-export const HomeContainer = ({ galgames, resources, topics, posts }: Props) => {
-
+export const HomeContainer = ({ galgames, resources, topics }: Props) => {
   return (
     <div className="mx-auto space-y-8 max-w-7xl">
-      <HomeHero posts={posts} />
-      
-      {/* 首页横幅广告 */}
-      <HomeBannerRowAd />
+      <HomeHero />
       
       <section className="space-y-6">
         <div className="flex items-center space-x-4">

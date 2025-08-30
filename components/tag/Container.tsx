@@ -9,7 +9,6 @@ import { kunFetchGet, kunFetchPost } from '~/utils/kunFetch'
 import { useMounted } from '~/hooks/useMounted'
 import { KunPagination } from '~/components/kun/Pagination'
 import { KunNull } from '~/components/kun/Null'
-
 import type { Tag as TagType } from '~/types/api/tag'
 
 interface Props {
@@ -24,7 +23,6 @@ export const Container = ({ initialTags, initialTotal, uid }: Props) => {
   const [total, setTotal] = useState(initialTotal)
   const [loading, setLoading] = useState(false)
   const isMounted = useMounted()
-
 
   const fetchTags = async () => {
     setLoading(true)
@@ -75,8 +73,6 @@ export const Container = ({ initialTags, initialTotal, uid }: Props) => {
   return (
     <div className="flex flex-col w-full my-4 space-y-8">
       <TagHeader setNewTag={(newTag) => setTags([newTag, ...initialTags])} />
-      
-
 
       {uid ? (
         <>

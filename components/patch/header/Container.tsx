@@ -6,7 +6,6 @@ import { PatchHeaderTabs } from './Tabs'
 import { PatchHeaderInfo } from './Info'
 import { KunAutoImageViewer } from '~/components/kun/image-viewer/AutoImageViewer'
 import { KunNull } from '~/components/kun/Null'
-
 import type { Patch, PatchIntroduction } from '~/types/api/patch'
 
 interface PatchHeaderProps {
@@ -36,8 +35,6 @@ export const PatchHeaderContainer = ({
       released: intro.released
     })
   }, [])
-
-
 
   return (
     <div className="relative w-full mx-auto max-w-7xl">

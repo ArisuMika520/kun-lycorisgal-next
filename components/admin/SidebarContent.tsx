@@ -10,7 +10,6 @@ import {
   Mail,
   MessageCircleQuestion,
   MessageSquare,
-  Monitor,
   Puzzle,
   Settings,
   TriangleAlert,
@@ -62,11 +61,6 @@ const menuItems = [
     name: '评论举报管理',
     href: '/admin/report',
     icon: TriangleAlert
-  },
-  {
-    name: '广告管理',
-    href: '/admin/ads',
-    icon: Monitor
   },
   {
     name: '管理日志',
