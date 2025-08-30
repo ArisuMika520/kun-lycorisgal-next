@@ -17,6 +17,7 @@ import { PublishResource } from './publish/PublishResource'
 import { EditResourceDialog } from './edit/EditResourceDialog'
 import { ResourceTabs } from './Tabs'
 import { KunLoading } from '~/components/kun/Loading'
+import { GameDetailAds } from './GameDetailAds'
 import toast from 'react-hot-toast'
 import type { PatchResource } from '~/types/api/patch'
 
@@ -180,6 +181,8 @@ export const Resources = ({ id, vndbId }: Props) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      <GameDetailAds />
     </div>
   )
 }

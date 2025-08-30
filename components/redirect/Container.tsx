@@ -3,6 +3,7 @@
 import { Suspense } from 'react'
 import { Alert, Image, Link } from '@heroui/react'
 import { KunRedirectCard } from './KunRedirectCard'
+import { RedirectAds } from './RedirectAds'
 import { kunMoyuMoe } from '~/config/moyu-moe'
 
 export const KunRedirectContainer = () => {
@@ -26,6 +27,8 @@ export const KunRedirectContainer = () => {
             variant="faded"
           />
         </div>
+
+        <RedirectAds />
       </div>
     </div>
   )

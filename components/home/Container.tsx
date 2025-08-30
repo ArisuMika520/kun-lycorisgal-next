@@ -5,6 +5,7 @@ import { ResourceCard } from '~/components/resource/ResourceCard'
 import { TopicCard } from '~/components/topic/TopicCard'
 import Link from 'next/link'
 import { HomeHero } from './hero/HomeHero'
+import { HomeAds } from './HomeAds'
 import type { HomeResource } from '~/types/api/home'
 import type { TopicCard as TopicCardType } from '~/types/api/topic'
 
@@ -18,6 +19,9 @@ export const HomeContainer = ({ galgames, resources, topics }: Props) => {
   return (
     <div className="mx-auto space-y-8 max-w-7xl">
       <HomeHero />
+      
+      {/* 首页广告栏 */}
+      <HomeAds />
       
       <section className="space-y-6">
         <div className="flex items-center space-x-4">

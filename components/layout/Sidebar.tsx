@@ -35,8 +35,8 @@ const navSections = [
     title: '推荐内容',
     items: [
       //{
-      //  name: 'AD1',
-      //  description: 'AD',
+      //  name: '广告示例',
+      //  description: '广告示例',
       //  href: 'https://www.bilibili.com/',
       //  icon: Star,
       //  popover: {
