@@ -21,7 +21,9 @@ import {
   HeartMinus,
   Eye,
   EyeOff,
-  Shield
+  Shield,
+  ExternalLink,
+  Star
 } from 'lucide-react'
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
@@ -30,19 +32,24 @@ import { useSettingStore } from '~/store/settingStore'
 
 const navSections = [
   {
-    title: '核心功能',
+    title: '推荐内容',
     items: [
       //{
-      //  name: '首页',
-      //  description: '网站首页',
-      //  href: '/',
-      //  icon: Home,
+      //  name: 'AD1',
+      //  description: 'AD',
+      //  href: 'https://www.bilibili.com/',
+      //  icon: Star,
       //  popover: {
-      //    title: '返回首页',
-      //    description: '点击回到 LyCorisGal 主页面',
-      //    image: '/touchgal.avif',
+      //    title: '广告示例',
+      //    description: '广告示例',
+      //    image: '/lycorisgal.png',
       // },
       //},
+    ],
+  },
+  {
+    title: '核心功能',
+    items: [
       { name: '首页', description: '网站首页', href: '/', icon: Home },
       { name: 'Galgame', description: 'Galgame 本体获取', href: '/galgame', icon: Gamepad2 },
       { name: '补丁和存档', description: '游戏补丁与存档', href: '/resource', icon: FileText },
@@ -151,24 +158,32 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         <NSFWNotice />
       </div>
       <div className="flex-1 px-3 py-4 overflow-y-auto scrollbar-hide">
-        {navSections.map((section, index) => (
-          <div key={section.title} className={cn(!isCollapsed && 'mb-2')}>
-            {index > 0 && (
-              <div
-                className={cn(
-                  'transition-opacity my-2 border-t border-divider',
-                  isCollapsed && 'mx-auto w-4/5'
-                )}
-              />
-            )}
-            <h2
-              className={cn(
-                'text-xs font-semibold text-default-400 uppercase px-2 py-1 transition-opacity duration-300',
-                isCollapsed && 'opacity-0 h-0 p-0 m-0 hidden'
+        {navSections.map((section, index) => {
+          // 广告区域特殊处理
+          const isAdSection = section.title === '推荐内容'
+          
+          return (
+            <div key={section.title} className={cn(
+              !isCollapsed && 'mb-2',
+              isAdSection && 'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
+            )}>
+              {index > 0 && !isAdSection && (
+                <div
+                  className={cn(
+                    'transition-opacity my-2 border-t border-divider',
+                    isCollapsed && 'mx-auto w-4/5'
+                  )}
+                />
               )}
-            >
-              {section.title}
-            </h2>
+              <h2
+                className={cn(
+                  'text-xs font-semibold uppercase px-2 py-1 transition-opacity duration-300',
+                  isAdSection ? 'text-default-600 dark:text-default-300 font-bold' : 'text-default-400',
+                  isCollapsed && 'opacity-0 h-0 p-0 m-0 hidden'
+                )}
+              >
+                {isAdSection ? '✨ ' + section.title : section.title}
+              </h2>
             <ul className="space-y-1 font-medium">
               {section.items.map((item: any) => {
                 const linkContent = (
@@ -183,7 +198,10 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
                   >
                     <item.icon
                       className={cn(
-                        'w-5 h-5 transition duration-75 text-default-500 group-hover:text-foreground',
+                        'w-5 h-5 transition duration-75',
+                        isAdSection 
+                          ? 'text-primary group-hover:text-pink-600 dark:text-primary dark:group-hover:text-pink-300'
+                          : 'text-default-500 group-hover:text-foreground',
                         pathname === item.href ? 'text-primary-foreground' : ''
                       )}
                     />
@@ -221,7 +239,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               })}
             </ul>
           </div>
-        ))}
+        )})}
       </div>
       <div className="p-3 mt-auto border-t border-divider">
         <Button
