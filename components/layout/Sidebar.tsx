@@ -21,6 +21,7 @@ import {
   HeartMinus,
   Eye,
   EyeOff,
+  HeartIcon,
   Shield,
   ExternalLink,
   Star
@@ -34,17 +35,17 @@ const navSections = [
   {
     title: '推荐内容',
     items: [
-      //{
-      //  name: '广告示例',
-      //  description: '广告示例',
-      //  href: 'https://www.bilibili.com/',
-      //  icon: Star,
+      {
+        name: 'Ai女友💋（在线游玩）',
+        description: 'Ai女友💋',
+        href: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
+        icon: HeartIcon,
       //  popover: {
       //    title: '广告示例',
       //    description: '广告示例',
       //    image: '/lycorisgal.png',
       // },
-      //},
+      },
     ],
   },
   {

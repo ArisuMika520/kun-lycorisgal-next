@@ -16,20 +16,20 @@ interface AdItem {
 
 // 硬编码的广告数据
 const ADS_DATA: AdItem[] = [
-  /*{
+  {
     id: 'ad1',
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: 'https://www.bilibili.com/'
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-02.gif',
+    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
-    id: 'ad2', 
+    id: 'ad2',
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/1200x200.png',
-    link: 'https://www.bilibili.com/'
-  }*/
+    link: 'https://www.lycorisgal.com/'
+  }
 ]
 
 export const HomeAds = () => {
@@ -64,10 +64,10 @@ export const HomeAds = () => {
 
       {/* 广告内容 */}
       <div className={`grid gap-4 ${
-        visibleAds.length === 1 
-          ? 'grid-cols-1' 
-          : 'grid-cols-1 md:grid-cols-2'
-      }`}>
+        visibleAds.length === 1
+        ? 'grid-cols-1'
+        : 'grid-cols-1 md:grid-cols-2'
+        }`}>
         {visibleAds.map((ad) => (
           <Card
             key={ad.id}
@@ -83,10 +83,10 @@ export const HomeAds = () => {
                   className="w-full h-auto object-contain"
                   radius="lg"
                   style={{
-               width: 'auto',
-               maxWidth: '100%',
-               minWidth: '80%'
-             }}
+                    width: 'auto',
+                    maxWidth: '100%',
+                    minWidth: '80%'
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">

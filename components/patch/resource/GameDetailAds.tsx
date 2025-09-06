@@ -13,21 +13,20 @@ interface AdItem {
 
 // 游戏详情页独立的广告数据配置
 const GAME_DETAIL_ADS_DATA: AdItem[] = [
-  /*{
+  {
     id: 'game-detail-ad1',
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png', // 游戏详情页专用广告图片
-    link: 'https://www.example.com/game-detail-ad' // 游戏详情页专用广告链接
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-03.gif', // 游戏详情页专用广告图片
+    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
     id: 'game-detail-ad1',
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/1200x200.png', // 游戏详情页专用广告图片
-    link: 'https://www.example.com/game-detail-ad' // 游戏详情页专用广告链接
+    link: 'https://www.lycorisgal.com/' // 游戏详情页专用广告链接
   },
-  */
 ]
 
 export const GameDetailAds = () => {
@@ -43,10 +42,10 @@ export const GameDetailAds = () => {
     <section className="relative w-full max-w-7xl mx-auto mt-6">
       {/* 广告内容 */}
       <div className={`grid gap-4 ${
-        GAME_DETAIL_ADS_DATA.length === 1 
-          ? 'grid-cols-1' 
-          : 'grid-cols-1 md:grid-cols-2'
-      }`}>
+        GAME_DETAIL_ADS_DATA.length === 1
+        ? 'grid-cols-1'
+        : 'grid-cols-1 md:grid-cols-2'
+        }`}>
         {GAME_DETAIL_ADS_DATA.map((ad) => (
           <Card
             key={ad.id}
@@ -62,10 +61,10 @@ export const GameDetailAds = () => {
                   className="w-full h-auto object-contain"
                   radius="lg"
                   style={{
-               width: 'auto',
-               maxWidth: '100%',
-               minWidth: '80%'
-             }}
+                    width: 'auto',
+                    maxWidth: '100%',
+                    minWidth: '80%'
+                  }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">

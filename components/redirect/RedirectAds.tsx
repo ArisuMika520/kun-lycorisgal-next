@@ -12,13 +12,13 @@ interface AdItem {
 
 // 独立配置的广告数据
 const REDIRECT_ADS_DATA: AdItem[] = [
-  //{
-  //  id: 'redirect-ad1',
-  //  title: '广告',
-  //  description: '点击查看更多优质内容',
-  //  image: 'https://r2.sakinori.top/1200x200.png',
-  //  link: 'https://www.example.com/redirect-ad'
-  //}
+  {
+    id: 'redirect-ad1',
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-01.gif',
+    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+  }
 ]
 
 const handleAdClick = (link: string) => {
