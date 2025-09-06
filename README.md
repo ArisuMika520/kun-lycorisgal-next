@@ -13,6 +13,10 @@ https://t.me/LyCoriseGAL
 
 跟源项目kun-touchgal-next一样
 
+## 更多文档
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ArisuMika520/kun-lycorisgal-next)
+
 ## 开源声明 / 开源协议
 
 本项目由 [kun-touchgal-next](https://github.com/KUN1007/kun-touchgal-next) 修改而来
