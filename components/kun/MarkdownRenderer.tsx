@@ -61,7 +61,7 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
 
   return (
     <div 
-      className={`kun-prose max-w-none ${className}`}
+      className={`milkdown milkdown-renderer max-w-none ${className}`}
       dangerouslySetInnerHTML={{ __html: htmlContent }}
     />
   )

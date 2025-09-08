@@ -132,3 +132,55 @@
 .milkdown kbd {
   @apply bg-default-100 border-default-300 text-default-700 rounded border px-2 py-1 font-mono text-sm shadow-sm;
 }
+
+/* MarkdownRenderer specific styles to match editor preview */
+.milkdown-renderer {
+  @apply leading-5;
+}
+
+.milkdown-renderer p {
+  @apply my-0 leading-5;
+}
+
+.milkdown-renderer ul,
+.milkdown-renderer ol {
+  @apply my-1 pl-5;
+}
+
+.milkdown-renderer ul {
+  @apply list-disc pl-6 space-y-1;
+  list-style-position: outside;
+}
+
+.milkdown-renderer ol {
+  @apply list-decimal pl-6 space-y-1;
+  list-style-position: outside;
+}
+
+.milkdown-renderer li {
+  @apply space-y-0 m-0 p-0;
+  display: list-item;
+  margin-left: 0;
+}
+
+.milkdown-renderer li p {
+  @apply m-0;
+  display: inline;
+}
+
+.milkdown-renderer blockquote {
+  @apply my-1;
+}
+
+.milkdown-renderer blockquote p {
+  @apply my-0;
+}
+
+.milkdown-renderer h1,
+.milkdown-renderer h2,
+.milkdown-renderer h3,
+.milkdown-renderer h4,
+.milkdown-renderer h5,
+.milkdown-renderer h6 {
+  @apply my-1;
+}
