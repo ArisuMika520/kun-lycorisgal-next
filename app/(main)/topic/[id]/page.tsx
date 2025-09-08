@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  const topic = await getTopic(id)
+  const topic = await getTopic(id, undefined, false)
   if (!topic) {
     return {
       title: `话题不存在 - ${kunMoyuMoe.title}`,

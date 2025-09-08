@@ -5,7 +5,7 @@ import { updateTopicSchema } from '~/validations/topic'
 import type { Topic } from '~/types/api/topic'
 
 // 获取话题详情
-export const getTopic = async (id: number, userId?: number) => {
+export const getTopic = async (id: number, userId?: number, incrementView: boolean = true) => {
   const topic = await prisma.topic.findUnique({
     where: { id, status: 0 },
     include: {
@@ -34,11 +34,13 @@ export const getTopic = async (id: number, userId?: number) => {
     return null
   }
 
-  // 增加浏览量
-  await prisma.topic.update({
-    where: { id },
-    data: { view_count: { increment: 1 } }
-  })
+  // 根据参数决定是否增加浏览量
+  if (incrementView) {
+    await prisma.topic.update({
+      where: { id },
+      data: { view_count: { increment: 1 } }
+    })
+  }
 
   const result: Topic = {
     id: topic.id,
@@ -46,7 +48,7 @@ export const getTopic = async (id: number, userId?: number) => {
     content: topic.content,
     status: topic.status,
     is_pinned: topic.is_pinned,
-    view_count: topic.view_count + 1,
+    view_count: incrementView ? topic.view_count + 1 : topic.view_count,
     like_count: topic._count.topic_likes,
     user: topic.user,
     created: topic.created,

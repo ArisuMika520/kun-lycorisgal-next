@@ -21,7 +21,7 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
-    id: 'game-detail-ad1',
+    id: 'game-detail-ad2',
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/1200x200.png', // 游戏详情页专用广告图片
