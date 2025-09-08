@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 import { useMounted } from '~/hooks/useMounted'
 import { KunLink } from '~/components/kun/milkdown/plugins/components/link/KunLink'
 import { KunExternalLink } from '~/components/kun/external-link/ExternalLink'
+import { kunUpdatePatchViewsActions } from '~/app/(main)/[id]/actions'
 import type { PatchIntroduction } from '~/types/api/patch'
 
 import './_adjust.scss'
@@ -26,12 +27,20 @@ const KunPlyr = dynamic(
 interface Props {
   intro: PatchIntroduction
   patchId: number
+  uniqueId: string
   uid?: number
 }
 
-export const IntroductionTab = ({ intro, patchId, uid }: Props) => {
+export const IntroductionTab = ({ intro, patchId, uniqueId, uid }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const isMounted = useMounted()
+
+  // 更新浏览量
+  useEffect(() => {
+    if (isMounted) {
+      kunUpdatePatchViewsActions({ uniqueId })
+    }
+  }, [uniqueId, isMounted])
 
   useEffect(() => {
     if (!contentRef.current || !isMounted) {

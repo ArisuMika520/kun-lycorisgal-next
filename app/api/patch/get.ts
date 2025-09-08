@@ -58,11 +58,6 @@ export const getPatchById = async (
     return '未找到对应 Galgame'
   }
 
-  await prisma.patch.update({
-    where: { id: patch.id },
-    data: { view: { increment: 1 } }
-  })
-
   const response: Patch = {
     id: patch.id,
     uniqueId: patch.unique_id,
