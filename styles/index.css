@@ -2,6 +2,7 @@
 @import './blog.css';
 @import './prose.css';
 @import './prism.css';
+@import './editor.css';
 
 [data-overlay-container='true'] {
   height: 100%;

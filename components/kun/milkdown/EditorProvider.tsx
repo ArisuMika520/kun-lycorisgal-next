@@ -48,7 +48,6 @@ import {
   placeholderPlugin
 } from './plugins/components/placeholder/placeholderPlugin'
 import { KunLoading } from '../Loading'
-import '~/styles/editor.css'
 import { useKunMilkdownStore } from '~/store/milkdownStore'
 
 // TODO:
@@ -194,7 +193,7 @@ export const EditorProvider = ({
         disableUserKey={disableUserKey}
       />
 
-      <div className="relative">
+      <div className="mt-3 relative">
         <Milkdown />
       </div>
 
