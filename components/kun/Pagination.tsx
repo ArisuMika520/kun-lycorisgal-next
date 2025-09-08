@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Input } from '@heroui/react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
 import type { KeyboardEvent } from 'react'
 
 interface Props {
@@ -19,33 +18,21 @@ export const KunPagination = ({
   page,
   isLoading = false
 }: Props) => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
   const [isEditing, setIsEditing] = useState(false)
   const [inputValue, setInputValue] = useState(String(page))
-
-  const createQueryString = (name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString())
-    params.set(name, value)
-    return params.toString()
-  }
-
-  const updateURL = (newPage: number) => {
-    router.push(`?${createQueryString('page', String(newPage))}`, {
-      scroll: false
-    })
-    requestAnimationFrame(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'instant'
-      })
-    })
-  }
 
   useEffect(() => {
     setInputValue(String(page))
   }, [page])
+
+  useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+  }, [isLoading])
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= total) {

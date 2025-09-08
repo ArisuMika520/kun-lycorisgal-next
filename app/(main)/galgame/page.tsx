@@ -4,42 +4,19 @@ import { Suspense } from 'react'
 import { kunGetActions } from './actions'
 import { ErrorComponent } from '~/components/error/ErrorComponent'
 import type { Metadata } from 'next'
-import type { SortField, SortOrder } from '~/components/galgame/_sort'
 
 export const revalidate = 3
 
 export const metadata: Metadata = kunMetadata
 
-interface QueryParams {
-  page?: number
-  sortOrder: SortOrder
-  sortField: SortField
-  type: string
-  language: string
-  platform: string
-}
-
-interface Props {
-  searchParams?: Promise<QueryParams>
-}
-
-export default async function Kun({ searchParams }: Props) {
-  const res = await searchParams
-  const currentPage = res?.page ? res.page : 1
-  const sortField = res?.sortField ? res.sortField : 'resource_update_time'
-  const sortOrder = res?.sortOrder ? res.sortOrder : 'desc'
-
-  const selectedType = res?.type ? res.type : 'all'
-  const selectedLanguage = res?.language ? res.language : 'all'
-  const selectedPlatform = res?.platform ? res.platform : 'all'
-
+export default async function Kun() {
   const response = await kunGetActions({
-    selectedType,
-    selectedLanguage,
-    selectedPlatform,
-    sortField,
-    sortOrder,
-    page: currentPage,
+    selectedType: 'all',
+    selectedLanguage: 'all',
+    selectedPlatform: 'all',
+    sortField: 'resource_update_time',
+    sortOrder: 'desc',
+    page: 1,
     limit: 24,
     yearString: JSON.stringify(['all']),
     monthString: JSON.stringify(['all'])

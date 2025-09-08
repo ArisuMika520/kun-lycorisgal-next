@@ -1,5 +1,3 @@
-import { Divider } from '@heroui/divider'
-
 interface Props {
   name: string
   description?: string
@@ -31,7 +29,6 @@ export const KunHeader = ({
         </div>
         {endContent}
       </div>
-      <Divider className="my-8" />
     </>
   )
 }
