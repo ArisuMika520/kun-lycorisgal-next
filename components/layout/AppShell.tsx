@@ -11,7 +11,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex flex-1 overflow-hidden">
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <div className="flex flex-col flex-1 w-0 overflow-y-auto">
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow px-4 sm:px-6 lg:px-8">{children}</div>
         <KunFooter />
       </div>
     </div>
