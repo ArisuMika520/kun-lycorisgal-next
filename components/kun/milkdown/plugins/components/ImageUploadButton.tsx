@@ -35,21 +35,38 @@ export const ImageUploadButton = ({
 
     toast('正在上传图片...')
 
-    const res = await kunFetchFormData<
-      KunResponse<{
-        imageLink: string
-      }>
-    >('/api/user/image', formData)
-    if (typeof res === 'string') {
-      toast.error(res)
-      return
-    } else {
-      toast.success('上传图片成功')
-      call(insertImageCommand.key, {
-        src: res.imageLink,
-        title: file.name,
-        alt: file.name
-      })
+    try {
+      const res = await kunFetchFormData<
+        KunResponse<{
+          imageLink: string
+        }>
+      >('/api/user/image', formData)
+      if (typeof res === 'string') {
+        toast.error(res)
+        return
+      } else {
+        toast.success('上传图片成功')
+        call(insertImageCommand.key, {
+          src: res.imageLink,
+          title: file.name,
+          alt: file.name
+        })
+      }
+    } catch (error) {
+      // 处理网络错误或服务器错误
+      if (error instanceof Error) {
+        // 尝试从错误中提取有用信息
+        if (error.message.includes('Status: 400')) {
+          toast.error('您今日上传的图片已达到 50 张限额', {
+            duration: 5000,
+            
+          })
+        } else {
+          toast.error('上传图片失败，请稍后重试')
+        }
+      } else {
+        toast.error('上传图片失败，请稍后重试')
+      }
     }
   }
 

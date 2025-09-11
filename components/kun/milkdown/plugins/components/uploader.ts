@@ -34,7 +34,19 @@ export const kunUploader: Uploader = async (files, schema) => {
         }>
       >('/api/user/image', formData)
       if (typeof res === 'string') {
-        toast.error(res)
+        // 针对上传限额显示特殊提示
+        if (res.includes('50 张限额')) {
+          toast.error('您今日上传的图片已达到 50 张限额，请明日再试或联系管理员', {
+            duration: 5000,
+            style: {
+              
+              fontSize: '14px',
+              padding: '12px 16px'
+            }
+          })
+        } else {
+          toast.error(res)
+        }
         return
       }
 

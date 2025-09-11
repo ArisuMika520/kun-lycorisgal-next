@@ -7,12 +7,17 @@ import { imageSchema } from '~/validations/edit'
 
 export const uploadImage = async (uid: number, image: ArrayBuffer) => {
   const user = await prisma.user.findUnique({
-    where: { id: uid }
+    where: { id: uid },
+    select: {
+      daily_image_count: true,
+      role: true
+    }
   })
   if (!user) {
     return '用户未找到'
   }
-  if (user.daily_image_count >= 50) {
+  // 管理员（role >= 2）不受限制
+  if (user.role < 2 && user.daily_image_count >= 50) {
     return '您今日上传的图片已达到 50 张限额'
   }
 
