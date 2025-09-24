@@ -57,6 +57,17 @@ const navSections = [
           image: 'https://r2.sakinori.top/DMM%20Ai/320x500.png',
        },
       },
+      {
+        name: '哔咔漫画',
+        description: '哔咔漫画',
+        href: '',
+        icon: HeartIcon,
+        popover: {
+          title: '广告',
+          description: '哔咔漫画',
+          image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/330x500.gif',
+       },
+      },
     ],
   },
   {

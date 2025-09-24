@@ -27,6 +27,20 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     image: 'https://r2.sakinori.top/DMM%20Ai/1920x300.png', // 游戏详情页专用广告图片
     link: 'https://www.xn--i8s951di30azba.com?rf=c1844afb' // 游戏详情页专用广告链接
   },
+  {
+    id: 'redirect-ad2',
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/1400x200.gif',
+    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+  },
+  {
+    id: 'redirect-ad2',
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/1200x200.png',
+    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+  }
 ]
 
 export const GameDetailAds = () => {
