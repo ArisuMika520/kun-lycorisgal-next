@@ -32,14 +32,14 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/1400x200.gif',
-    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk'
   },
   {
     id: 'redirect-ad2',
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/1200x200.png',
-    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: '#'
   }
 ]
 

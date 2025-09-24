@@ -60,7 +60,7 @@ const navSections = [
       {
         name: '哔咔漫画',
         description: '哔咔漫画',
-        href: '',
+        href: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk',
         icon: HeartIcon,
         popover: {
           title: '广告',
