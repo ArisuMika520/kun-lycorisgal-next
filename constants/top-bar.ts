@@ -22,7 +22,7 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '评论列表',
-    href: '/tag'
+    href: '/comment'
   },
   {
     name: '帮助文档',
