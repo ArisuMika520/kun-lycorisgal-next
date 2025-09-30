@@ -18,6 +18,20 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-01.gif',
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+  },
+  {
+    id: '',
+    title: ' ',
+    description: ' ',
+    image: ' ',
+    link: ' '
+  },
+  {
+    id: 'redirect-ad2',
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/QQ%20neko%E9%BB%84%E6%B2%B9%E5%9C%88/1920-300-v2.jpg',
+    link: 'https://uvco1.rest/hycdh965'
   }
 ]
 
