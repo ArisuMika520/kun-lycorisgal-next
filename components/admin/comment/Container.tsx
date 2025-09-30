@@ -72,9 +72,21 @@ export const Comment = ({ initialComments, initialTotal }: Props) => {
           <KunLoading hint="正在获取评论数据..." />
         ) : (
           <>
-            {comments.map((comment) => (
-              <CommentCard key={comment.id} comment={comment} />
-            ))}
+            {comments.map((comment) => {
+              const createdKey =
+                typeof comment.created === 'string'
+                  ? comment.created
+                  : comment.created instanceof Date
+                    ? comment.created.toISOString()
+                    : String(comment.created ?? '')
+
+              return (
+                <CommentCard
+                  key={`${comment.uniqueId ?? 'comment'}-${comment.type}-${comment.id}-${createdKey}`}
+                  comment={comment}
+                />
+              )
+            })}
           </>
         )}
       </div>

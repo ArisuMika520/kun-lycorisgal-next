@@ -1,16 +1,11 @@
-import { Button } from '@heroui/button'
-import { Tooltip } from '@heroui/tooltip'
-import { Link } from '@heroui/link'
 import { Card, CardBody } from '@heroui/card'
 import { Chip } from '@heroui/chip'
 import { Sparkles } from 'lucide-react'
 import { KunCarousel } from '../carousel/KunCarousel'
 import { getKunPosts } from '../carousel/mdx'
-import { RandomGalgameButton } from '../carousel/RandomGalgameButton'
-import { Discord } from '~/components/kun/icons/Discord'
-import { Telegram } from '~/components/kun/icons/Telegram'
 import { KunHomeNavigationItems } from '../NavigationItems'
 import { kunMoyuMoe } from '~/config/moyu-moe'
+import { HomeHeroActions } from './HomeHeroActions'
 
 export const HomeHero = () => {
   const posts = getKunPosts()
@@ -37,23 +32,7 @@ export const HomeHero = () => {
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <RandomGalgameButton color="primary" variant="solid">
-                  随机一部游戏
-                </RandomGalgameButton>
-                <Tooltip showArrow content="Telegram 服务器">
-                  <Button
-                    isIconOnly
-                    isExternal
-                    as={Link}
-                    href={kunMoyuMoe.domain.telegram_group}
-                    variant="flat"
-                    color="secondary"
-                  >
-                    <Telegram />
-                  </Button>
-                </Tooltip>
-              </div>
+              <HomeHeroActions telegramHref={kunMoyuMoe.domain.telegram_group} />
             </CardBody>
           </Card>
 

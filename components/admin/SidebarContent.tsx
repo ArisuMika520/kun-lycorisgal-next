@@ -13,7 +13,8 @@ import {
   Puzzle,
   Settings,
   TriangleAlert,
-  Users
+  Users,
+  ClipboardList
 } from 'lucide-react'
 
 const menuItems = [
@@ -41,6 +42,11 @@ const menuItems = [
     name: 'Gal 管理',
     href: '/admin/galgame',
     icon: Gamepad2
+  },
+  {
+    name: '待办事项',
+    href: '/admin/todo',
+    icon: ClipboardList
   },
   {
     name: '评论管理',

@@ -36,3 +36,9 @@ export const todoUpdateSchema = z
   .refine((data) => data.title || data.description || data.status !== undefined, {
     message: '至少需要提供一个更新字段'
   })
+
+export const todoListQuerySchema = z.object({
+  status: z.enum(['all', 'in_progress', 'completed']).optional(),
+  page: z.coerce.number().int().min(1).optional(),
+  limit: z.coerce.number().int().min(1).max(100).optional()
+})

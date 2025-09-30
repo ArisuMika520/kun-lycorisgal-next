@@ -24,7 +24,8 @@ import {
   HeartIcon,
   Shield,
   ExternalLink,
-  Star
+  Star,
+  ClipboardList
 } from 'lucide-react'
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
@@ -112,6 +113,7 @@ const navSections = [
     title: '其他',
     items: [
       { name: '友情链接', description: '可爱的好朋友们！', href: '/friend-link', icon: HeartMinus },
+      { name: '待办事项', description: '站点开发计划与进度', href: '/todo', icon: ClipboardList },
     ],
   },
 ]
