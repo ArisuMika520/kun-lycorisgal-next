@@ -38,8 +38,8 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     id: 'redirect-ad2',
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/WAKAACG/CleanShot%202025-09-30%20at%2019.22.10%402x.png',
-    link: 'https://acgwaka.xyz/?ref=1434'
+    image: 'https://r2.sakinori.top/1200x200.png',
+    link: ''
   }
 ]
 
