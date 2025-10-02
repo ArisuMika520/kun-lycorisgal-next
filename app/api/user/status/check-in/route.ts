@@ -14,7 +14,7 @@ const checkIn = async (uid: number) => {
     return '您今天已经签到过了'
   }
 
-  const randomMoemoepoints = randomNum(0, 7)
+  const randomMoemoepoints = randomNum(1, 7)
 
   await prisma.user.update({
     where: { id: uid },

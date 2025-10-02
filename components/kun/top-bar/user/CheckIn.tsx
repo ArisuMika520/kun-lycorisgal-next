@@ -25,9 +25,7 @@ export const UserCheckIn = () => {
     >('/user/status/check-in')
     kunErrorHandler(res, (value) => {
       showKunSooner(
-        value
-          ? `签到成功! 您今天获得了 ${value.randomMoemoepoints} 萌萌点`
-          : '您的运气不好...今天没有获得萌萌点...'
+        `签到成功! 您今天获得了 ${value.randomMoemoepoints} 萌萌点`
       )
       setUser({
         ...user,

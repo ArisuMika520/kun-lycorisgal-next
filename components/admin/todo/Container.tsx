@@ -27,7 +27,6 @@ import {
   kunFetchPatch
 } from '~/utils/kunFetch'
 import dayjs from 'dayjs'
-import { formatDistanceToNow } from '~/utils/formatDistanceToNow'
 
 interface Props {
   initialTodos: AdminTodoItem[]
@@ -43,6 +42,14 @@ const emptyForm: TodoFormState = {
   description: ''
 }
 
+const statusOptions = [
+  { key: 'all', label: '全部' },
+  { key: 'in_progress', label: '进行中' },
+  { key: 'completed', label: '已完成' }
+] as const
+
+type TodoStatusKey = (typeof statusOptions)[number]['key']
+
 export const TodoList = ({ initialTodos }: Props) => {
   const { user } = useUserStore((state) => state)
   const isAdmin = useMemo(() => user.role >= 3, [user.role])
@@ -52,6 +59,7 @@ export const TodoList = ({ initialTodos }: Props) => {
   const [submitting, setSubmitting] = useState(false)
   const [formState, setFormState] = useState<TodoFormState>(emptyForm)
   const [editingTodo, setEditingTodo] = useState<AdminTodoItem | null>(null)
+  const [statusFilter, setStatusFilter] = useState<TodoStatusKey>('all')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -75,27 +83,33 @@ export const TodoList = ({ initialTodos }: Props) => {
     setSubmitting(false)
   }
 
-  const fetchTodos = useCallback(async (showLoader: boolean = true) => {
-    if (showLoader) {
-      setLoading(true)
-    }
-    try {
-      const response = await kunFetchGet<{ todos: AdminTodoItem[] }>(
-        '/api/admin/todo'
-      )
-      setTodos(response.todos)
-    } catch (error) {
-      toast.error('获取待办事项失败，请稍后重试')
-    } finally {
+  const fetchTodos = useCallback(
+    async (statusKey: TodoStatusKey, showLoader: boolean = true) => {
       if (showLoader) {
-        setLoading(false)
+        setLoading(true)
       }
-    }
-  }, [])
+      try {
+        const response = await kunFetchGet<{ todos: AdminTodoItem[] }>(
+          '/api/admin/todo',
+          {
+            status: statusKey
+          }
+        )
+        setTodos(response.todos)
+      } catch (error) {
+        toast.error('获取待办事项失败，请稍后重试')
+      } finally {
+        if (showLoader) {
+          setLoading(false)
+        }
+      }
+    },
+    []
+  )
 
   useEffect(() => {
-    fetchTodos()
-  }, [fetchTodos])
+    void fetchTodos(statusFilter)
+  }, [fetchTodos, statusFilter])
 
   const handleSubmit = async () => {
     if (!isAdmin) {
@@ -120,14 +134,14 @@ export const TodoList = ({ initialTodos }: Props) => {
           title,
           description
         })
-        await fetchTodos(false)
+        await fetchTodos(statusFilter, false)
         toast.success('更新待办事项成功')
       } else {
         await kunFetchPost<AdminTodoItem>('/api/admin/todo', {
           title,
           description
         })
-        await fetchTodos(false)
+        await fetchTodos(statusFilter, false)
         toast.success('创建待办事项成功')
       }
 
@@ -151,11 +165,18 @@ export const TodoList = ({ initialTodos }: Props) => {
         id: todo.id,
         status: nextStatus
       })
-      await fetchTodos(false)
+      await fetchTodos(statusFilter, false)
       toast.success(nextStatus === 1 ? '已完成该待办' : '已重新开放该待办')
     } catch (error) {
       toast.error('更新待办状态失败，请稍后重试')
     }
+  }
+
+  const handleStatusFilterChange = (statusKey: TodoStatusKey) => {
+    if (statusFilter === statusKey) {
+      return
+    }
+    setStatusFilter(statusKey)
   }
 
   const renderTodoContent = () => {
@@ -171,7 +192,13 @@ export const TodoList = ({ initialTodos }: Props) => {
       return (
         <Card>
           <CardBody>
-            <p className="text-center text-default-500">暂时还没有待办事项。</p>
+            <p className="text-center text-default-500">
+              {statusFilter === 'completed'
+                ? '还没有已经完成的待办事项。'
+                : statusFilter === 'in_progress'
+                  ? '当前没有进行中的待办事项。'
+                  : '暂时还没有待办事项。'}
+            </p>
           </CardBody>
         </Card>
       )
@@ -252,6 +279,26 @@ export const TodoList = ({ initialTodos }: Props) => {
             新建待办
           </Button>
         )}
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap gap-2">
+          {statusOptions.map((option) => (
+            <Button
+              key={option.key}
+              size="sm"
+              variant={statusFilter === option.key ? 'solid' : 'flat'}
+              color={statusFilter === option.key ? 'primary' : 'default'}
+              onPress={() => handleStatusFilterChange(option.key)}
+            >
+              {option.label}
+            </Button>
+          ))}
+        </div>
+
+        <p className="text-sm text-default-500">
+          当前共 {todos.length} 条（筛选：{statusOptions.find((s) => s.key === statusFilter)?.label}）
+        </p>
       </div>
 
       {renderTodoContent()}
