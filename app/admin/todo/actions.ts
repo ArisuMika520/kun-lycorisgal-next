@@ -16,7 +16,7 @@ export const kunGetTodoList = async (): Promise<AdminTodoItem[]> => {
       }
     },
     orderBy: {
-      created: 'asc'
+      created: 'desc'
     }
   })
 

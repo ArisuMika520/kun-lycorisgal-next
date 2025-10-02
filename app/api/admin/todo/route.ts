@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
       }
     },
     orderBy: {
-      created: 'asc'
+      created: 'desc'
     },
     ...(take !== undefined
       ? {
