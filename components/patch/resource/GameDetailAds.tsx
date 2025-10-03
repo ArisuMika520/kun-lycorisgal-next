@@ -28,18 +28,18 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     link: 'https://www.xn--i8s951di30azba.com?rf=c1844afb' // 游戏详情页专用广告链接
   },
   {
-    id: 'redirect-ad2',
+    id: 'redirect-ad3',
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/1400x200.gif',
     link: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk'
   },
   {
-    id: 'redirect-ad2',
+    id: 'redirect-ad4',
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: ''
+    image: 'https://r2.sakinori.top/mumu/mumu.jpg',
+    link: 'https://t.fgtrea.com/?pid=77'
   }
 ]
 
