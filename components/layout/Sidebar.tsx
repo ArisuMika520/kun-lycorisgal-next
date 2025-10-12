@@ -80,6 +80,17 @@ const navSections = [
           image: 'https://r2.sakinori.top/QQ%20neko%E9%BB%84%E6%B2%B9%E5%9C%88/200-260.jpg',
        },
       },
+      {
+        name: '木瓜玩',
+        description: '精品成人手遊聚合平台',
+        href: 'https://t.fgtrea.com/?pid=77',
+        icon: HeartIcon,
+        popover: {
+          title: '广告',
+          description: '木瓜玩',
+          image: 'https://r2.sakinori.top/mumu/mumu.jpg',
+       },
+      },
     ],
   },
   {
