@@ -41,11 +41,11 @@ const navSections = [
         description: 'Ai女友💋',
         href: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
         icon: HeartIcon,
-      //  popover: {
-      //    title: '广告示例',
-      //    description: '广告示例',
-      //    image: '/lycorisgal.png',
-      // },
+        popover: {
+          title: 'Ai女友',
+          description: 'Ai女友💋（在线游玩）',
+          image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/320x500GIF4.gif',
+       },
       },
       {
         name: '赛博情人❤️',
