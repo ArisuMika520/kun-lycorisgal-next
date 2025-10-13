@@ -48,17 +48,6 @@ const navSections = [
        },
       },
       {
-        name: '赛博情人❤️',
-        description: 'AI女友',
-        href: 'https://www.xn--i8s951di30azba.com?rf=c1844afb',
-        icon: HeartIcon,
-        popover: {
-          title: '赛博情人❤️',
-          description: 'AI女友',
-          image: 'https://r2.sakinori.top/DMM%20Ai/320x500.png',
-       },
-      },
-      {
         name: '哔咔漫画',
         description: '哔咔漫画',
         href: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk',
