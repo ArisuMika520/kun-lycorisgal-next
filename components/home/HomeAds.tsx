@@ -27,8 +27,8 @@ const ADS_DATA: AdItem[] = [
     id: 'ad2',
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/DMM%20Ai/1920x300.png',
-    link: 'https://www.xn--i8s951di30azba.com?rf=c1844afb'
+    image: 'https://r2.sakinori.top/1200x200.png',
+    link: '#'
   }
 ]
 
