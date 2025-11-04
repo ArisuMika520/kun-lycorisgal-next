@@ -59,14 +59,14 @@ const navSections = [
        },
       },
       {
-        name: '黄油福利游戏',
-        description: '黄油福利游戏',
-        href: 'https://uvco1.rest/hycdh965',
+        name: '⚡️翻墙Vpn推荐',
+        description: '翻墙Vpn推荐，加速下载！',
+        href: 'https://eueua.cc/#/register?code=u9ev6t6U',
         icon: HeartIcon,
         popover: {
-          title: '广告',
-          description: '黄油福利游戏',
-          image: 'https://r2.sakinori.top/QQ%20neko%E9%BB%84%E6%B2%B9%E5%9C%88/200-260.jpg',
+          title: 'VPN',
+          description: '⚡️翻墙Vpn推荐',
+          image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
        },
       },
       {

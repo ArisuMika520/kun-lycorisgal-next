@@ -17,18 +17,18 @@ interface AdItem {
 // 硬编码的广告数据
 const ADS_DATA: AdItem[] = [
   {
-    id: 'ad1',
+    id: 'ad1', //风月AI
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-02.gif',
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
-    id: 'ad2',
+    id: 'ad2', //eueuVPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: '#'
+    image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
+    link: 'https://eueua.cc/#/register?code=u9ev6t6U'
   }
 ]
 

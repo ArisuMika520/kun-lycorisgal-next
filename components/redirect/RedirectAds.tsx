@@ -13,7 +13,7 @@ interface AdItem {
 // 独立配置的广告数据
 const REDIRECT_ADS_DATA: AdItem[] = [
   {
-    id: 'redirect-ad1',
+    id: 'redirect-ad1', //风月AI
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-01.gif',
@@ -27,21 +27,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     link: ' '
   },
   {
-    id: 'redirect-ad2',
-    title: '',
-    description: '',
-    image: 'https://r2.sakinori.top/QQ%20neko%E9%BB%84%E6%B2%B9%E5%9C%88/1920-300-v2.jpg',
-    link: 'https://uvco1.rest/hycdh965'
-  },
-  {
-    id: '',
-    title: ' ',
-    description: ' ',
-    image: ' ',
-    link: ' '
-  },
-  {
-    id: 'redirect-ad4',
+    id: 'redirect-ad4', //muguawan
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',

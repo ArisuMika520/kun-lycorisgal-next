@@ -14,28 +14,28 @@ interface AdItem {
 // 游戏详情页独立的广告数据配置
 const GAME_DETAIL_ADS_DATA: AdItem[] = [
   {
-    id: 'game-detail-ad1',
+    id: 'game-detail-ad1', //风月AI
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-03.gif', // 游戏详情页专用广告图片
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
-    id: 'game-detail-ad2',
+    id: 'game-detail-ad2', //null
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png', // 游戏详情页专用广告图片
+    image: 'https://r2.sakinori.top/1200x200.png',
     link: '#' // 游戏详情页专用广告链接
   },
   {
-    id: 'redirect-ad3',
+    id: 'redirect-ad3', //bika
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/1400x200.gif',
     link: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk'
   },
   {
-    id: 'redirect-ad4',
+    id: 'redirect-ad4', //muguawan
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
