@@ -72,12 +72,23 @@ const navSections = [
       {
         name: '木瓜玩',
         description: '精品成人手遊聚合平台',
-        href: 'https://t.fgtrea.com/?pid=77',
+        href: 'https://t.ynekd.com/?pid=77',
         icon: HeartIcon,
         popover: {
           title: '广告',
           description: '木瓜玩',
           image: 'https://r2.sakinori.top/mumu/mumu.jpg',
+       },
+      },
+      {
+        name: 'SoulAI',
+        description: '',
+        href: 'https://sch.tkoqk.com/?channel=7018',
+        icon: HeartIcon,
+        popover: {
+          title: '广告',
+          description: 'SoulAI',
+          image: 'https://r2.sakinori.top/mumu/soulai.gif',
        },
       },
     ],

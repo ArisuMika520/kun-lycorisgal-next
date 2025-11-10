@@ -21,11 +21,11 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
-    id: 'game-detail-ad2', //null
+    id: 'game-detail-ad2', //soulai
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: '#' // 游戏详情页专用广告链接
+    image: 'https://r2.sakinori.top/mumu/soul.gif',
+    link: 'https://sch.tkoqk.com/?channel=7018' // 游戏详情页专用广告链接
   },
   {
     id: 'redirect-ad3', //bika
@@ -39,7 +39,7 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.fgtrea.com/?pid=77'
+    link: 'https://t.ynekd.com/?pid=77'
   }
 ]
 
