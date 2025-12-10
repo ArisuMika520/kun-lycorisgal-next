@@ -31,7 +31,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.fgtrea.com/?pid=77'
+    link: 'https://t.glgnd.com/?pid=77'
   }
 ]
 

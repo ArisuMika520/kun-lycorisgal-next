@@ -45,7 +45,7 @@ const navSections = [
           title: 'Ai女友',
           description: 'Ai女友💋（在线游玩）',
           image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/320x500GIF4.gif',
-       },
+        },
       },
       {
         name: '哔咔漫画',
@@ -56,7 +56,7 @@ const navSections = [
           title: '广告',
           description: '哔咔漫画',
           image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/330x500.gif',
-       },
+        },
       },
       {
         name: '⚡️翻墙Vpn推荐',
@@ -67,29 +67,29 @@ const navSections = [
           title: 'VPN',
           description: '⚡️翻墙Vpn推荐',
           image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
-       },
+        },
       },
       {
         name: '木瓜玩',
         description: '精品成人手遊聚合平台',
-        href: 'https://t.ynekd.com/?pid=77',
+        href: 'https://t.glgnd.com/?pid=77',
         icon: HeartIcon,
         popover: {
           title: '广告',
           description: '木瓜玩',
           image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-       },
+        },
       },
       {
         name: 'SoulAI',
         description: '',
-        href: 'https://sch.tkoqk.com/?channel=7018',
+        href: 'https://sch.agz1g.com/?channel=7018',
         icon: HeartIcon,
         popover: {
           title: '广告',
           description: 'SoulAI',
           image: 'https://r2.sakinori.top/mumu/soulai.gif',
-       },
+        },
       },
     ],
   },
@@ -154,11 +154,11 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
 
   const NSFWNotice = () => {
     if (isCollapsed) return null
-    
+
     const isSFW = settings.kunNsfwEnable === 'sfw'
     const isNSFW = settings.kunNsfwEnable === 'nsfw'
     const isAll = settings.kunNsfwEnable === 'all'
-    
+
     if (isSFW) {
       return (
         <div className="mx-3 mb-4 p-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-800 rounded-lg">
@@ -174,7 +174,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         </div>
       )
     }
-    
+
     if (isNSFW || isAll) {
       return (
         <div className="mx-3 mb-4 p-3 bg-pink-50 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-800 rounded-lg">
@@ -190,7 +190,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         </div>
       )
     }
-    
+
     return null
   }
 
@@ -208,7 +208,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
         {navSections.map((section, index) => {
           // 广告区域特殊处理
           const isAdSection = section.title === '推荐内容'
-          
+
           return (
             <div key={section.title} className={cn(
               !isCollapsed && 'mb-2',
@@ -231,62 +231,63 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               >
                 {isAdSection ? '✨ ' + section.title : section.title}
               </h2>
-            <ul className="space-y-1 font-medium">
-              {section.items.map((item: any) => {
-                const linkContent = (
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'flex items-center p-2 rounded-lg hover:bg-default-100 group',
-                      pathname === item.href
-                        ? 'bg-primary text-primary-foreground'
-                        : 'text-foreground'
-                    )}
-                  >
-                    <item.icon
+              <ul className="space-y-1 font-medium">
+                {section.items.map((item: any) => {
+                  const linkContent = (
+                    <Link
+                      href={item.href}
                       className={cn(
-                        'w-5 h-5 transition duration-75',
-                        isAdSection 
-                          ? 'text-primary group-hover:text-pink-600 dark:text-primary dark:group-hover:text-pink-300'
-                          : 'text-default-500 group-hover:text-foreground',
-                        pathname === item.href ? 'text-primary-foreground' : ''
+                        'flex items-center p-2 rounded-lg hover:bg-default-100 group',
+                        pathname === item.href
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-foreground'
                       )}
-                    />
-                    <div className={cn('flex flex-col ms-3', isCollapsed && 'hidden')}>
-                      <span className="text-sm">{item.name}</span>
-                      <span className="text-xs text-default-500">{item.description}</span>
-                    </div>
-                  </Link>
-                )
+                    >
+                      <item.icon
+                        className={cn(
+                          'w-5 h-5 transition duration-75',
+                          isAdSection
+                            ? 'text-primary group-hover:text-pink-600 dark:text-primary dark:group-hover:text-pink-300'
+                            : 'text-default-500 group-hover:text-foreground',
+                          pathname === item.href ? 'text-primary-foreground' : ''
+                        )}
+                      />
+                      <div className={cn('flex flex-col ms-3', isCollapsed && 'hidden')}>
+                        <span className="text-sm">{item.name}</span>
+                        <span className="text-xs text-default-500">{item.description}</span>
+                      </div>
+                    </Link>
+                  )
 
-                return (
-                  <li key={item.name}>
-                    {isCollapsed ? (
-                      <Tooltip content={item.name} placement="right">
-                        <div className="flex justify-center">{linkContent}</div>
-                      </Tooltip>
-                    ) : item.popover ? (
-                      <Tooltip
-                        content={<SidebarPopoverContent popover={item.popover} />}
-                        placement="right"
-                        delay={100}
-                        closeDelay={100}
-                        // 3. 添加 classNames 属性来定义背景样式
-                        classNames={{
-                          content: 'p-0 bg-background/70 backdrop-blur-md border border-divider',
-                        }}
-                      >
-                        {linkContent}
-                      </Tooltip>
-                    ) : (
-                      linkContent
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        )})}
+                  return (
+                    <li key={item.name}>
+                      {isCollapsed ? (
+                        <Tooltip content={item.name} placement="right">
+                          <div className="flex justify-center">{linkContent}</div>
+                        </Tooltip>
+                      ) : item.popover ? (
+                        <Tooltip
+                          content={<SidebarPopoverContent popover={item.popover} />}
+                          placement="right"
+                          delay={100}
+                          closeDelay={100}
+                          // 3. 添加 classNames 属性来定义背景样式
+                          classNames={{
+                            content: 'p-0 bg-background/70 backdrop-blur-md border border-divider',
+                          }}
+                        >
+                          {linkContent}
+                        </Tooltip>
+                      ) : (
+                        linkContent
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )
+        })}
       </div>
       <div className="p-3 mt-auto border-t border-divider">
         <Button
