@@ -7,6 +7,8 @@ import { cn } from '~/utils/cn'
 import { KunTopBar } from '~/components/kun/top-bar/TopBar'
 import { KunBackToTop } from '~/components/kun/BackToTop'
 import { AppShell } from '~/components/layout/AppShell'
+import Snow from '~/components/ui/Snow'
+import { ENABLE_SNOW } from '~/config/featureFlags'
 
 export default function RootLayout({
   children,
@@ -28,6 +30,7 @@ export default function RootLayout({
             <AppShell>{children}</AppShell>
             <KunBackToTop />
           </div>
+          <Snow enabled={ENABLE_SNOW} />
         </Providers>
       </body>
     </html>
