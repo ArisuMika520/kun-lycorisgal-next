@@ -21,13 +21,6 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
-    id: 'game-detail-ad2', //soulai
-    title: '',
-    description: '',
-    image: 'https://r2.sakinori.top/mumu/soul.gif',
-    link: 'https://sch.tkoqk.com/?channel=7018' // 游戏详情页专用广告链接
-  },
-  {
     id: 'redirect-ad3', //bika
     title: '',
     description: '',
@@ -39,7 +32,14 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.ynekd.com/?pid=77'
+    link: 'https://t.glgnd.com/?pid=77'
+  },
+  {
+    id: 'game-detail-ad2', //soulai
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/mumu/soul.gif',
+    link: 'https://sch.agz1g.com/?channel=7018' // 游戏详情页专用广告链接
   }
 ]
 
@@ -55,8 +55,7 @@ export const GameDetailAds = () => {
   return (
     <section className="relative w-full max-w-7xl mx-auto mt-6">
       {/* 广告内容 */}
-      <div className={`grid gap-4 ${
-        GAME_DETAIL_ADS_DATA.length === 1
+      <div className={`grid gap-4 ${GAME_DETAIL_ADS_DATA.length === 1
         ? 'grid-cols-1'
         : 'grid-cols-1 md:grid-cols-2'
         }`}>

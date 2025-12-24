@@ -1,0 +1,12 @@
+onlyBuiltDependencies:
+  - '@heroui/shared-utils'
+  - '@parcel/watcher'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@tailwindcss/oxide'
+  - aws-sdk
+  - core-js
+  - esbuild
+  - prisma
+  - sharp
+  - unrs-resolver
