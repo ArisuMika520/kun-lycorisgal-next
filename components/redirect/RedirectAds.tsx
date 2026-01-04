@@ -17,7 +17,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-01.gif',
-    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://dearestie.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: '',

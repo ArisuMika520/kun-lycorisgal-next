@@ -21,7 +21,7 @@ const ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-02.gif',
-    link: 'https://aigirlfriendstudio.com/?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://dearestie.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'ad2', //eueuVPN
@@ -63,10 +63,9 @@ export const HomeAds = () => {
       </Button>
 
       {/* 广告内容 */}
-      <div className={`grid gap-4 ${
-        visibleAds.length === 1
-        ? 'grid-cols-1'
-        : 'grid-cols-1 md:grid-cols-2'
+      <div className={`grid gap-4 ${visibleAds.length === 1
+          ? 'grid-cols-1'
+          : 'grid-cols-1 md:grid-cols-2'
         }`}>
         {visibleAds.map((ad) => (
           <Card
