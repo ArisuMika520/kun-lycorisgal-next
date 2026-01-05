@@ -48,17 +48,6 @@ const navSections = [
         },
       },
       {
-        name: '哔咔漫画',
-        description: '哔咔漫画',
-        href: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk',
-        icon: HeartIcon,
-        popover: {
-          title: '广告',
-          description: '哔咔漫画',
-          image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/330x500.gif',
-        },
-      },
-      {
         name: '⚡️翻墙Vpn推荐',
         description: '翻墙Vpn推荐，加速下载！',
         href: 'https://eueua.cc/#/register?code=u9ev6t6U',

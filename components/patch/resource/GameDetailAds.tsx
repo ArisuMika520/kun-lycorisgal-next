@@ -21,11 +21,11 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     link: 'https://dearestie.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
-    id: 'redirect-ad3', //bika
+    id: 'redirect-ad3', //null
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E5%93%94%E5%92%94/1400x200.gif',
-    link: 'https://aplsof2fd.kyrvrybhsovashordoblarmek.com/mk/44887/gxv1a1bk'
+    image: 'https://r2.sakinori.top/1200x200.png',
+    link: '#'
   },
   {
     id: 'redirect-ad4', //muguawan
