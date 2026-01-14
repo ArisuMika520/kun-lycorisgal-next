@@ -71,9 +71,6 @@ importers:
       '@noble/hashes':
         specifier: ^1.8.0
         version: 1.8.0
-      '@prisma/client':
-        specifier: ^6.12.0
-        version: 6.12.0(prisma@6.12.0(typescript@5.8.3))(typescript@5.8.3)
       '@tailwindcss/postcss':
         specifier: ^4.1.11
         version: 4.1.11
@@ -351,6 +348,9 @@ importers:
       '@milkdown/utils':
         specifier: 7.15.2
         version: 7.15.2
+      '@prisma/client':
+        specifier: 6.12.0
+        version: 6.12.0(prisma@6.12.0(typescript@5.8.3))(typescript@5.8.3)
       '@prosemirror-adapter/react':
         specifier: ^0.4.1
         version: 0.4.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -442,7 +442,7 @@ importers:
         specifier: ^4.2.2
         version: 4.2.2(prettier@3.6.2)
       prisma:
-        specifier: ^6.12.0
+        specifier: 6.12.0
         version: 6.12.0(typescript@5.8.3)
       sass:
         specifier: ^1.89.2
