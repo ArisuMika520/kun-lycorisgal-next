@@ -44,9 +44,6 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
 ]
 
 export const GameDetailAds = () => {
-  const handleAdClick = (link: string) => {
-    window.open(link, '_blank', 'noopener,noreferrer')
-  }
 
   if (GAME_DETAIL_ADS_DATA.length === 0) {
     return null
@@ -63,8 +60,11 @@ export const GameDetailAds = () => {
           <Card
             key={ad.id}
             isPressable
+            as="a"
+            href={ad.link}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
             className="group cursor-pointer bg-transparent shadow-none"
-            onClick={() => handleAdClick(ad.link)}
           >
             <CardBody className="p-0 bg-transparent">
               <div className="relative overflow-hidden min-h-24 max-h-32 bg-transparent flex items-center justify-center rounded-lg">

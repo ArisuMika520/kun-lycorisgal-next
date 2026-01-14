@@ -41,10 +41,6 @@ export const HomeAds = () => {
     // 不使用任何存储，关闭后只在当前页面生效
   }
 
-  const handleAdClick = (link: string) => {
-    window.open(link, '_blank', 'noopener,noreferrer')
-  }
-
   if (!isVisible || visibleAds.length === 0) {
     return null
   }
@@ -64,15 +60,18 @@ export const HomeAds = () => {
 
       {/* 广告内容 */}
       <div className={`grid gap-4 ${visibleAds.length === 1
-          ? 'grid-cols-1'
-          : 'grid-cols-1 md:grid-cols-2'
+        ? 'grid-cols-1'
+        : 'grid-cols-1 md:grid-cols-2'
         }`}>
         {visibleAds.map((ad) => (
           <Card
             key={ad.id}
             isPressable
+            as="a"
+            href={ad.link}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
             className="group cursor-pointer bg-transparent shadow-none"
-            onClick={() => handleAdClick(ad.link)}
           >
             <CardBody className="p-0 bg-transparent">
               <div className="relative overflow-hidden min-h-24 max-h-32 bg-transparent flex items-center justify-center rounded-lg">

@@ -225,6 +225,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
                   const linkContent = (
                     <Link
                       href={item.href}
+                      rel={isAdSection ? 'nofollow' : undefined}
                       className={cn(
                         'flex items-center p-2 rounded-lg hover:bg-default-100 group',
                         pathname === item.href

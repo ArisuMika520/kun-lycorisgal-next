@@ -26,7 +26,7 @@ export const KunMobileMenu = () => {
 
       {kunMobileNavItem.map((item, index) => (
         <NavbarMenuItem key={index}>
-          <Link className="w-full font-semibold" href={item.href}>
+          <Link className="w-full font-semibold" href={item.href} rel={item.rel}>
             {item.name}
           </Link>
         </NavbarMenuItem>

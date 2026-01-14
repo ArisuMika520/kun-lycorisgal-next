@@ -35,18 +35,18 @@ const REDIRECT_ADS_DATA: AdItem[] = [
   }
 ]
 
-const handleAdClick = (link: string) => {
-  window.open(link, '_blank', 'noopener,noreferrer')
-}
+
 
 export const RedirectAds = () => {
   return (
     <div className="max-w-2xl">
       {REDIRECT_ADS_DATA.map((ad) => (
-        <div
+        <a
           key={ad.id}
-          className="cursor-pointer hover:opacity-80 transition-opacity"
-          onClick={() => handleAdClick(ad.link)}
+          href={ad.link}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          className="block cursor-pointer hover:opacity-80 transition-opacity"
         >
           <Image
             src={ad.image}
@@ -54,7 +54,7 @@ export const RedirectAds = () => {
             className="w-full h-auto object-contain rounded-lg"
             radius="lg"
           />
-        </div>
+        </a>
       ))}
     </div>
   )
