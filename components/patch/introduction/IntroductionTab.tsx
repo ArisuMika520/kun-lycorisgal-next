@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom/client'
 import { createRoot } from 'react-dom/client'
 import DOMPurify from 'isomorphic-dompurify'
 import { Card, CardBody } from '@heroui/card'
+import { Chip } from '@heroui/react'
+import { Divider } from '@heroui/divider'
+import Link from 'next/link'
 import { Info } from './Info'
 import { PatchTag } from './Tag'
 import dynamic from 'next/dynamic'
@@ -29,9 +32,10 @@ interface Props {
   patchId: number
   uniqueId: string
   uid?: number
+  companies?: { id: number; name: string }[]
 }
 
-export const IntroductionTab = ({ intro, patchId, uniqueId, uid }: Props) => {
+export const IntroductionTab = ({ intro, patchId, uniqueId, uid, companies }: Props) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const isMounted = useMounted()
 
@@ -104,9 +108,27 @@ export const IntroductionTab = ({ intro, patchId, uniqueId, uid }: Props) => {
           className="kun-prose max-w-none"
         />
 
-        {/* <div className="mt-4">
-          <h3 className="mb-4 text-xl font-medium">游戏制作商</h3>
-        </div> */}
+        {companies && companies.length > 0 && (
+          <>
+            <Divider className="my-4" />
+            <div className="flex flex-col gap-4">
+              <span className="text-xl">所属会社（开发）</span>
+              <div className="flex flex-wrap gap-2">
+                {companies.map((company) => (
+                  <Chip
+                    key={company.id}
+                    variant="flat"
+                    color="warning"
+                    size="lg"
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                  >
+                    <Link href={`/company/${company.id}`}>{company.name}</Link>
+                  </Chip>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
 
         {uid && <PatchTag patchId={patchId} initialTags={intro.tag} />}
 

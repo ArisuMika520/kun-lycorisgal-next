@@ -36,6 +36,9 @@ export const searchGalgame = async (
   const tagArray = query
     .filter((item) => item.type === 'tag')
     .map((item) => item.name)
+  const companyArray = query
+    .filter((item) => item.type === 'company')
+    .map((item) => item.name)
 
   let dateFilter = {}
   if (!selectedYears.includes('all')) {
@@ -98,25 +101,41 @@ export const searchGalgame = async (
           : []),
         ...(searchOption.searchInAlias
           ? [
-              {
-                alias: {
-                  some: {
-                    name: { contains: q, mode: insensitive }
-                  }
+            {
+              alias: {
+                some: {
+                  name: { contains: q, mode: insensitive }
                 }
               }
-            ]
+            }
+          ]
           : []),
         ...(searchOption.searchInTag
           ? [
-              {
-                tag: {
-                  some: {
-                    tag: { name: { contains: q, mode: insensitive } }
+            {
+              tag: {
+                some: {
+                  tag: { name: { contains: q, mode: insensitive } }
+                }
+              }
+            }
+          ]
+          : []),
+        ...(searchOption.searchInCompany
+          ? [
+            {
+              company: {
+                some: {
+                  company: {
+                    OR: [
+                      { name: { contains: q, mode: insensitive } },
+                      { alias: { has: q } }
+                    ]
                   }
                 }
               }
-            ]
+            }
+          ]
           : [])
       ]
     })),
@@ -127,6 +146,16 @@ export const searchGalgame = async (
       tag: {
         some: {
           tag: {
+            OR: [{ name: q }, { alias: { has: q } }]
+          }
+        }
+      }
+    })),
+
+    ...companyArray.map((q) => ({
+      company: {
+        some: {
+          company: {
             OR: [{ name: q }, { alias: { has: q } }]
           }
         }

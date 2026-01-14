@@ -35,7 +35,10 @@ export const PublishButton = ({ setErrors }: Props) => {
       ...data,
       banner: localeBannerBlob,
       alias: JSON.stringify(data.alias),
-      tag: JSON.stringify(data.tag)
+      tag: JSON.stringify(data.tag),
+      gameLinks: JSON.stringify(data.gameLink),
+      developers: JSON.stringify(data.developers),
+      gameCGUrls: JSON.stringify(data.gameCG.filter(i => typeof i === 'string'))
     })
     if (!result.success) {
       const newErrors: Partial<Record<keyof CreatePatchRequestData, string>> =
@@ -56,11 +59,30 @@ export const PublishButton = ({ setErrors }: Props) => {
     formDataToSend.append('banner', localeBannerBlob!)
     formDataToSend.append('name', data.name)
     formDataToSend.append('vndbId', data.vndbId)
+    formDataToSend.append('dlsiteId', data.dlsiteId)
     formDataToSend.append('introduction', data.introduction)
     formDataToSend.append('alias', JSON.stringify(data.alias))
     formDataToSend.append('tag', JSON.stringify(data.tag))
     formDataToSend.append('released', data.released)
     formDataToSend.append('contentLimit', data.contentLimit)
+
+    const cgFiles: File[] = []
+    const cgUrls: string[] = []
+
+    data.gameCG.forEach(item => {
+      if (typeof item === 'string') {
+        cgUrls.push(item)
+      } else {
+        cgFiles.push(item.file)
+      }
+    })
+
+    cgFiles.forEach(file => {
+      formDataToSend.append('gameCGFiles', file)
+    })
+    formDataToSend.append('gameCGUrls', JSON.stringify(cgUrls))
+    formDataToSend.append('gameLinks', JSON.stringify(data.gameLink))
+    formDataToSend.append('developers', JSON.stringify(data.developers))
 
     setCreating(true)
     toast('正在发布中 ... 这可能需要 10s 左右的时间, 这取决于您的网络环境')

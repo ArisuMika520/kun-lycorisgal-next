@@ -57,6 +57,7 @@ export const PatchHeaderContainer = ({
             uid={uid}
             selected={selected}
             setSelected={setSelected}
+            companies={patch.companies}
           />
         </>
       )}

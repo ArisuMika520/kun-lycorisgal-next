@@ -40,6 +40,7 @@ const nextConfig: NextConfig = {
       }
     ]
   },
+  serverExternalPackages: ['puppeteer', 'puppeteer-core', 'puppeteer-extra', 'puppeteer-extra-plugin-stealth'],
 
   output: 'standalone',
   experimental: {

@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from 'react'
 import { kunFetchPost } from '~/utils/kunFetch'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'
 import { Chip } from '@heroui/react'
-import { Key, Tag } from 'lucide-react'
+import { Key, Tag, Building } from 'lucide-react'
 import { KunLoading } from '~/components/kun/Loading'
 import type { Dispatch, SetStateAction } from 'react'
 import type { SearchSuggestionType } from '~/types/api/search'
@@ -133,6 +133,15 @@ export const SearchSuggestion = ({
                     startContent={<Tag className="w-4 h-4" />}
                   >
                     标签
+                  </Chip>
+                )}
+                {suggestion.type === 'company' && (
+                  <Chip
+                    color="warning"
+                    variant="flat"
+                    startContent={<Building className="w-4 h-4" />}
+                  >
+                    会社
                   </Chip>
                 )}
               </span>

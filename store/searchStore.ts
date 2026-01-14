@@ -6,13 +6,15 @@ export interface CreateSearchData {
   searchInIntroduction: boolean
   searchInAlias: boolean
   searchInTag: boolean
+  searchInCompany: boolean
 }
 
 const initialState: CreateSearchData = {
   searchHistory: [],
   searchInIntroduction: false,
   searchInAlias: true,
-  searchInTag: false
+  searchInTag: false,
+  searchInCompany: true
 }
 
 interface SearchStoreState {

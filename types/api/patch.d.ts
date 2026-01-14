@@ -15,6 +15,7 @@ export interface Patch {
   language: string[]
   platform: string[]
   tags: string[]
+  companies: { id: number; name: string }[]
   isFavorite: boolean
   contentLimit: string
   user: {

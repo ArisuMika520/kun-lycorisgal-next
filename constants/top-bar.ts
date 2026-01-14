@@ -22,6 +22,10 @@ export const kunMobileNavItem: KunNavItem[] = [
     href: '/tag'
   },
   {
+    name: '制作会社',
+    href: '/companies'
+  },
+  {
     name: '评论列表',
     href: '/comment'
   },

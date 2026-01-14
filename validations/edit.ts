@@ -4,6 +4,7 @@ export const patchCreateSchema = z.object({
   banner: z.any(),
   name: z.string().trim().min(1, { message: '游戏名称是必填项' }),
   vndbId: z.string().max(10),
+  dlsiteId: z.string().max(20).optional().or(z.literal('')),
   introduction: z
     .string()
     .trim()
@@ -16,13 +17,18 @@ export const patchCreateSchema = z.object({
     .string()
     .max(2333, { message: '别名字符串总长度不可超过 3000 个字符' }),
   released: z.string(),
-  contentLimit: z.string().max(10)
+  contentLimit: z.string().max(10),
+  gameCGFiles: z.union([z.any(), z.array(z.any())]).optional(),
+  gameCGUrls: z.string().optional(),
+  gameLinks: z.string().optional(),
+  developers: z.string().optional()
 })
 
 export const patchUpdateSchema = z.object({
   id: z.coerce.number().min(1).max(9999999),
   name: z.string().trim().min(1, { message: '游戏名称是必填项' }),
   vndbId: z.string().max(10),
+  dlsiteId: z.string().max(20).optional().or(z.literal('')),
   introduction: z
     .string()
     .trim()

@@ -79,7 +79,8 @@ export const SearchPage = () => {
       searchOption: {
         searchInIntroduction: searchData.searchInIntroduction,
         searchInAlias: searchData.searchInAlias,
-        searchInTag: searchData.searchInTag
+        searchInTag: searchData.searchInTag,
+        searchInCompany: searchData.searchInCompany
       },
 
       page: currentPage,

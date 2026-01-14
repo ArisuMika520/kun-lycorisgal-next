@@ -5,10 +5,14 @@ export interface CreatePatchData {
   name: string
   introduction: string
   vndbId: string
+  dlsiteId: string
   alias: string[]
   tag: string[]
   released: string
   contentLimit: string
+  gameCG: (string | { file: File, id: string, preview: string })[]
+  gameLink: { name: string, link: string }[]
+  developers: string[]
 }
 
 export interface CreatePatchRequestData extends CreatePatchData {
@@ -26,10 +30,14 @@ const initialState: CreatePatchData = {
   name: '',
   introduction: '',
   vndbId: '',
+  dlsiteId: '',
   alias: [],
   tag: [],
   released: '',
-  contentLimit: 'sfw'
+  contentLimit: 'sfw',
+  gameCG: [],
+  gameLink: [],
+  developers: []
 }
 
 export const useCreatePatchStore = create<StoreState>()(

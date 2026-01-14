@@ -47,6 +47,14 @@ export const SearchOption = () => {
           >
             包含标签
           </Checkbox>
+          <Checkbox
+            isSelected={searchData.searchInCompany}
+            onValueChange={(checked) =>
+              setSearchData({ ...searchData, searchInCompany: checked })
+            }
+          >
+            包含制作会社
+          </Checkbox>
         </div>
       </PopoverContent>
     </Popover>

@@ -13,6 +13,7 @@ interface PatchHeaderProps {
   intro: PatchIntroduction
   selected: string
   setSelected: Dispatch<SetStateAction<string>>
+  companies?: { id: number; name: string }[]
 }
 
 export const PatchHeaderTabs = ({
@@ -22,7 +23,8 @@ export const PatchHeaderTabs = ({
   uid,
   intro,
   selected,
-  setSelected
+  setSelected,
+  companies
 }: PatchHeaderProps) => {
   return (
     <Tabs
@@ -38,7 +40,7 @@ export const PatchHeaderTabs = ({
       selectedKey={selected}
     >
       <Tab key="introduction" title="游戏信息" className="p-0">
-        <IntroductionTab intro={intro} patchId={Number(id)} uniqueId={uniqueId} uid={uid} />
+        <IntroductionTab intro={intro} patchId={Number(id)} uniqueId={uniqueId} uid={uid} companies={companies} />
       </Tab>
 
       <Tab key="resources" title="资源链接" className="p-0">

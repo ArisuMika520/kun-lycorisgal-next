@@ -8,7 +8,7 @@ export const updateGalgame = async (
   uid: number
 ) => {
   console.log('updateGalgame开始执行，游戏ID:', input.id)
-  
+
   const patch = await prisma.patch.findUnique({ where: { id: input.id } })
   if (!patch) {
     console.error('未找到对应的游戏，ID:', input.id)
@@ -28,6 +28,15 @@ export const updateGalgame = async (
     console.log('VNDB ID检查通过')
   }
 
+  if (input.dlsiteId) {
+    const galgame = await prisma.patch.findUnique({
+      where: { dlsite_id: input.dlsiteId }
+    })
+    if (galgame && galgame.id !== input.id) {
+      return `Galgame DLsite ID 与游戏 ID 为 ${galgame.unique_id} 的游戏重复`
+    }
+  }
+
   const { id, vndbId, name, alias, introduction, contentLimit, released } =
     input
 
@@ -37,6 +46,7 @@ export const updateGalgame = async (
     data: {
       name,
       vndb_id: vndbId ? vndbId : null,
+      dlsite_id: input.dlsiteId ? input.dlsiteId : null,
       introduction,
       content_limit: contentLimit,
       released

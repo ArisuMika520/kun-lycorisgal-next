@@ -94,6 +94,7 @@ const navSections = [
     title: '游戏信息',
     items: [
       { name: '游戏标签', description: '按标签浏览游戏', href: '/tag', icon: Tags },
+      { name: '制作会社', description: '按会社浏览游戏', href: '/companies', icon: Building },
     ],
   },
   {

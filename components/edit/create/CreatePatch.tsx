@@ -9,15 +9,21 @@ import { BannerImage } from './BannerImage'
 import { PublishButton } from './PublishButton'
 import { PatchIntroduction } from './PatchIntroduction'
 import { ContentLimit } from './ContentLimit'
+import { GameCGInput } from './GameCGInput'
+import { GameLinkInput } from './GameLinkInput'
+import { DeveloperInput } from './DeveloperInput'
 import { BatchTag } from '../components/BatchTag'
 import { ReleaseDateInput } from '../components/ReleaseDateInput'
 import type { CreatePatchRequestData } from '~/store/editStore'
+
+import { SpiderInput } from './SpiderInput'
 
 export const CreatePatch = () => {
   const { data, setData } = useCreatePatchStore()
   const [errors, setErrors] = useState<
     Partial<Record<keyof CreatePatchRequestData, string>>
   >({})
+  const [bannerKey, setBannerKey] = useState(0)
 
   return (
     <form className="w-full max-w-5xl py-4 mx-auto">
@@ -28,6 +34,8 @@ export const CreatePatch = () => {
           </div>
         </CardHeader>
         <CardBody className="mt-4 space-y-12">
+          <SpiderInput onDataFetch={() => setBannerKey((prev) => prev + 1)} />
+
           <VNDBInput errors={errors.vndbId} />
 
           <div className="space-y-2">
@@ -44,9 +52,13 @@ export const CreatePatch = () => {
             />
           </div>
 
-          <BannerImage errors={errors.banner} />
+          <BannerImage key={bannerKey} errors={errors.banner} />
 
           <PatchIntroduction errors={errors.banner} />
+
+          <GameCGInput errors={errors.introduction} />
+
+          <GameLinkInput errors={errors.introduction} />
 
           <AliasInput errors={errors.alias} />
 
@@ -57,6 +69,8 @@ export const CreatePatch = () => {
             }}
             errors={errors.released}
           />
+
+          <DeveloperInput />
 
           <BatchTag
             initialTag={data.tag}

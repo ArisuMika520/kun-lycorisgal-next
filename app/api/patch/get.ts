@@ -37,6 +37,13 @@ export const getPatchById = async (
           name: true
         }
       },
+      company: {
+        select: {
+          company: {
+            select: { id: true, name: true }
+          }
+        }
+      },
       _count: {
         select: {
           favorite_folder: true,
@@ -72,6 +79,7 @@ export const getPatchById = async (
     language: patch.language,
     platform: patch.platform,
     tags: patch.tag.map((t) => t.tag.name),
+    companies: patch.company.map((c) => ({ id: c.company.id, name: c.company.name })),
     alias: patch.alias.map((a) => a.name),
     isFavorite: patch.favorite_folder.length > 0,
     contentLimit: patch.content_limit,

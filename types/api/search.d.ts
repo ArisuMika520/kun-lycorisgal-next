@@ -1,4 +1,4 @@
 export interface SearchSuggestionType {
-  type: 'keyword' | 'tag'
+  type: 'keyword' | 'tag' | 'company'
   name: string
 }

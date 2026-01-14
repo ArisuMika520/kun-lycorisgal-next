@@ -68,10 +68,16 @@ export const kunParseFormData = async <T extends ZodSchema>(
   const rawData: Record<string, unknown> = {}
 
   for (const [key, value] of formData.entries()) {
-    if (value instanceof File) {
-      rawData[key] = value
+    const val = value instanceof File ? value : value.toString()
+
+    if (key in rawData) {
+      if (Array.isArray(rawData[key])) {
+        (rawData[key] as unknown[]).push(val)
+      } else {
+        rawData[key] = [rawData[key], val]
+      }
     } else {
-      rawData[key] = value.toString()
+      rawData[key] = val
     }
   }
 
