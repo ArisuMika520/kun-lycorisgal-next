@@ -50,7 +50,21 @@ export const useCreatePatchStore = create<StoreState>()(
     }),
     {
       name: 'kun-patch-edit-store',
-      storage: createJSONStorage(() => localStorage)
+      storage: createJSONStorage(() => localStorage),
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        // 确保所有字段都存在，合并默认值
+        if (persistedState && typeof persistedState === 'object') {
+          return {
+            ...persistedState,
+            data: {
+              ...initialState,
+              ...persistedState.data
+            }
+          }
+        }
+        return persistedState
+      }
     }
   )
 )

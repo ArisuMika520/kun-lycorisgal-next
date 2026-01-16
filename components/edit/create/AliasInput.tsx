@@ -67,7 +67,7 @@ export const AliasInput = ({ errors }: Props) => {
         游戏的第一个别名将会作为 SEO 信息加入 Galgame 详情页
       </p>
       <div className="flex flex-wrap gap-2 mt-2">
-        {data.alias.map((alias, index) => (
+        {(data.alias ?? []).map((alias, index) => (
           <Chip
             key={index}
             onClose={() => removeAlias(index)}

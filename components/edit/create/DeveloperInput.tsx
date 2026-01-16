@@ -17,17 +17,17 @@ export const DeveloperInput = () => {
     }
 
     const addDeveloper = (val: string) => {
-        if (!data.developers.includes(val)) {
+        if (!(data.developers ?? []).includes(val)) {
             setData({
                 ...data,
-                developers: [...data.developers, val]
+                developers: [...(data.developers ?? []), val]
             })
         }
         setInputValue('')
     }
 
     const removeDeveloper = (index: number) => {
-        const newDevs = [...data.developers]
+        const newDevs = [...(data.developers ?? [])]
         newDevs.splice(index, 1)
         setData({ ...data, developers: newDevs })
     }
@@ -40,7 +40,7 @@ export const DeveloperInput = () => {
             </p>
 
             <div className="flex flex-wrap gap-2 mb-2 min-h-[32px]">
-                {data.developers.map((dev, index) => (
+                {(data.developers ?? []).map((dev, index) => (
                     <Chip key={index} onClose={() => removeDeveloper(index)} variant="flat" color="secondary">
                         {dev}
                     </Chip>

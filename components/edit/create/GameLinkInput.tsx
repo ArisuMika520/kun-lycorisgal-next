@@ -42,7 +42,7 @@ export const GameLinkInput = ({ errors }: Props) => {
             {errors && <p className="text-xs text-danger-500">{errors}</p>}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {data.gameLink.map((item, index) => (
+                {(data.gameLink ?? []).map((item, index) => (
                     <Card key={index} className="border border-default-200">
                         <CardBody className="flex flex-row items-center gap-2 p-3">
                             <div className="p-2 bg-default-100 rounded-lg text-default-500">

@@ -46,7 +46,7 @@ export const GameCGInput = ({ errors }: Props) => {
             </p>
 
             <div className="flex flex-wrap gap-4">
-                {data.gameCG.map((item, index) => {
+                {(data.gameCG ?? []).map((item, index) => {
                     const src = typeof item === 'string' ? item : item.preview;
                     return (
                         <div key={index} className="relative group w-48 h-32 rounded-lg overflow-hidden border border-default-200 bg-black/5">

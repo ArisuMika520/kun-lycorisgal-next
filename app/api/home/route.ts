@@ -73,47 +73,51 @@ export const getHomeData = async (
     uniqueId: gal.unique_id
   }))
 
-  const resources: HomeResource[] = resourcesData.map((resource) => ({
-    id: resource.id,
-    name: resource.name,
-    section: resource.section,
-    uniqueId: resource.patch.unique_id,
-    storage: resource.storage,
-    size: resource.size,
-    type: resource.type,
-    language: resource.language,
-    note: resource.note.slice(0, 233),
-    platform: resource.platform,
-    likeCount: resource._count.like_by,
-    download: resource.download,
-    patchId: resource.patch_id,
-    patchName: resource.patch.name,
-    created: String(resource.created),
-    user: {
-      id: resource.user.id,
-      name: resource.user.name,
-      avatar: resource.user.avatar,
-      patchCount: resource.user._count.patch_resource
-    }
-  }))
+  const resources: HomeResource[] = resourcesData
+    .filter((resource) => resource.patch !== null && resource.user !== null)
+    .map((resource) => ({
+      id: resource.id,
+      name: resource.name,
+      section: resource.section,
+      uniqueId: resource.patch.unique_id,
+      storage: resource.storage,
+      size: resource.size,
+      type: resource.type,
+      language: resource.language,
+      note: resource.note.slice(0, 233),
+      platform: resource.platform,
+      likeCount: resource._count.like_by,
+      download: resource.download,
+      patchId: resource.patch_id,
+      patchName: resource.patch.name,
+      created: String(resource.created),
+      user: {
+        id: resource.user.id,
+        name: resource.user.name,
+        avatar: resource.user.avatar,
+        patchCount: resource.user._count.patch_resource
+      }
+    }))
 
-  const topics: TopicCard[] = topicsData.map((topic) => ({
-    id: topic.id,
-    title: topic.title,
-    content: topic.content.slice(0, 150),
-    status: topic.status,
-    is_pinned: topic.is_pinned,
-    view_count: topic.view_count,
-    like_count: topic._count.topic_likes,
-    comment_count: topic._count.topic_comments,
-    created: topic.created.toISOString(),
-    updated: topic.updated.toISOString(),
-    user: {
-      id: topic.user.id,
-      name: topic.user.name,
-      avatar: topic.user.avatar
-    }
-  }))
+  const topics: TopicCard[] = topicsData
+    .filter((topic) => topic.user !== null)
+    .map((topic) => ({
+      id: topic.id,
+      title: topic.title,
+      content: topic.content.slice(0, 150),
+      status: topic.status,
+      is_pinned: topic.is_pinned,
+      view_count: topic.view_count,
+      like_count: topic._count.topic_likes,
+      comment_count: topic._count.topic_comments,
+      created: topic.created.toISOString(),
+      updated: topic.updated.toISOString(),
+      user: {
+        id: topic.user.id,
+        name: topic.user.name,
+        avatar: topic.user.avatar
+      }
+    }))
 
   return { galgames, resources, topics }
 }
