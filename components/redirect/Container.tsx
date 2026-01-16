@@ -21,7 +21,7 @@ export const KunRedirectContainer = () => {
 
         <div className="max-w-2xl">
           <Alert
-            description="下载如果出现问题请至公告中的常见问题文章寻找解决方法"
+            description="如果下载太慢可以看看下方的VPN加速，亲测可用！不可用你来找我！"
             title="公告"
             color="secondary"
             variant="faded"

@@ -24,8 +24,8 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     id: 'redirect-ad3', //null
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: '#'
+    image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',//https://r2.sakinori.top/1200x200.png
+    link: 'https://eueua.cc/#/register?code=u9ev6t6U'
   },
   {
     id: 'redirect-ad4', //muguawan

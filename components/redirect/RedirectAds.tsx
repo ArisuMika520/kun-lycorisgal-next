@@ -32,6 +32,20 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
     link: 'https://t.glgnd.com/?pid=77'
+  },
+  {
+    id: '',
+    title: ' ',
+    description: ' ',
+    image: ' ',
+    link: ' '
+  },
+  {
+    id: 'redirect-ad4', //eueuVPN
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
+    link: 'https://eueua.cc/#/register?code=u9ev6t6U'
   }
 ]
 
