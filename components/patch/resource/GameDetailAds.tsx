@@ -39,7 +39,7 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/soul.gif',
-    link: 'https://sch.agz1g.com/?channel=7018' // 游戏详情页专用广告链接
+    link: 'https://sch.xf5kv.com?channel=7018' // 游戏详情页专用广告链接
   }
 ]
 

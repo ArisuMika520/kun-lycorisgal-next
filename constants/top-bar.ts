@@ -59,7 +59,7 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: 'SoulAI',
-    href: 'https://sch.agz1g.com/?channel=7018',
+    href: 'https://sch.xf5kv.com?channel=7018',
     rel: 'nofollow'
   }
 ]

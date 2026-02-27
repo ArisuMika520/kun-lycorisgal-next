@@ -1,3 +1,3 @@
-export const ENABLE_SNOW = true
+export const ENABLE_SNOW = false
 
 

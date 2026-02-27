@@ -72,7 +72,7 @@ const navSections = [
       {
         name: 'SoulAI',
         description: '',
-        href: 'https://sch.agz1g.com/?channel=7018',
+        href: 'https://sch.xf5kv.com?channel=7018',
         icon: HeartIcon,
         popover: {
           title: '广告',
