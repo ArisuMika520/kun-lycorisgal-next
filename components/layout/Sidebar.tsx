@@ -39,7 +39,7 @@ const navSections = [
       {
         name: 'Ai女友💋（在线游玩）',
         description: 'Ai女友💋',
-        href: 'https://dearestie.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
+        href: 'https://genraton.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
         icon: HeartIcon,
         popover: {
           title: 'Ai女友',
@@ -246,7 +246,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               className={cn(
                 !isCollapsed && 'mb-2',
                 isAdSection &&
-                  'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
+                'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
               )}
             >
               {index > 0 && !isAdSection && (
