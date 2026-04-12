@@ -24,7 +24,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.ameaw.com/?pid=77'
+    link: 'https://t.ameaw.com/?pid=98'
   },
   {
     id: 'redirect-ad3', // eueuVPN
@@ -32,6 +32,13 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     description: '',
     image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
     link: 'https://eueua.cc/#/register?code=u9ev6t6U'
+  },
+  {
+    id: 'redirect-ad4', // SoulAI
+    title: '',
+    description: '',
+    image: 'https://r2.sakinori.top/mumu/soul.gif',
+    link: 'https://sch.isco5.com?platId=7&channel=7018'
   }
 ]
 

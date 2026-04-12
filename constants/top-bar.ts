@@ -54,12 +54,12 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '木瓜玩-精品成人手遊聚合平台',
-    href: 'https://t.ameaw.com/?pid=77',
+    href: 'https://t.ameaw.com/?pid=98',
     rel: 'nofollow'
   },
   {
     name: 'SoulAI',
-    href: 'https://sch.wbnbg.com?channel=7018',
+    href: 'https://sch.isco5.com?platId=7&channel=7018',
     rel: 'nofollow'
   }
 ]

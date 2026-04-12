@@ -32,14 +32,14 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.ameaw.com/?pid=77'
+    link: 'https://t.ameaw.com/?pid=98'
   },
   {
     id: 'game-detail-ad2', //soulai
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/soul.gif',
-    link: 'https://sch.wbnbg.com?channel=7018' // 游戏详情页专用广告链接
+    link: 'https://sch.isco5.com?platId=7&channel=7018' // 游戏详情页专用广告链接
   }
 ]
 
