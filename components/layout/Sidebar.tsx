@@ -50,12 +50,12 @@ const navSections = [
       {
         name: '⚡️翻墙Vpn推荐',
         description: '翻墙Vpn推荐，加速下载！',
-        href: 'https://eueua.cc/#/register?code=u9ev6t6U',
+        href: 'https://www.tspeedcat.top/#/register?code=RUdELCIN',
         icon: HeartIcon,
         popover: {
           title: 'VPN',
           description: '⚡️翻墙Vpn推荐',
-          image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg'
+          image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg'
         }
       },
       {

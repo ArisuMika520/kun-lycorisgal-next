@@ -30,8 +30,8 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     id: 'redirect-ad3', // eueuVPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/eueuVPN/eueuVPN.jpg',
-    link: 'https://eueua.cc/#/register?code=u9ev6t6U'
+    image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
+    link: 'https://www.tspeedcat.top/#/register?code=RUdELCIN'
   },
   {
     id: 'redirect-ad4', // SoulAI
