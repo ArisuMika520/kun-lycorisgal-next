@@ -49,12 +49,12 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '⚡️翻墙Vpn推荐',
-    href: 'https://eueua.cc/#/register?code=u9ev6t6U',
+    href: 'https://www.tspeedcat.top/#/register?code=RUdELCIN',
     rel: 'nofollow'
   },
   {
     name: '木瓜玩-精品成人手遊聚合平台',
-    href: 'https://t.ameaw.com/?pid=98',
+    href: 'https://t.unfjx.com/?pid=98',
     rel: 'nofollow'
   },
   {

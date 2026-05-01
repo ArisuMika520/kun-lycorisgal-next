@@ -32,7 +32,7 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.ameaw.com/?pid=98'
+    link: 'https://t.unfjx.com/?pid=98'
   },
   {
     id: 'game-detail-ad2', //soulai
