@@ -28,7 +28,7 @@ const ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
-    link: 'https://www.tspeedcat.top/#/register?code=RUdELCIN'
+    link: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn'
   }
 ]
 

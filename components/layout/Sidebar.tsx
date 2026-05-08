@@ -50,7 +50,7 @@ const navSections = [
       {
         name: '⚡️翻墙Vpn推荐',
         description: '翻墙Vpn推荐，加速下载！',
-        href: 'https://www.tspeedcat.top/#/register?code=RUdELCIN',
+        href: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn',
         icon: HeartIcon,
         popover: {
           title: 'VPN',

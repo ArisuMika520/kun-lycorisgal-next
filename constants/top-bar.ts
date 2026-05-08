@@ -49,7 +49,7 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '⚡️翻墙Vpn推荐',
-    href: 'https://www.tspeedcat.top/#/register?code=RUdELCIN',
+    href: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn',
     rel: 'nofollow'
   },
   {
