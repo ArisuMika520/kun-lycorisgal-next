@@ -1,16 +1,20 @@
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { Browser } from 'puppeteer';
+import { guardOutboundUrl } from '~/utils/ssrfGuard';
 
 puppeteer.use(StealthPlugin());
 
+const TOUCHGAL_ALLOW_HOSTS = ['touchgal.top', 'touchgal.us'] as const;
+
 export async function scrapeTouchgalPage(url: string) {
-    if (!url || !url.startsWith('http')) {
-        console.error("Invalid URL provided");
+    const guard = await guardOutboundUrl(url, { allowHosts: TOUCHGAL_ALLOW_HOSTS });
+    if (!guard.ok) {
+        console.error(`[TouchGal] Refusing to scrape: ${guard.reason} (url=${url})`);
         return null;
     }
 
-    console.log(`[TouchGal] Starting scrape for URL: ${url}`);
+    console.log(`[TouchGal] Starting scrape for URL: ${guard.url!.toString()}`);
 
     const browser = await puppeteer.launch({
         headless: true,
@@ -46,7 +50,7 @@ export async function scrapeTouchgalPage(url: string) {
         console.log(`[TouchGal] Cookies set.`);
 
         console.log(`[TouchGal] Navigating to page...`);
-        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+        await page.goto(guard.url!.toString(), { waitUntil: 'networkidle2', timeout: 60000 });
 
         const data = await page.evaluate(() => {
             const title = document.querySelector('h1')?.innerText || document.title;

@@ -48,10 +48,11 @@ export const generateKunStatelessToken = (
 
 export const verifyKunToken = async (refreshToken: string) => {
   try {
-    const payload = jwt.verify(
-      refreshToken,
-      process.env.JWT_SECRET!
-    ) as KunGalgamePayload
+    const payload = jwt.verify(refreshToken, process.env.JWT_SECRET!, {
+      algorithms: ['HS256'],
+      issuer: process.env.JWT_ISS,
+      audience: process.env.JWT_AUD
+    }) as KunGalgamePayload
     const redisToken = await getKv(`access:token:${payload.uid}`)
 
     if (!redisToken) {

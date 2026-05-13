@@ -25,10 +25,17 @@ export const envSchema = z.object({
 
   REDIS_HOST: z.string(),
   REDIS_PORT: z.string(),
+  REDIS_PASSWORD: z.string().optional(),
 
   JWT_ISS: z.string(),
   JWT_AUD: z.string(),
-  JWT_SECRET: z.string(),
+  JWT_SECRET: z
+    .string()
+    .min(32, 'JWT_SECRET must be at least 32 characters')
+    .refine(
+      (v) => v !== 'moemoekungalgamekunisthecutest!chinorensukiazkhx',
+      'JWT_SECRET is the upstream public default — generate your own with `openssl rand -base64 64`'
+    ),
 
   NODE_ENV: z.enum(['development', 'test', 'production']),
 

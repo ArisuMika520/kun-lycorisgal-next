@@ -1,5 +1,4 @@
 import { createTransport } from 'nodemailer'
-import SMPTransport from 'nodemailer-smtp-transport'
 import { getRemoteIp } from './getRemoteIp'
 import { getKv, setKv } from '~/lib/redis'
 import { generateRandomString } from '~/utils/random'
@@ -24,21 +23,16 @@ export const sendVerificationCodeEmail = async (
   await setKv(`limit:email:${email}`, code, 60)
   await setKv(`limit:ip:${ip}`, code, 60)
 
-  const transporter = createTransport(
-    SMPTransport({
-      pool: {
-        pool: true
-      },
-      host: process.env.KUN_VISUAL_NOVEL_EMAIL_HOST,
-      port: Number(process.env.KUN_VISUAL_NOVEL_EMAIL_PORT) || 587,
-      secure: true,
-      //requireTLS: true,
-      auth: {
-        user: process.env.KUN_VISUAL_NOVEL_EMAIL_ACCOUNT,
-        pass: process.env.KUN_VISUAL_NOVEL_EMAIL_PASSWORD
-      }
-    })
-  )
+  const transporter = createTransport({
+    pool: true,
+    host: process.env.KUN_VISUAL_NOVEL_EMAIL_HOST,
+    port: Number(process.env.KUN_VISUAL_NOVEL_EMAIL_PORT) || 587,
+    secure: true,
+    auth: {
+      user: process.env.KUN_VISUAL_NOVEL_EMAIL_ACCOUNT,
+      pass: process.env.KUN_VISUAL_NOVEL_EMAIL_PASSWORD
+    }
+  })
 
   const mailOptions = {
     from: `${process.env.KUN_VISUAL_NOVEL_EMAIL_FROM}<${process.env.KUN_VISUAL_NOVEL_EMAIL_ACCOUNT}>`,

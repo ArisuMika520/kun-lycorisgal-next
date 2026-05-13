@@ -18,4 +18,5 @@ runCommand('pnpx prisma db push')
 if (!existsSync('./uploads')) {
   mkdirSync('./uploads')
 }
-runCommand('chmod 777 uploads')
+// 只让运行进程的所属用户和组读写,移除 world-write/exec
+runCommand('chmod 770 uploads')
