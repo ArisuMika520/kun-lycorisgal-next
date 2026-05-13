@@ -20,14 +20,14 @@ const ADS_DATA: AdItem[] = [
     id: 'ad1', //风月AI
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-02.gif',
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
     link: 'https://genraton.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'ad2', //eueuVPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
+    image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
     link: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn'
   }
 ]
