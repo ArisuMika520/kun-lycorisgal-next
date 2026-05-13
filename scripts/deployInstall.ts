@@ -11,7 +11,7 @@ const runCommand = (command: string) => {
   }
 }
 
-runCommand('pnpm install')
+runCommand('pnpm install --frozen-lockfile')
 
 runCommand('pnpx prisma db push')
 

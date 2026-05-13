@@ -4,6 +4,7 @@ import { Tooltip } from '@heroui/tooltip'
 import { Avatar } from '@heroui/avatar'
 import { KunUserCard } from './KunUserCard'
 import { useRouter } from '@bprogress/next'
+import { getImageProxySrc } from '~/utils/imageProxy'
 import type { AvatarProps } from '@heroui/avatar'
 
 interface KunAvatarProps extends AvatarProps {
@@ -22,9 +23,8 @@ export const KunAvatar = ({ uid, avatarProps }: Props) => {
   const { alt, name, src, ...rest } = avatarProps
   const username = name?.charAt(0).toUpperCase() ?? '杂鱼'
   const altString = alt ? alt : username
-  
-  // 添加缓存破坏参数来确保头像更新后能正确显示
-  const avatarSrc = src && src.trim() !== '' ? `${src}?t=${Date.now()}` : undefined
+
+  const avatarSrc = getImageProxySrc(src)
 
   return (
     <Tooltip

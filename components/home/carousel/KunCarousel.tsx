@@ -17,16 +17,25 @@ export const KunCarousel = ({ posts }: KunCarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [direction, setDirection] = useState(0)
+  const postCount = posts?.length ?? 0
 
   useEffect(() => {
-    if (!isHovered) {
-      const timer = setInterval(() => {
-        setDirection(1)
-        setCurrentSlide((prev) => (prev + 1) % posts.length)
-      }, 5000)
-      return () => clearInterval(timer)
+    if (isHovered || postCount === 0) {
+      return
     }
-  }, [isHovered, posts.length])
+
+    const timer = setInterval(() => {
+      setDirection(1)
+      setCurrentSlide((prev) => (prev + 1) % postCount)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [isHovered, postCount])
+
+  // posts 可能为空(例如 standalone 启动时 cwd 漂移、或 mdx 解析失败)。
+  // 不渲染整个 carousel,避免下游 Mobile/DesktopCard 读到 post = undefined。
+  if (postCount === 0) {
+    return null
+  }
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -55,9 +64,7 @@ export const KunCarousel = ({ posts }: KunCarouselProps) => {
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection)
-    setCurrentSlide(
-      (prev) => (prev + newDirection + posts.length) % posts.length
-    )
+    setCurrentSlide((prev) => (prev + newDirection + postCount) % postCount)
   }
 
   return (

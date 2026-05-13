@@ -1,8 +1,14 @@
+overrides:
+  '@heroui/use-image': 2.1.14
+  '@heroui/use-image@2.1.11': 2.1.14
+
 allowBuilds:
   '@heroui/shared-utils': true
   '@parcel/watcher': true
   '@prisma/client': true
   '@prisma/engines': true
+  '@tailwindcss/oxide': true
+  aws-sdk: true
   core-js: true
   esbuild: true
   prisma: true
@@ -19,5 +25,6 @@ onlyBuiltDependencies:
   - core-js
   - esbuild
   - prisma
+  - puppeteer
   - sharp
   - unrs-resolver

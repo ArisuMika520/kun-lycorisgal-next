@@ -2,175 +2,177 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://127.0.0.1:3000/(main)</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/friend-link</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/redirect</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/comment</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/companies</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/debug-code</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/galgame</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/register</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/resource</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/search</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/tag</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/(main)/topic</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/todo</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/auth/email-notice</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/auth/forgot</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <loc>http://127.0.0.1:3000/(main)/topic</loc>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply/pending</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/apply/success</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/auth/email-notice</loc>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/auth/forgot</loc>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/(main)/design/game-detail</loc>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/login/2fa</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/(main)/topic/create</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc
+      >http://127.0.0.1:3000/(main)/design/game-detail/[uniqueId]/[variant]</loc
+    >
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/doc</loc>
-    <lastmod>2026-03-16T15:26:46.242Z</lastmod>
+    <lastmod>2026-05-13T13:05:10.932Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>http://127.0.0.1:3000/3fd9e9bb</loc>
-    <lastmod>2025-08-29T16:33:27.817Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
     <loc>http://127.0.0.1:3000/fc1d7b0c</loc>
     <lastmod>2025-08-29T16:26:44.310Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/ab643c4e</loc>
-    <lastmod>2025-08-29T16:59:15.454Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -309,6 +311,20 @@
   </url>
 
   <url>
+    <loc>http://127.0.0.1:3000/ab643c4e</loc>
+    <lastmod>2026-03-16T16:43:03.159Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/3fd9e9bb</loc>
+    <lastmod>2026-03-18T15:17:44.083Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>http://127.0.0.1:3000/b229ede7</loc>
     <lastmod>2026-01-14T21:45:57.463Z</lastmod>
     <changefreq>daily</changefreq>
@@ -317,7 +333,7 @@
 
   <url>
     <loc>http://127.0.0.1:3000/4c4fa15f</loc>
-    <lastmod>2026-01-14T21:46:00.413Z</lastmod>
+    <lastmod>2026-03-18T17:41:44.850Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
@@ -331,21 +347,21 @@
 
   <url>
     <loc>http://127.0.0.1:3000/b54b7e5a</loc>
-    <lastmod>2026-01-14T21:37:12.706Z</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>http://127.0.0.1:3000/b2888aba</loc>
-    <lastmod>2026-01-14T21:03:38.138Z</lastmod>
+    <lastmod>2026-03-18T17:41:38.846Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>http://127.0.0.1:3000/e76b252f</loc>
-    <lastmod>2026-03-16T15:20:03.091Z</lastmod>
+    <lastmod>2026-03-18T17:11:38.918Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>http://127.0.0.1:3000/b2888aba</loc>
+    <lastmod>2026-05-13T11:54:59.185Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

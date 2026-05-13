@@ -3,6 +3,7 @@
 import { Card, Chip, Link } from '@heroui/react'
 import { docDirectoryLabelMap } from '~/constants/doc'
 import { formatDistanceToNow } from '~/utils/formatDistanceToNow'
+import { getImageProxySrc } from '~/utils/imageProxy'
 import type { HomeCarouselMetadata } from './mdx'
 
 interface Props {
@@ -27,7 +28,7 @@ export const KunDesktopCard = ({ posts, currentSlide }: Props) => {
         <div className="p-4">
           <div className="flex items-center gap-3 mb-2">
             <img
-              src={post.authorAvatar}
+              src={getImageProxySrc(post.authorAvatar)}
               alt={post.authorName}
               className="w-6 h-6 rounded-full"
             />
