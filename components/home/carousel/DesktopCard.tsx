@@ -12,6 +12,7 @@ interface Props {
 
 export const KunDesktopCard = ({ posts, currentSlide }: Props) => {
   const post = posts[currentSlide]
+  if (!post) return null
 
   return (
     <div className="hidden h-full sm:block group">

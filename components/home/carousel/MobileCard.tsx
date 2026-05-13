@@ -10,6 +10,7 @@ interface Props {
 
 export const KunMobileCard = ({ posts, currentSlide }: Props) => {
   const post = posts[currentSlide]
+  if (!post) return null
 
   return (
     <Card className="h-[200px] bg-transparent border-none shadow-none">

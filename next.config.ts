@@ -40,7 +40,17 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  serverExternalPackages: ['puppeteer', 'puppeteer-core', 'puppeteer-extra', 'puppeteer-extra-plugin-stealth'],
+  serverExternalPackages: [
+    'puppeteer',
+    'puppeteer-core',
+    'puppeteer-extra',
+    'puppeteer-extra-plugin-stealth',
+    // jsdom 内部用 __dirname 读 default-stylesheet.css 等静态资源,
+    // standalone 打包后 __dirname 被改写,文件找不到 → ENOENT。
+    // isomorphic-dompurify 服务端会 require jsdom,一并标外。
+    'jsdom',
+    'isomorphic-dompurify'
+  ],
 
   output: 'standalone',
   experimental: {
