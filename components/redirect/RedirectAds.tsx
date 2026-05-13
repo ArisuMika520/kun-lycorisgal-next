@@ -16,7 +16,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     id: 'redirect-ad1', // 风月AI
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-01.gif',
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF-ezgif.com-resize.gif',
     link: 'https://genraton.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {

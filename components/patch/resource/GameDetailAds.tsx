@@ -17,7 +17,7 @@ const GAME_DETAIL_ADS_DATA: AdItem[] = [
     id: 'game-detail-ad1', //风月AI
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200-03.gif', // 游戏详情页专用广告图片
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF-ezgif.com-resize-2.gif', // 游戏详情页专用广告图片
     link: 'https://genraton.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f' // 游戏详情页专用广告链接
   },
   {
