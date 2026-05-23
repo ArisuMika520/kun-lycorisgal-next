@@ -14,7 +14,7 @@ module.exports = {
       // https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
       env: {
         NODE_ENV: 'production',
-        HOSTNAME: '0.0.0.0',
+        HOSTNAME: '127.0.0.1',
         PORT: 3000
       }
     }
