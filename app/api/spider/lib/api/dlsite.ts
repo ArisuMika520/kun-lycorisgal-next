@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { spiderHttp } from './_httpClient';
 
 
 export async function fetchDlsiteInfo(rjCode: string) {
@@ -6,7 +6,7 @@ export async function fetchDlsiteInfo(rjCode: string) {
     console.log(`[DLsite] Fetching info for code: ${rjCode}`);
     try {
         const apiUrl = process.env.KUN_DLSITE_API_URL || 'https://dlapi.arisumika.top/api/dlsite';
-        const response = await axios.get(`${apiUrl}?code=${rjCode}`);
+        const response = await spiderHttp.get(`${apiUrl}?code=${rjCode}`);
         return response.data.data;
     } catch (error) {
         console.error(`[DLsite] Failed to fetch info for ${rjCode}: ${error}`);

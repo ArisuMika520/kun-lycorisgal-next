@@ -1,11 +1,11 @@
-import axios from 'axios';
+import { spiderHttp } from './_httpClient';
 import { normalizeTitleStrict } from '../utils/normalize';
 import { VndbDetail } from './vndb';
 
 export async function searchBangumiSubject(keyword: string): Promise<any[]> {
     console.log(`[Bangumi] Searching for: ${keyword}`);
     try {
-        const response = await axios.post('https://api.bgm.tv/v0/search/subjects', {
+        const response = await spiderHttp.post('https://api.bgm.tv/v0/search/subjects', {
             keyword: keyword,
             filter: { type: [4] }, // Game
             sort: 'match'
@@ -25,7 +25,7 @@ export async function searchBangumiSubject(keyword: string): Promise<any[]> {
 export async function fetchBangumiSubject(subjectId: number) {
     console.log(`[Bangumi] Fetching detail for ID: ${subjectId}`);
     try {
-        const response = await axios.get(`https://api.bgm.tv/v0/subjects/${subjectId}`, {
+        const response = await spiderHttp.get(`https://api.bgm.tv/v0/subjects/${subjectId}`, {
             headers: {
                 'User-Agent': 'Antigravity/GalFetchDemo (https://github.com/google-deepmind)'
             }

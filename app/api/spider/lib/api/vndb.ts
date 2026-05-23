@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { spiderHttp } from './_httpClient';
 
 function describeAxiosError(error: unknown): string {
     if (axios.isAxiosError(error)) {
@@ -58,7 +59,7 @@ export interface VndbRelease {
 export async function fetchVndbDetail(vndbId: string): Promise<VndbDetail | null> {
     console.log(`[VNDB] Fetching details for ${vndbId}...`);
     try {
-        const response = await axios.post('https://api.vndb.org/kana/vn', {
+        const response = await spiderHttp.post('https://api.vndb.org/kana/vn', {
             filters: ["id", "=", vndbId],
             fields: [
                 "id", "title", "alttitle",
@@ -89,7 +90,7 @@ export async function fetchVndbDetail(vndbId: string): Promise<VndbDetail | null
 export async function fetchVndbReleases(vndbId: string): Promise<VndbRelease[]> {
     console.log(`[VNDB] Fetching releases for ${vndbId}...`);
     try {
-        const response = await axios.post('https://api.vndb.org/kana/release', {
+        const response = await spiderHttp.post('https://api.vndb.org/kana/release', {
             filters: ["vn", "=", ["id", "=", vndbId]],
             fields: "id, title, released, extlinks.url, extlinks.label, extlinks.name, extlinks.id"
         });

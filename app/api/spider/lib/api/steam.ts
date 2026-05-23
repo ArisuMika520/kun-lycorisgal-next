@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { spiderHttp } from './_httpClient';
 import { VndbDetail, VndbRelease } from './vndb';
 
 
@@ -32,7 +32,7 @@ export function extractSteamId(vnDetail: VndbDetail, releases: VndbRelease[]): s
 export async function fetchSteamStoreInfo(appId: string, language: string = 'english') {
     console.log(`[Steam] Fetching store info for AppID: ${appId} (Lang: ${language})`);
     try {
-        const response = await axios.get('https://store.steampowered.com/api/appdetails', {
+        const response = await spiderHttp.get('https://store.steampowered.com/api/appdetails', {
             params: {
                 appids: appId,
                 l: language
