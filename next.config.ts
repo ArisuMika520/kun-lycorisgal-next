@@ -49,11 +49,31 @@ const nextConfig: NextConfig = {
     // standalone 打包后 __dirname 被改写,文件找不到 → ENOENT。
     // isomorphic-dompurify 服务端会 require jsdom,一并标外。
     'jsdom',
-    'isomorphic-dompurify',
-    // undici 源码用 node: scheme imports (node:console / node:crypto 等),
-    // webpack 不识别;且 instrumentation.ts 仅在服务端执行,直接 require。
-    'undici'
+    'isomorphic-dompurify'
   ],
+
+  // instrumentation.ts 启动时需要 undici 来设置 IPv4-only dispatcher
+  // (服务器无 IPv6 出站,详见 instrumentation.ts 注释)。但 undici 源码
+  // 用 node:console / node:crypto 等 scheme imports,webpack 不识别会
+  // 报 UnhandledSchemeError。这里在 server 端把 undici 标为 external,
+  // webpack 输出 require('undici') 由 Node 运行时解析;nft 看到 require
+  // 调用,会自动把 undici 包 trace 到 .next/standalone/node_modules/。
+  // serverExternalPackages 不覆盖 instrumentation 的编译,所以必须走
+  // 这层 webpack config。
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      const undiciExternal = { undici: 'commonjs undici' }
+      const existing = config.externals
+      if (Array.isArray(existing)) {
+        config.externals = [...existing, undiciExternal]
+      } else if (existing) {
+        config.externals = [existing, undiciExternal]
+      } else {
+        config.externals = [undiciExternal]
+      }
+    }
+    return config
+  },
 
   output: 'standalone',
   experimental: {
