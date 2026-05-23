@@ -49,7 +49,10 @@ const nextConfig: NextConfig = {
     // standalone 打包后 __dirname 被改写,文件找不到 → ENOENT。
     // isomorphic-dompurify 服务端会 require jsdom,一并标外。
     'jsdom',
-    'isomorphic-dompurify'
+    'isomorphic-dompurify',
+    // undici 源码用 node: scheme imports (node:console / node:crypto 等),
+    // webpack 不识别;且 instrumentation.ts 仅在服务端执行,直接 require。
+    'undici'
   ],
 
   output: 'standalone',
