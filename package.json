@@ -141,6 +141,7 @@
     "sugar-high": "^0.9.3",
     "tailwind-merge": "^3.3.1",
     "time2fa": "^1.4.2",
+    "undici": "^7.18.2",
     "typed.js": "^2.1.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
