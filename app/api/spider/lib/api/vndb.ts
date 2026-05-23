@@ -1,4 +1,29 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
+function describeAxiosError(error: unknown): string {
+    if (axios.isAxiosError(error)) {
+        const ax = error as AxiosError;
+        const parts: string[] = [];
+        parts.push(`message=${ax.message || '(empty)'}`);
+        if (ax.code) parts.push(`code=${ax.code}`);
+        if (ax.response) {
+            parts.push(`status=${ax.response.status}`);
+            const body = typeof ax.response.data === 'string'
+                ? ax.response.data.slice(0, 500)
+                : JSON.stringify(ax.response.data).slice(0, 500);
+            parts.push(`body=${body}`);
+        } else if (ax.request) {
+            parts.push(`no_response=true`);
+        }
+        const cause = (ax as unknown as { cause?: { code?: string; message?: string } }).cause;
+        if (cause) parts.push(`cause=${cause.code ?? ''}:${cause.message ?? ''}`);
+        return parts.join(' | ');
+    }
+    if (error instanceof Error) {
+        return `${error.name}: ${error.message}`;
+    }
+    return String(error);
+}
 
 export interface VndbDetail {
     id: string;
@@ -55,8 +80,8 @@ export async function fetchVndbDetail(vndbId: string): Promise<VndbDetail | null
             console.warn(`[VNDB] No results found for ${vndbId}`);
             return null;
         }
-    } catch (error: any) {
-        console.error(`[VNDB] Error fetching details: ${error.message}`);
+    } catch (error: unknown) {
+        console.error(`[VNDB] Error fetching details for ${vndbId}: ${describeAxiosError(error)}`);
         return null;
     }
 }
@@ -73,8 +98,8 @@ export async function fetchVndbReleases(vndbId: string): Promise<VndbRelease[]> 
             return response.data.results;
         }
         return [];
-    } catch (error: any) {
-        console.error(`[VNDB] Error fetching releases: ${error.message}`);
+    } catch (error: unknown) {
+        console.error(`[VNDB] Error fetching releases for ${vndbId}: ${describeAxiosError(error)}`);
         return [];
     }
 }
