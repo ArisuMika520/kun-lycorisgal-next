@@ -288,13 +288,10 @@ export const DELETE = async (req: NextRequest) => {
     if (!payload) {
       return NextResponse.json({ message: '请先登录' }, { status: 401 })
     }
-
-    const body = await req.json()
-    const validatedData = deleteCommentSchema.parse(body)
-
+    const commentId = Number(req.nextUrl.searchParams.get('commentId'))
     // 检查评论是否存在且属于当前用户
     const existingComment = await prisma.topic_comment.findUnique({
-      where: { id: validatedData.commentId },
+      where: { id: commentId },
       include: { user: true }
     })
 
@@ -302,7 +299,7 @@ export const DELETE = async (req: NextRequest) => {
       return NextResponse.json({ message: '评论不存在' }, { status: 404 })
     }
 
-    if (existingComment.user_id !== payload.uid) {
+    if (existingComment.user_id !== payload.uid && payload.role !== 4) {
       return NextResponse.json({ message: '无权限删除此评论' }, { status: 403 })
     }
 
@@ -310,26 +307,26 @@ export const DELETE = async (req: NextRequest) => {
     await prisma.$transaction(async (tx) => {
       // 删除评论的所有点赞记录
       await tx.topic_comment_like.deleteMany({
-        where: { comment_id: validatedData.commentId }
+        where: { comment_id: commentId }
       })
 
       // 删除评论本身
       await tx.topic_comment.delete({
-        where: { id: validatedData.commentId }
+        where: { id: commentId }
       })
 
       // 删除所有子评论的点赞记录
       await tx.topic_comment_like.deleteMany({
         where: {
           comment: {
-            parent_id: validatedData.commentId
+            parent_id: commentId
           }
         }
       })
 
       // 删除所有子评论
       await tx.topic_comment.deleteMany({
-        where: { parent_id: validatedData.commentId }
+        where: { parent_id: commentId }
       })
     })
 
