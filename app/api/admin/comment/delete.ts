@@ -5,11 +5,21 @@ const commentIdSchema = z.object({
   commentId: z.coerce
     .number({ message: '评论 ID 必须为数字' })
     .min(1)
-    .max(9999999)
+    .max(9999999),
+  type: z.enum(['patch', 'topic'], { message: 'type 必须为 patch 或 topic' })
 })
 
-const deleteCommentWithReplies = async (commentId: number) => {
-  const childComments = await prisma.patch_comment.findMany({
+const deleteCommentWithReplies = async (input: z.infer<typeof commentIdSchema>) => {
+  const { commentId, type } = input
+
+  let childComments: any[] = []
+
+  if (type === 'patch') {
+    childComments = await prisma.patch_comment.findMany({
+      where: { parent_id: commentId }
+    })
+  }
+  childComments = await prisma.topic_comment.findMany({
     where: { parent_id: commentId }
   })
 
@@ -17,7 +27,12 @@ const deleteCommentWithReplies = async (commentId: number) => {
     await deleteCommentWithReplies(child.id)
   }
 
-  await prisma.patch_comment.delete({
+  if (type === 'patch') {
+    await prisma.patch_comment.delete({
+      where: { id: commentId }
+    })
+  }
+  await prisma.topic_comment.delete({
     where: { id: commentId }
   })
 }
@@ -26,9 +41,20 @@ export const deleteComment = async (
   input: z.infer<typeof commentIdSchema>,
   uid: number
 ) => {
-  const comment = await prisma.patch_comment.findUnique({
-    where: { id: input.commentId }
-  })
+
+  let comment: any
+  if (input.type === 'patch') {
+    comment = await prisma.patch_comment.findUnique({
+      where: { id: input.commentId }
+    })
+  }
+
+  if (input.type === 'topic') {
+    comment = await prisma.topic_comment.findUnique({
+      where: { id: input.commentId }
+    })
+  }
+
   if (!comment) {
     return '未找到对应的评论'
   }
@@ -39,7 +65,7 @@ export const deleteComment = async (
   }
 
   return await prisma.$transaction(async (prisma) => {
-    await deleteCommentWithReplies(input.commentId)
+    await deleteCommentWithReplies(input)
 
     await prisma.admin_log.create({
       data: {

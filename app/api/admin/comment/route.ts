@@ -16,7 +16,8 @@ const commentIdSchema = z.object({
   commentId: z.coerce
     .number({ message: '评论 ID 必须为数字' })
     .min(1)
-    .max(9999999)
+    .max(9999999),
+  type: z.enum(['patch', 'topic'], { message: 'type 必须为 patch 或 topic' })
 })
 
 export async function GET(req: NextRequest) {
