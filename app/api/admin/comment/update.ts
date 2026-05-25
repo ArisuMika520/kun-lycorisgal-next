@@ -6,9 +6,20 @@ export const updateComment = async (
   input: z.infer<typeof patchCommentUpdateSchema>,
   uid: number
 ) => {
-  const comment = await prisma.patch_comment.findUnique({
-    where: { id: input.commentId }
+
+  const { commentId, content, type } = input
+
+  let comment: any
+
+  if (type === 'patch') {
+    comment = await prisma.patch_comment.findUnique({
+      where: { id: commentId }
+    })
+  }
+  comment = await prisma.topic_comment.findUnique({
+    where: { id: commentId }
   })
+
   if (!comment) {
     return '未找到对应的评论'
   }
@@ -17,14 +28,30 @@ export const updateComment = async (
     return '未找到该管理员'
   }
 
-  const { commentId, content } = input
 
   return await prisma.$transaction(async (prisma) => {
-    await prisma.patch_comment.update({
+    if (type === 'patch') {
+      await prisma.patch_comment.update({
+        where: { id: commentId },
+        data: {
+          content,
+          edit: Date.now().toString()
+        },
+        include: {
+          user: true,
+          like_by: {
+            include: {
+              user: true
+            }
+          }
+        }
+      })
+    }
+    await prisma.topic_comment.update({
       where: { id: commentId },
       data: {
         content,
-        edit: Date.now().toString()
+        updated: new Date()
       },
       include: {
         user: true,

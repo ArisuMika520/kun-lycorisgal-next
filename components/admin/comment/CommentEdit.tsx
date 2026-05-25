@@ -39,7 +39,8 @@ export const CommentEdit = ({ initialComment }: Props) => {
   const handleDeleteComment = async () => {
     setDeleting(true)
     const res = await kunFetchDelete<KunResponse<{}>>('/api/admin/comment', {
-      commentId: initialComment.id
+      commentId: initialComment.id,
+      type: initialComment.type
     })
     if (typeof res === 'string') {
       toast.error(res)
@@ -62,10 +63,14 @@ export const CommentEdit = ({ initialComment }: Props) => {
       return
     }
     setUpdating(true)
-    const res = await kunFetchPut<KunResponse<AdminComment>>('/api/admin/comment', {
-      commentId: initialComment.id,
-      content: editContent.trim()
-    })
+    const res = await kunFetchPut<KunResponse<AdminComment>>(
+      '/api/admin/comment',
+      {
+        type: initialComment.type,
+        commentId: initialComment.id,
+        content: editContent.trim()
+      }
+    )
     if (typeof res === 'string') {
       toast.error(res)
     } else {

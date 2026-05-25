@@ -30,6 +30,7 @@ export const patchCommentCreateSchema = z.object({
 
 export const patchCommentUpdateSchema = z.object({
   commentId: z.coerce.number().min(1).max(9999999),
+  type: z.enum(['patch', 'topic'], { message: 'type 必须为 patch 或 topic' }),
   content: z
     .string()
     .trim()
