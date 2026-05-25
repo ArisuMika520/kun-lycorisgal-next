@@ -28,7 +28,6 @@ interface Props {
 }
 
 export const CommentEdit = ({ initialComment }: Props) => {
-  console.log('initialComment', initialComment)
   const currentUser = useUserStore((state) => state.user)
 
   const {
