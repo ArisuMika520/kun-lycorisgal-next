@@ -17,7 +17,7 @@ const REDIRECT_ADS_DATA: AdItem[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF-ezgif.com-resize.gif',
-    link: 'https://genraton.xyz?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'redirect-ad2', // muguawan
