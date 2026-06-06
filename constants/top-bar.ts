@@ -54,7 +54,7 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '木瓜玩-精品成人手遊聚合平台',
-    href: 'https://t.unfjx.com/?pid=98',
+    href: 'https://t.fgtrea.com/?pid=98',
     rel: 'nofollow'
   },
   {
