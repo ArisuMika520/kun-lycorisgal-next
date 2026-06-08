@@ -7,6 +7,8 @@ import { Card, CardBody } from '@heroui/card'
 import { Tab, Tabs } from '@heroui/tabs'
 import { FolderOpenDot, MessageSquare, Sparkles } from 'lucide-react'
 import { cn } from '~/utils/cn'
+import { KunAdSlot } from '~/components/kun/ad/KunAdSlot'
+import { kunGameDetailTopAds } from '~/config/ads'
 import {
   PATCH_DETAIL_TAB_CHANGE_EVENT,
   type PatchDetailTabChangeDetail
@@ -253,7 +255,9 @@ export const PatchDetailTabs = ({ data, children }: Props) => {
             }
             className="p-0"
           >
-            <div className="pt-5">
+            <div className="space-y-5 pt-5">
+              {/* 资源链接 Tab 顶部广告位(Tab 栏与面板之间, 一行两列) */}
+              <KunAdSlot ads={kunGameDetailTopAds} />
               <TabSection
                 title="资源链接"
                 icon={<FolderOpenDot className="size-5 text-default-500" />}

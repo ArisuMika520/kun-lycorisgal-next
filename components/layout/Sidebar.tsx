@@ -48,6 +48,17 @@ const navSections = [
         }
       },
       {
+        name: 'AI色色',
+        description: 'AI色色',
+        href: 'https://www.yyai.mom/r/zctn',
+        icon: HeartIcon,
+        popover: {
+          title: 'AI色色',
+          description: 'AI色色',
+          image: 'https://r2.sakinori.top/yyai/1024x768.gif'
+        }
+      },
+      {
         name: '⚡️翻墙Vpn推荐',
         description: '翻墙Vpn推荐，加速下载！',
         href: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn',

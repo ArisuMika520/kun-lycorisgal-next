@@ -48,6 +48,11 @@ export const kunMobileNavItem: KunNavItem[] = [
     rel: 'nofollow'
   },
   {
+    name: 'AI色色',
+    href: 'https://www.yyai.mom/r/zctn',
+    rel: 'nofollow'
+  },
+  {
     name: '⚡️翻墙Vpn推荐',
     href: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn',
     rel: 'nofollow'
