@@ -15,6 +15,19 @@ const PROXY_IMAGE_ALLOW_HOSTS = [
 
 const MAX_IMAGE_BYTES = 20 * 1024 * 1024
 
+// Some object stores (notably Cloudflare R2) serve image objects such as
+// .avif / .webp with a generic application/octet-stream content type. We accept
+// those when the URL extension is a known image type and backfill the correct
+// Content-Type so the browser actually renders them.
+const IMAGE_EXT_MIME: Record<string, string> = {
+  avif: 'image/avif',
+  webp: 'image/webp',
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  gif: 'image/gif'
+}
+
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get('url')
 
@@ -59,14 +72,30 @@ export async function GET(req: NextRequest) {
       )
     }
 
-    const contentType =
-      response.headers.get('content-type') || 'application/octet-stream'
-    if (!contentType.startsWith('image/')) {
+    const upstreamContentType = (
+      response.headers.get('content-type') || ''
+    ).toLowerCase()
+    const ext = guard.url!.pathname.split('.').pop()?.toLowerCase() ?? ''
+    const extMime = IMAGE_EXT_MIME[ext]
+
+    const isImageContentType = upstreamContentType.startsWith('image/')
+    // Accept generic binary responses only when the URL extension proves it is
+    // a known image type (covers R2 serving .avif as application/octet-stream).
+    const isAllowedBinary =
+      (upstreamContentType === 'application/octet-stream' ||
+        upstreamContentType === '') &&
+      Boolean(extMime)
+
+    if (!isImageContentType && !isAllowedBinary) {
       return NextResponse.json(
         { error: 'Upstream is not an image' },
         { status: 400 }
       )
     }
+
+    // Trust a real image/* type from upstream; otherwise backfill from the
+    // extension so the browser receives a renderable Content-Type.
+    const contentType = isImageContentType ? upstreamContentType : extMime!
 
     const declaredLen = Number(response.headers.get('content-length') || 0)
     if (declaredLen && declaredLen > MAX_IMAGE_BYTES) {
