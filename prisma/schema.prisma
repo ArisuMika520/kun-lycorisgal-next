@@ -47,6 +47,20 @@ model user {
   patch_comment_like    user_patch_comment_like_relation[]
   patch_favorite_folder user_patch_favorite_folder[]
   patch_resource_like   user_patch_resource_like_relation[]
+  oauth_account         user_oauth_account[]
+}
+
+model user_oauth_account {
+  id               Int      @id @default(autoincrement())
+  user_id          Int
+  provider         String   @db.VarChar(50)
+  provider_user_id String   @db.VarChar(100)
+  created          DateTime @default(now())
+  updated          DateTime @updatedAt
+  user             user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_user_id])
+  @@index([user_id])
 }
 
 model admin_log {
