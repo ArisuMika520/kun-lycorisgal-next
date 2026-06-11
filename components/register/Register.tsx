@@ -154,6 +154,19 @@ export const RegisterForm = () => {
       <Button
         color="primary"
         variant="bordered"
+        className="w-full"
+        onPress={() => {
+          // 注册是登录的超集：?action=register 由发起路由改跳鲲 OAuth 注册页。
+          // 整页跳转而非客户端 router（目标是后端 302 路由）。
+          window.location.href = '/api/auth/oauth/kun/login?action=register'
+        }}
+      >
+        使用鲲 Galgame 账号注册
+      </Button>
+
+      <Button
+        color="primary"
+        variant="bordered"
         className="w-full mb-4"
         onPress={() => router.push('/auth/forgot')}
       >

@@ -2,6 +2,7 @@ import { HomeContainer } from '~/components/home/Container'
 import type { Metadata } from 'next'
 import { kunGetActions } from '../actions'
 import { kunMoyuMoe } from '~/config/moyu-moe'
+import { KunOAuthLanding } from '~/components/oauth/KunOAuthLanding'
 
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default async function Kun() {
 
   return (
     <div className="container mx-auto my-4 space-y-6">
+      <KunOAuthLanding />
       <HomeContainer {...response} />
     </div>
   )

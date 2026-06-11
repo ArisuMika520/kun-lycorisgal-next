@@ -1,6 +1,6 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useEffect, useRef, useTransition } from 'react'
 import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,11 +17,41 @@ import type { UserState } from '~/store/userStore'
 
 type LoginFormData = z.infer<typeof loginSchema>
 
+// 鲲 OAuth 回调失败时落 /login?error=<code> 的中文提示（约定见
+// app/api/auth/oauth/kun/callback/route.ts 顶部）。banned 刻意落首页，由
+// KunOAuthLanding 消费，不在此列。
+const KUN_OAUTH_ERROR_MESSAGES: Record<string, string> = {
+  invalid_state: '登录状态校验失败，请重新使用鲲 Galgame 账号登录',
+  oauth_failed: '鲲 Galgame 账号登录失败，请重试',
+  expired: '授权已过期，请重新发起鲲 Galgame 账号登录',
+  email_exists: '该邮箱已被本站账号注册，请先使用密码登录',
+  // 设置页发起 ?action=bind 但会话已失效时落到这里（callback 之前的前置校验）。
+  bind_login_required: '请先登录后再绑定鲲 Galgame 账号'
+}
+
 export const LoginForm = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isPending, startTransition] = useTransition()
   const { setUser } = useUserStore((state) => state)
   const router = useRouter()
+  const handledOAuthError = useRef(false)
+
+  // 鲲 OAuth 回调失败回跳 /login?error=<code> 时，给一次性中文 toast，
+  // 随后清掉 URL 上的 error 参数（避免刷新/返回重复提示）。
+  useEffect(() => {
+    if (handledOAuthError.current) {
+      return
+    }
+    const error = new URLSearchParams(window.location.search).get('error')
+    if (!error) {
+      return
+    }
+    handledOAuthError.current = true
+    toast.error(
+      KUN_OAUTH_ERROR_MESSAGES[error] ?? '鲲 Galgame 账号登录失败，请重试'
+    )
+    router.replace('/login', { scroll: false })
+  }, [router])
 
   const { control, watch, reset } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -63,7 +93,10 @@ export const LoginForm = () => {
   }
 
   return (
-    <form className="p-3 z-10 w-full justify-start shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex flex-col items-center pt-8 space-y-6" onSubmit={handleSubmit}>
+    <form
+      className="p-3 z-10 w-full justify-start shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex flex-col items-center pt-8 space-y-6"
+      onSubmit={handleSubmit}
+    >
       <Controller
         name="name"
         control={control}
@@ -116,6 +149,18 @@ export const LoginForm = () => {
       />
 
       <KunTextDivider text="或" />
+
+      <Button
+        color="primary"
+        variant="bordered"
+        className="w-full"
+        onPress={() => {
+          // 跳后端发起路由（302 到鲲 OAuth），必须整页跳转而非客户端 router。
+          window.location.href = '/api/auth/oauth/kun/login'
+        }}
+      >
+        使用鲲 Galgame 账号登录
+      </Button>
 
       <Button
         color="primary"
