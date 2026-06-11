@@ -13,6 +13,7 @@ import { useRouter } from '@bprogress/next'
 import toast from 'react-hot-toast'
 import { KunCaptchaModal } from '~/components/kun/auth/CaptchaModal'
 import { KunTextDivider } from '~/components/kun/TextDivider'
+import { KunGalIcon } from '~/components/oauth/KunGalIcon'
 import type { UserState } from '~/store/userStore'
 
 type LoginFormData = z.infer<typeof loginSchema>
@@ -154,6 +155,7 @@ export const LoginForm = () => {
         color="primary"
         variant="bordered"
         className="w-full"
+        startContent={<KunGalIcon />}
         onPress={() => {
           // 跳后端发起路由（302 到鲲 OAuth），必须整页跳转而非客户端 router。
           window.location.href = '/api/auth/oauth/kun/login'

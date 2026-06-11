@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 import { kunFetchGet, kunFetchPost } from '~/utils/kunFetch'
 import { kunErrorHandler } from '~/utils/kunErrorHandler'
 import { useMounted } from '~/hooks/useMounted'
+import { KunGalIcon } from '~/components/oauth/KunGalIcon'
 
 // 鲲 OAuth 账号绑定设置（C6，计划 §五·1）。
 // 展示绑定状态 + 绑定/解绑按钮；解绑前校验已设密码以防锁死（后端 unbind 兜底）。
@@ -145,7 +146,12 @@ export const OAuthBinding = () => {
                 解绑
               </Button>
             ) : (
-              <Button color="primary" variant="flat" onPress={handleBind}>
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<KunGalIcon />}
+                onPress={handleBind}
+              >
                 绑定鲲 Galgame 账号
               </Button>
             ))}

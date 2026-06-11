@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 import { EmailVerification } from '~/components/kun/verification-code/Code'
 import { useRouter } from '@bprogress/next'
 import { KunTextDivider } from '~/components/kun/TextDivider'
+import { KunGalIcon } from '~/components/oauth/KunGalIcon'
 import type { UserState } from '~/store/userStore'
 
 type RegisterFormData = z.infer<typeof registerSchema>
@@ -155,6 +156,7 @@ export const RegisterForm = () => {
         color="primary"
         variant="bordered"
         className="w-full"
+        startContent={<KunGalIcon />}
         onPress={() => {
           // 注册是登录的超集：?action=register 由发起路由改跳鲲 OAuth 注册页。
           // 整页跳转而非客户端 router（目标是后端 302 路由）。
