@@ -1,4 +1,4 @@
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize'
+import rehypeSanitize, { defaultSchema, type Options } from 'rehype-sanitize'
 import rehypeStringify from 'rehype-stringify'
 import remarkGfm from 'remark-gfm'
 import remarkParse from 'remark-parse'
@@ -7,7 +7,7 @@ import rehypePrismPlus from 'rehype-prism-plus'
 import { unified } from 'unified'
 import { rehypeCodeLanguage } from '~/components/kun/rehype-code-language'
 
-const customSchema = {
+const customSchema: Options = {
   // Start from the default schema to preserve its built-in safety rules.
   ...defaultSchema,
   tagNames: Array.from(
@@ -77,16 +77,21 @@ const customSchema = {
       'height'
     ]
   },
+  // protocols 以属性名（href/src）为键，而非标签名（a/img）
   protocols: {
     ...(defaultSchema.protocols || {}),
-    a: {
-      ...(defaultSchema.protocols?.a || {}),
-      href: ['http', 'https', 'mailto', 'tel']
-    },
-    img: {
-      ...(defaultSchema.protocols?.img || {}),
-      src: ['http', 'https']
-    }
+    href: Array.from(
+      new Set([
+        ...(defaultSchema.protocols?.href || []),
+        'http',
+        'https',
+        'mailto',
+        'tel'
+      ])
+    ),
+    src: Array.from(
+      new Set([...(defaultSchema.protocols?.src || []), 'http', 'https'])
+    )
   }
 }
 
