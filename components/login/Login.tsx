@@ -25,7 +25,7 @@ const KUN_OAUTH_ERROR_MESSAGES: Record<string, string> = {
   invalid_state: '登录状态校验失败，请重新使用鲲 Galgame 账号登录',
   oauth_failed: '鲲 Galgame 账号登录失败，请重试',
   expired: '授权已过期，请重新发起鲲 Galgame 账号登录',
-  email_exists: '该邮箱已被本站账号注册，请先使用密码登录',
+  email_exists: '该邮箱已被本站账号注册，请先使用密码登录后绑定使用',
   // 设置页发起 ?action=bind 但会话已失效时落到这里（callback 之前的前置校验）。
   bind_login_required: '请先登录后再绑定鲲 Galgame 账号'
 }
@@ -95,7 +95,7 @@ export const LoginForm = () => {
 
   return (
     <form
-      className="p-3 z-10 w-full justify-start shrink-0 overflow-inherit color-inherit subpixel-antialiased rounded-t-large flex flex-col items-center pt-8 space-y-6"
+      className="flex flex-col w-full gap-5 pt-2"
       onSubmit={handleSubmit}
     >
       <Controller
@@ -111,34 +111,44 @@ export const LoginForm = () => {
             autoComplete="username"
             isInvalid={!!errors.name}
             errorMessage={errors.name?.message}
-            className="mb-4"
           />
         )}
       />
-      <Controller
-        name="password"
-        control={control}
-        render={({ field, formState: { errors } }) => (
-          <Input
-            {...field}
-            isRequired
-            label="密码"
-            type="password"
-            variant="bordered"
-            isInvalid={!!errors.password}
-            autoComplete="current-password"
-            errorMessage={errors.password?.message}
-            className="mb-4"
-          />
-        )}
-      />
+
+      <div className="flex flex-col w-full gap-1.5">
+        <Controller
+          name="password"
+          control={control}
+          render={({ field, formState: { errors } }) => (
+            <Input
+              {...field}
+              isRequired
+              label="密码"
+              type="password"
+              variant="bordered"
+              isInvalid={!!errors.password}
+              autoComplete="current-password"
+              errorMessage={errors.password?.message}
+            />
+          )}
+        />
+        <div className="flex justify-end">
+          <Link
+            href="/auth/forgot"
+            size="sm"
+            className="text-default-500 transition-colors hover:text-primary"
+          >
+            忘记密码?
+          </Link>
+        </div>
+      </div>
+
       <Button
         color="primary"
-        className="w-full"
+        className="w-full font-medium"
         type="submit"
         isDisabled={isPending}
         isLoading={isPending}
-        onPress={onOpen}
       >
         登录
       </Button>
@@ -149,7 +159,7 @@ export const LoginForm = () => {
         onSuccess={handleCaptchaSuccess}
       />
 
-      <KunTextDivider text="或" />
+      <KunTextDivider text="或" dividerClass="my-0" />
 
       <Button
         color="primary"
@@ -164,18 +174,11 @@ export const LoginForm = () => {
         使用鲲 Galgame 账号登录
       </Button>
 
-      <Button
-        color="primary"
-        variant="bordered"
-        className="w-full mb-4"
-        onPress={() => router.push('/auth/forgot')}
-      >
-        忘记密码
-      </Button>
-
-      <div className="flex items-center">
-        <span className="mr-2">没有账号?</span>
-        <Link href="register">注册账号</Link>
+      <div className="flex items-center justify-center gap-1 text-sm">
+        <span className="text-default-500">没有账号?</span>
+        <Link href="register" size="sm">
+          注册账号
+        </Link>
       </div>
     </form>
   )

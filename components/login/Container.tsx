@@ -9,8 +9,16 @@ interface Props {
 
 export const LoginContainer = ({ title, children }: Props) => {
   return (
-    <div className="flex items-center justify-center mx-auto">
-      <Card className="w-full max-w-md">
+    <div className="flex items-center justify-center w-full min-h-full py-8">
+      <Card className="relative w-full max-w-md overflow-visible">
+        <Image
+          src="/sticker.webp"
+          alt=""
+          aria-hidden
+          width={96}
+          height={96}
+          className="absolute z-20 select-none pointer-events-none -top-7 -right-5 rotate-12 drop-shadow-lg"
+        />
         <CardHeader className="flex flex-col items-center pt-8 space-y-6">
           <div className="flex items-center space-x-2 font-medium cursor-default text-medium text-default-500">
             <Image
