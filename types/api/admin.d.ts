@@ -100,3 +100,17 @@ export interface AdminRedirectConfig {
   excludedDomains: string[]
   delaySeconds: number
 }
+
+export interface MigrationNoticeConfig {
+  // 是否对外展示迁移公告弹窗
+  enabled: boolean
+  // 公告标题
+  title: string
+  // 公告正文(纯文本, 以换行分段渲染; 不解析 HTML)
+  content: string
+  // 内容版本号: 管理员修改标题/正文并保存时自增,
+  // 用于让"已确定 / 不再通知"过的用户在公告更新后重新看到弹窗
+  version: number
+  // 最近一次保存时间 (ISO 8601)
+  updatedAt: string
+}

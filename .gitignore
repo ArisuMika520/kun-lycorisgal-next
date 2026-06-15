@@ -60,3 +60,6 @@ perf-results/**
 # dev
 /components/design
 /app/(main)/design
+
+# 独立部署的静态维护页(仅根目录, 不要误伤 components 等子目录下的同名目录)
+/maintenance

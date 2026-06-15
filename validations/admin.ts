@@ -65,3 +65,16 @@ export const adminUpdateRedirectSchema = z.object({
 export const adminUpdateDisableRegisterSchema = z.object({
   disableRegister: z.boolean()
 })
+
+export const adminUpdateMigrationNoticeSchema = z
+  .object({
+    enabled: z.coerce.boolean(),
+    title: z.string().trim().max(100, { message: '公告标题最多 100 个字符' }),
+    content: z
+      .string()
+      .trim()
+      .max(2000, { message: '公告内容最多 2000 个字符' })
+  })
+  .refine((data) => !data.enabled || (!!data.title && !!data.content), {
+    message: '启用公告时, 标题和内容均不能为空'
+  })
