@@ -1,4 +1,3 @@
-
 export interface KunAdBanner {
   id: string
   title: string
@@ -29,11 +28,11 @@ export const kunHomeAds: KunAdBanner[] = [
 // 注意: 以下为占位素材, 售出后请替换为新合作方的 1200x200 创意与专属链接
 export const kunGameDetailTopAds: KunAdBanner[] = [
   {
-    id: 'game-detail-top-ad1', //风月AI
+    id: 'game-detail-top-ad1', // Null
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
-    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    image: 'https://r2.sakinori.top/1200x200.png',
+    link: '#'
   },
   {
     id: 'game-detail-top-ad2', // Null
@@ -47,12 +46,11 @@ export const kunGameDetailTopAds: KunAdBanner[] = [
 // 游戏下载页 —— 资源区底部广告位
 export const kunGameDetailAds: KunAdBanner[] = [
   {
-    id: 'game-detail-ad1', // 夜语AI
+    id: 'redirect-ad1', //风月AI
     title: '',
     description: '',
-    image:
-      'https://r2.sakinori.top/yyai/1200x200.gif',
-    link: 'https://www.yyai.mom/r/zctn'
+    image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
+    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'redirect-ad3', // 千速喵VPN
@@ -100,13 +98,6 @@ export const kunRedirectAds: KunAdBanner[] = [
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
     link: 'https://t.fgtrea.com/?pid=98'
-  },
-  {
-    id: 'redirect-ad5', // 夜语AI
-    title: '',
-    description: '',
-    image: 'https://r2.sakinori.top/yyai/1200x200.gif',
-    link: 'https://www.yyai.mom/r/zctn'
   },
   {
     id: 'redirect-ad4', // SoulAI

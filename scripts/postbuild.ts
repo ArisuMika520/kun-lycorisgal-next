@@ -1,5 +1,5 @@
 import { execSync } from 'child_process'
-import { mkdir, readdir, copyFile } from 'fs/promises'
+import { copyFile, mkdir, readdir, rm } from 'fs/promises'
 import path from 'path'
 import os from 'os'
 
@@ -29,6 +29,17 @@ const copyDirectory = async (src: string, dest: string): Promise<void> => {
 //   - server/image:   注册验证码图源 ENOENT
 const RUNTIME_ASSET_DIRS = ['posts', 'config', 'server/image'] as const
 
+const removeEmbeddedEnvFiles = async () => {
+  const standaloneDir = '.next/standalone'
+  const entries = await readdir(standaloneDir, { withFileTypes: true })
+
+  await Promise.all(
+    entries
+      .filter((entry) => entry.isFile() && entry.name.startsWith('.env'))
+      .map((entry) => rm(path.join(standaloneDir, entry.name), { force: true }))
+  )
+}
+
 const main = async () => {
   // 1) sitemap
   console.log('[postbuild] Generating sitemap...')
@@ -54,6 +65,10 @@ const main = async () => {
       )
     }
   }
+
+  // Next.js may trace root .env files into standalone output. Runtime secrets
+  // must be injected by the process manager, never shipped in the artifact.
+  await removeEmbeddedEnvFiles()
 
   console.log('[postbuild] Done.')
 }

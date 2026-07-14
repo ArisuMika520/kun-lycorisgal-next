@@ -48,17 +48,6 @@ const navSections = [
         }
       },
       {
-        name: 'AI色色',
-        description: 'AI色色',
-        href: 'https://www.yyai.mom/r/zctn',
-        icon: HeartIcon,
-        popover: {
-          title: 'AI色色',
-          description: 'AI色色',
-          image: 'https://r2.sakinori.top/yyai/1024x768.gif'
-        }
-      },
-      {
         name: '⚡️翻墙Vpn推荐',
         description: '翻墙Vpn推荐，加速下载！',
         href: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn',
@@ -257,7 +246,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               className={cn(
                 !isCollapsed && 'mb-2',
                 isAdSection &&
-                'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
+                  'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
               )}
             >
               {index > 0 && !isAdSection && (

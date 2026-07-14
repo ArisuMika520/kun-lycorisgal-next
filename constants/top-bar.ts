@@ -4,8 +4,7 @@ export interface KunNavItem {
   rel?: string
 }
 
-export const kunNavItem: KunNavItem[] = [
-]
+export const kunNavItem: KunNavItem[] = []
 
 export const kunMobileNavItem: KunNavItem[] = [
   ...kunNavItem,
@@ -45,11 +44,6 @@ export const kunMobileNavItem: KunNavItem[] = [
   {
     name: 'Ai女友💋（在线游玩）',
     href: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
-    rel: 'nofollow'
-  },
-  {
-    name: 'AI色色',
-    href: 'https://www.yyai.mom/r/zctn',
     rel: 'nofollow'
   },
   {
