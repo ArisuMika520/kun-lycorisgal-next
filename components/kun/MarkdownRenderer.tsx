@@ -15,7 +15,23 @@ interface MarkdownRendererProps {
   className?: string
 }
 
-export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererProps) => {
+const escapeHtml = (value: string) =>
+  value.replace(
+    /[&<>'"]/g,
+    (character) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+      })[character]!
+  )
+
+export const MarkdownRenderer = ({
+  content,
+  className = ''
+}: MarkdownRendererProps) => {
   const [htmlContent, setHtmlContent] = useState('')
 
   useEffect(() => {
@@ -23,7 +39,41 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
       try {
         // 自定义 sanitize 配置，允许 data-language 属性
         const customSchema = {
-          tagNames: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'br', 'strong', 'em', 'u', 's', 'code', 'pre', 'blockquote', 'ul', 'ol', 'li', 'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'del', 'ins', 'sup', 'sub', 'span', 'div'],
+          tagNames: [
+            'h1',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+            'p',
+            'br',
+            'strong',
+            'em',
+            'u',
+            's',
+            'code',
+            'pre',
+            'blockquote',
+            'ul',
+            'ol',
+            'li',
+            'a',
+            'img',
+            'table',
+            'thead',
+            'tbody',
+            'tr',
+            'th',
+            'td',
+            'hr',
+            'del',
+            'ins',
+            'sup',
+            'sub',
+            'span',
+            'div'
+          ],
           attributes: {
             '*': ['className'],
             pre: ['className', 'dataLanguage'],
@@ -50,7 +100,7 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
         setHtmlContent(String(result))
       } catch (error) {
         console.error('Markdown processing error:', error)
-        setHtmlContent(content)
+        setHtmlContent(escapeHtml(content))
       }
     }
 
@@ -60,7 +110,7 @@ export const MarkdownRenderer = ({ content, className = '' }: MarkdownRendererPr
   }, [content])
 
   return (
-    <div 
+    <div
       className={`milkdown milkdown-renderer max-w-none ${className}`}
       dangerouslySetInnerHTML={{ __html: htmlContent }}
     />

@@ -1,26 +1,21 @@
-
 # LyCorisGAL
 
-LyCorisGAL 是一个 Gal 引导资源站，致力于为大家提供 Galgame 相关的资源和信息。
+LyCorisGAL 是一个面向 Galgame 用户的资源与信息引导站，提供游戏资料、补丁资源、
+社区内容和相关服务。
 
-本站目前以提供“资源”作为主要业务发展，等待积累，后续会逐渐完善gal数据库
+## 文档
+
+- [生产部署与依赖安装](docs/deployment.md)
+
+生产环境因数据库备份迁移兼容要求，PostgreSQL 和 psql 暂时固定为 **17.0**。
+安装依赖、配置环境变量、恢复数据库和上线前检查请完整阅读部署文档。
+
+## 开源协议
+
+项目基于 Next.js、TypeScript、Prisma、PostgreSQL 和 Redis 构建，由
+[kun-touchgal-next](https://github.com/KUN1007/kun-touchgal-next) 修改而来。
+采用 AGPL-3.0 许可证。修改或分发时请保留原始项目和作者信息。
 
 ## 错误反馈
 
-如果要反馈错误, 请加入 LyCorisGAL 的官方 Telegram 群组
-
-https://t.me/LyCoriseGAL
-
-## 如何运行
-
-跟源项目kun-touchgal-next一样
-
-## 更多文档
-
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ArisuMika520/kun-lycorisgal-next)
-
-## 开源声明 / 开源协议
-
-本项目由 [kun-touchgal-next](https://github.com/KUN1007/kun-touchgal-next) 修改而来
-
-本项目遵从 `AGPL-3.0` 开源协议, 进行任何的修改分发时请注明原始仓库与作者地址
+请加入 LyCorisGAL 官方 Telegram 群组：<https://t.me/LyCoriseGAL>。

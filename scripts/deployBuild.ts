@@ -1,4 +1,4 @@
-import { execSync } from 'child_process'
+import { execFileSync } from 'child_process'
 import { config } from 'dotenv'
 import { envSchema } from '../validations/dotenv-check'
 import { fileURLToPath } from 'url'
@@ -18,7 +18,7 @@ if (!fs.existsSync(envPath)) {
 config({ path: envPath })
 
 try {
-  envSchema.safeParse(process.env)
+  envSchema.parse(process.env)
 
   console.log('Environment variables are valid.')
   console.log('Executing the commands...')
@@ -30,11 +30,16 @@ try {
     )
   }
 
-  execSync(
-    'git pull && pnpm prisma:push && pnpm build && pnpm stop && pnpm start',
+  execFileSync('git', ['pull', '--ff-only'], { stdio: 'inherit' })
+  execFileSync('pnpm', ['db:check-version'], { stdio: 'inherit' })
+  execFileSync('pnpm', ['prisma:push'], { stdio: 'inherit' })
+  execFileSync('pnpm', ['build'], { stdio: 'inherit' })
+  execFileSync(
+    'pnpm',
+    ['exec', 'pm2', 'startOrReload', 'ecosystem.config.cjs', '--update-env'],
     { stdio: 'inherit' }
   )
 } catch (e) {
-  console.error('Invalid environment variables')
+  console.error('Deployment failed:', e)
   process.exit(1)
 }
