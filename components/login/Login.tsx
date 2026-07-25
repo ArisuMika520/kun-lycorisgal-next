@@ -24,7 +24,11 @@ type LoginFormData = z.infer<typeof loginSchema>
 const KUN_OAUTH_ERROR_MESSAGES: Record<string, string> = {
   invalid_state: '登录状态校验失败，请重新使用鲲 Galgame 账号登录',
   oauth_failed: '鲲 Galgame 账号登录失败，请重试',
-  expired: '授权已过期，请重新发起鲲 Galgame 账号登录',
+  // 线格式切换后授权码过期/已用、PKCE 不匹配、回调地址不匹配会合流成一个
+  // invalid_grant（迁移指南 §2.2），故措辞覆盖整类「授权不再有效」。
+  expired: '授权已失效，请重新发起鲲 Galgame 账号登录',
+  // 鲲 OAuth 侧瞬态故障（5xx / 网关）：是我们抖了，不是账号有问题（迁移指南 §4·3）。
+  oauth_unavailable: '鲲 Galgame 登录服务暂时异常，请稍后重试',
   email_exists: '该邮箱已被本站账号注册，请先使用密码登录后绑定使用',
   // 设置页发起 ?action=bind 但会话已失效时落到这里（callback 之前的前置校验）。
   bind_login_required: '请先登录后再绑定鲲 Galgame 账号'

@@ -35,14 +35,19 @@ import { OAUTH_PLACEHOLDER_PASSWORD } from '~/app/api/utils/oauth/placeholderPas
 // ───────── callback 错误参数约定（供 C4 UI 消费） ─────────
 // 失败统一以查询参数 `error=<code>` 回跳，按可重试性分两类落点：
 //   可重试 / 可处置 → /login?error=<code>
-//     • invalid_state  state 缺失或与临时 cookie 不一致（CSRF / cookie 丢失），重新发起即可
-//     • oauth_failed   通用失败：用户拒绝授权 / 缺 code / 换 token 或 userinfo 失败 /
-//                      PKCE 不匹配(15004) / 配置类(15001/15002/15005/15006/15008) / 网络
-//     • expired        授权码过期或已用(15003)，引导用户重新发起登录
-//     • email_exists   KUN 邮箱已被本地账号占用，不静默合并；提示先本地登录再绑定（二期）
+//     • invalid_state      state 缺失或与临时 cookie 不一致（CSRF / cookie 丢失），重新发起即可
+//     • oauth_failed       通用失败：用户拒绝授权 / 缺 code / 配置类（invalid_client /
+//                          invalid_scope / unauthorized_client / invalid_request）/ 令牌失效
+//     • expired            授权失效（reason=invalid_grant：授权码过期或已用、PKCE 不匹配、
+//                          回调地址不匹配），引导用户重新发起登录
+//     • oauth_unavailable  瞬态失败（reason 瞬态：5xx / 未知错误 / 网络 / 网关），稍后重试
+//     • email_exists       KUN 邮箱已被本地账号占用，不静默合并；提示先本地登录再绑定（二期）
 //   终态 / 再登无用 → /?error=banned（刻意不落 /login，指南 §7：封号再登无意义）
-//     • banned         本地 status===2 封禁，或 KUN 端封号(10014)
-// C4 在 login 页消费前四类（toast），并对 banned 在落地页给终态提示。
+//     • banned             本地 status===2 封禁，或 KUN 端封号（reason=banned）
+// C4 在 login 页消费前五类（toast），并对 banned 在落地页给终态提示。
+//
+// 注：分支只认 KunOAuthError.reason（跨新旧线格式归一），不认数字错误码 ——
+// 线格式切换后（迁移指南 §3 第 2 步）此处无需任何改动。
 
 const PROVIDER = 'kun-oauth'
 
@@ -296,17 +301,26 @@ export const GET = async (req: NextRequest) => {
     // 绑定模式下任何失败统一回设置页 bind_failed（fail 内部据 isBind 分流）。
     if (error instanceof KunOAuthError) {
       // KUN 端封号：跳错误页而非登录页（指南 §7）。
-      if (error.code === 10014) {
+      // 旧信封是 code=10014，标准格式是 HTTP 403（RFC 6750 无对应错误码），
+      // 两者都已在 kunOAuthClient 里归一成 reason='banned'。
+      if (error.reason === 'banned') {
         return fail('/?error=banned')
       }
-      // 授权码过期/已用/并发兑换输的那次：引导重试。
-      if (error.code === 15003) {
+      // 授权失效（授权码过期/已用/并发兑换输的那次、PKCE 不匹配、回调地址不匹配）：引导重试。
+      if (error.reason === 'invalid_grant') {
         return fail('/login?error=expired')
       }
-      // 其余（PKCE 不匹配 / 配置类 / 解析失败）统一归为通用失败。
+      // 瞬态（5xx / 未知错误 / 网关故障，迁移指南 §4·2、§4·3）：明确提示稍后重试，
+      // 不要说成凭据问题 —— 这是我们抖了，不是用户的账号有问题。
+      if (error.transient) {
+        return fail('/login?error=oauth_unavailable')
+      }
+      // 其余（配置类 invalid_client/invalid_scope/unauthorized_client/invalid_request、
+      // 令牌失效 invalid_token）统一归为通用失败。
       return fail('/login?error=oauth_failed')
     }
-    // 非 OAuth 业务异常（网络、DB 等）：通用失败。
+    // 非 OAuth 业务异常（fetch 网络错误、DB 等）：网络类属瞬态，但此处无法区分 DB 失败，
+    // 沿用通用失败提示（同样引导重试）。
     return fail('/login?error=oauth_failed')
   }
 }
