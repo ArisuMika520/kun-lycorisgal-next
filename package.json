@@ -21,6 +21,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "verify:oauth-wire": "esno scripts/verifyKunOAuthWire.ts",
     "db:check-version": "esno scripts/checkPostgresVersion.ts",
     "prisma:push": "prisma db push",
     "prisma:generate": "pnpm exec prisma generate",
