@@ -43,7 +43,7 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: 'Ai女友💋（在线游玩）',
-    href: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
+    href: 'https://afengy.cam?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
     rel: 'nofollow'
   },
   {

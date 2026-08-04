@@ -13,7 +13,7 @@ export const kunHomeAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
-    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://afengy.cam?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'ad2', // 千速喵VPN
@@ -50,7 +50,7 @@ export const kunGameDetailAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF1.gif',
-    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://afengy.cam?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'redirect-ad3', // 千速喵VPN
@@ -83,7 +83,7 @@ export const kunRedirectAds: KunAdBanner[] = [
     description: '',
     image:
       'https://r2.sakinori.top/%E9%A3%8E%E6%9C%88AI/1200x200GIF-ezgif.com-resize.gif',
-    link: 'https://fengyueai.fun?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
+    link: 'https://afengy.cam?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f'
   },
   {
     id: 'redirect-ad3', // 千速喵VPN
