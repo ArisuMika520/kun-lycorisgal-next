@@ -64,7 +64,7 @@ export const kunGameDetailAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.fgtrea.com/?pid=98'
+    link: 'https://t.xuzocor.com/?pid=98'
   },
   {
     id: 'game-detail-ad2', // SoulAI
@@ -97,7 +97,7 @@ export const kunRedirectAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/mumu/mumu.jpg',
-    link: 'https://t.fgtrea.com/?pid=98'
+    link: 'https://t.xuzocor.com/?pid=98'
   },
   {
     id: 'redirect-ad4', // SoulAI

@@ -61,7 +61,7 @@ const navSections = [
       {
         name: '木瓜玩',
         description: '精品成人手遊聚合平台',
-        href: 'https://t.fgtrea.com/?pid=98',
+        href: 'https://t.xuzocor.com/?pid=98',
         icon: HeartIcon,
         popover: {
           title: '广告',
@@ -246,7 +246,7 @@ export const Sidebar = ({ isCollapsed, setIsCollapsed }: SidebarProps) => {
               className={cn(
                 !isCollapsed && 'mb-2',
                 isAdSection &&
-                  'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
+                'mb-4 mx-1 p-3 bg-default-50 dark:bg-default-100/10 border border-pink-200 dark:border-pink-400/50 rounded-lg shadow-sm backdrop-blur-sm'
               )}
             >
               {index > 0 && !isAdSection && (
