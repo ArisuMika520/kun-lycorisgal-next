@@ -20,7 +20,7 @@ export const kunHomeAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
-    link: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn'
+    link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   }
 ]
 
@@ -57,7 +57,7 @@ export const kunGameDetailAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
-    link: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn'
+    link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   },
   {
     id: 'redirect-ad4', // 木瓜玩
@@ -90,7 +90,7 @@ export const kunRedirectAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
-    link: 'https://www.tspeedcat.top/#/register?code=qlhiTSkn'
+    link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   },
   {
     id: 'redirect-ad2', // 木瓜玩
