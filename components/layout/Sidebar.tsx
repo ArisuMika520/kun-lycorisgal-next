@@ -55,7 +55,7 @@ const navSections = [
         popover: {
           title: 'VPN',
           description: '⚡️翻墙Vpn推荐',
-          image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg'
+          image: 'https://r2.sakinori.top/litpupu%20VPN/2026-09-10%2015.00.41.jpg'
         }
       },
       {

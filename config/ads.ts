@@ -19,7 +19,7 @@ export const kunHomeAds: KunAdBanner[] = [
     id: 'ad2', // 千速喵VPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
+    image: 'https://r2.sakinori.top/litpupu%20VPN/2026-09-10%2015.00.41.jpg',
     link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   }
 ]
@@ -56,7 +56,7 @@ export const kunGameDetailAds: KunAdBanner[] = [
     id: 'redirect-ad3', // 千速喵VPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
+    image: 'https://r2.sakinori.top/litpupu%20VPN/2026-09-10%2015.00.41.jpg',
     link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   },
   {
@@ -89,7 +89,7 @@ export const kunRedirectAds: KunAdBanner[] = [
     id: 'redirect-ad3', // 千速喵VPN
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/%E5%8D%83%E9%80%9F%E5%96%B5/qsm.jpg',
+    image: 'https://r2.sakinori.top/litpupu%20VPN/2026-09-10%2015.00.41.jpg',
     link: 'https://tmsretv.top/#/register?code=pJKmw5MH'
   },
   {
