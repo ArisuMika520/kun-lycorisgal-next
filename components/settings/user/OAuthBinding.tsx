@@ -17,7 +17,7 @@ import { kunErrorHandler } from '~/utils/kunErrorHandler'
 import { useMounted } from '~/hooks/useMounted'
 import { KunGalIcon } from '~/components/oauth/KunGalIcon'
 
-// 鲲 OAuth 账号绑定设置（C6，计划 §五·1）。
+// NextMoe·未萌 OAuth 账号绑定设置（C6，计划 §五·1）。
 // 展示绑定状态 + 绑定/解绑按钮；解绑前校验已设密码以防锁死（后端 unbind 兜底）。
 interface OAuthBindingStatus {
   bound: boolean
@@ -30,17 +30,20 @@ const BIND_RESULT_MESSAGE: Record<
   string,
   { type: 'success' | 'error' | 'info'; message: string }
 > = {
-  bind_success: { type: 'success', message: '绑定鲲 Galgame 账号成功' },
-  bind_already: { type: 'info', message: '该鲲 Galgame 账号已绑定到当前账号' },
+  bind_success: { type: 'success', message: '绑定 NextMoe·未萌 账号成功' },
+  bind_already: {
+    type: 'info',
+    message: '该 NextMoe·未萌 账号已绑定到当前账号'
+  },
   bind_exists: {
     type: 'info',
-    message: '当前账号已绑定鲲 Galgame 账号，无需重复绑定'
+    message: '当前账号已绑定 NextMoe·未萌 账号，无需重复绑定'
   },
   bind_conflict: {
     type: 'error',
-    message: '该鲲 Galgame 账号已被其他账号绑定，无法重复绑定'
+    message: '该 NextMoe·未萌 账号已被其他账号绑定，无法重复绑定'
   },
-  bind_failed: { type: 'error', message: '绑定鲲 Galgame 账号失败，请重试' }
+  bind_failed: { type: 'error', message: '绑定 NextMoe·未萌 账号失败，请重试' }
 }
 
 export const OAuthBinding = () => {
@@ -101,7 +104,7 @@ export const OAuthBinding = () => {
         '/api/user/setting/oauth/unbind'
       )
       kunErrorHandler(res, () => {
-        toast.success('已解绑鲲 Galgame 账号')
+        toast.success('已解绑 NextMoe·未萌 账号')
         fetchStatus()
       })
     })
@@ -110,11 +113,11 @@ export const OAuthBinding = () => {
   return (
     <Card className="w-full text-sm">
       <CardHeader>
-        <h2 className="text-xl font-medium">鲲 Galgame 账号绑定</h2>
+        <h2 className="text-xl font-medium">NextMoe·未萌 账号绑定</h2>
       </CardHeader>
       <CardBody className="py-0 space-y-4">
         <p>
-          绑定鲲 Galgame 账号后，您可以使用鲲 Galgame
+          绑定 NextMoe·未萌 账号后，您可以使用 NextMoe·未萌
           账号一键登录本站，作为密码之外的另一种登录方式。
         </p>
         <div className="flex items-center justify-between">
@@ -152,7 +155,7 @@ export const OAuthBinding = () => {
                 startContent={<KunGalIcon />}
                 onPress={handleBind}
               >
-                绑定鲲 Galgame 账号
+                绑定 NextMoe·未萌 账号
               </Button>
             ))}
         </div>
@@ -168,7 +171,7 @@ export const OAuthBinding = () => {
       </CardBody>
       <CardFooter className="flex-wrap">
         <p className="text-default-500">
-          绑定的鲲 Galgame
+          绑定的 NextMoe·未萌
           账号是您登录本站的另一种方式，解绑前请确保已设置登录密码，以免无法登录。
         </p>
       </CardFooter>

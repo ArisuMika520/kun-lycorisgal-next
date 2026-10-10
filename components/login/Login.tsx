@@ -18,20 +18,22 @@ import type { UserState } from '~/store/userStore'
 
 type LoginFormData = z.infer<typeof loginSchema>
 
-// 鲲 OAuth 回调失败时落 /login?error=<code> 的中文提示（约定见
+// NextMoe·未萌 OAuth 回调失败时落 /login?error=<code> 的中文提示（约定见
 // app/api/auth/oauth/kun/callback/route.ts 顶部）。banned 刻意落首页，由
 // KunOAuthLanding 消费，不在此列。
 const KUN_OAUTH_ERROR_MESSAGES: Record<string, string> = {
-  invalid_state: '登录状态校验失败，请重新使用鲲 Galgame 账号登录',
-  oauth_failed: '鲲 Galgame 账号登录失败，请重试',
+  invalid_state: '登录状态校验失败，请重新使用 NextMoe·未萌 账号登录',
+  oauth_failed: 'NextMoe·未萌 账号登录失败，请重试',
   // 线格式切换后授权码过期/已用、PKCE 不匹配、回调地址不匹配会合流成一个
   // invalid_grant（迁移指南 §2.2），故措辞覆盖整类「授权不再有效」。
-  expired: '授权已失效，请重新发起鲲 Galgame 账号登录',
-  // 鲲 OAuth 侧瞬态故障（5xx / 网关）：是我们抖了，不是账号有问题（迁移指南 §4·3）。
-  oauth_unavailable: '鲲 Galgame 登录服务暂时异常，请稍后重试',
+  expired: '授权已失效，请重新发起 NextMoe·未萌 账号登录',
+  // NextMoe·未萌 OAuth 侧瞬态故障（5xx / 网关）：是我们抖了，不是账号有问题（迁移指南 §4·3）。
+  oauth_unavailable: 'NextMoe·未萌 登录服务暂时异常，请稍后重试',
   email_exists: '该邮箱已被本站账号注册，请先使用密码登录后绑定使用',
   // 设置页发起 ?action=bind 但会话已失效时落到这里（callback 之前的前置校验）。
-  bind_login_required: '请先登录后再绑定鲲 Galgame 账号'
+  bind_login_required: '请先登录后再绑定 NextMoe·未萌 账号',
+  email_missing:
+    '授权结果未包含邮箱，无法创建本站账号。请重新授权并同意提供邮箱'
 }
 
 export const LoginForm = () => {
@@ -41,7 +43,7 @@ export const LoginForm = () => {
   const router = useRouter()
   const handledOAuthError = useRef(false)
 
-  // 鲲 OAuth 回调失败回跳 /login?error=<code> 时，给一次性中文 toast，
+  // NextMoe·未萌 OAuth 回调失败回跳 /login?error=<code> 时，给一次性中文 toast，
   // 随后清掉 URL 上的 error 参数（避免刷新/返回重复提示）。
   useEffect(() => {
     if (handledOAuthError.current) {
@@ -53,7 +55,7 @@ export const LoginForm = () => {
     }
     handledOAuthError.current = true
     toast.error(
-      KUN_OAUTH_ERROR_MESSAGES[error] ?? '鲲 Galgame 账号登录失败，请重试'
+      KUN_OAUTH_ERROR_MESSAGES[error] ?? 'NextMoe·未萌 账号登录失败，请重试'
     )
     router.replace('/login', { scroll: false })
   }, [router])
@@ -98,10 +100,7 @@ export const LoginForm = () => {
   }
 
   return (
-    <form
-      className="flex flex-col w-full gap-5 pt-2"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col w-full gap-5 pt-2" onSubmit={handleSubmit}>
       <Controller
         name="name"
         control={control}
@@ -171,11 +170,11 @@ export const LoginForm = () => {
         className="w-full"
         startContent={<KunGalIcon />}
         onPress={() => {
-          // 跳后端发起路由（302 到鲲 OAuth），必须整页跳转而非客户端 router。
+          // 跳后端发起路由（302 到 NextMoe·未萌 OAuth），必须整页跳转而非客户端 router。
           window.location.href = '/api/auth/oauth/kun/login'
         }}
       >
-        使用鲲 Galgame 账号登录
+        使用 NextMoe·未萌 账号登录
       </Button>
 
       <div className="flex items-center justify-center gap-1 text-sm">

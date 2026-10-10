@@ -150,7 +150,11 @@ HOSTNAME="127.0.0.1"
 KUN_VISUAL_NOVEL_SITE_URL="https://gal.example.com"
 NEXT_PUBLIC_KUN_PATCH_ADDRESS_PROD="https://gal.example.com"
 KUN_OAUTH_REDIRECT_URI="https://gal.example.com/api/auth/oauth/kun/callback"
+KUN_OAUTH_SERVER_URL="https://account.nextmoe.com/api/v1"
 ```
+
+`oauth.kungal.com` 已退役，生产 OAuth 主机请使用上一行的 `KUN_OAUTH_SERVER_URL`。
+注册按钮跳到 `https://account.nextmoe.com/auth/register`，不要拼进 `/api/v1`：那个路径是要登录的 JSON API。自建时用 `KUN_OAUTH_WEB_URL` 覆盖。
 
 `NEXT_PUBLIC_KUN_PATCH_ADDRESS_PROD` 是浏览器请求 Next.js API 的公开站点来源：
 

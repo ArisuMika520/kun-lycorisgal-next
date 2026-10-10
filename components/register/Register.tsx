@@ -158,12 +158,12 @@ export const RegisterForm = () => {
         className="w-full"
         startContent={<KunGalIcon />}
         onPress={() => {
-          // 注册是登录的超集：?action=register 由发起路由改跳鲲 OAuth 注册页。
+          // 注册是登录的超集：?action=register 由发起路由改跳 NextMoe·未萌 OAuth 注册页。
           // 整页跳转而非客户端 router（目标是后端 302 路由）。
           window.location.href = '/api/auth/oauth/kun/login?action=register'
         }}
       >
-        使用鲲 Galgame 账号注册
+        使用 NextMoe·未萌 账号注册
       </Button>
 
       <Button
