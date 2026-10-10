@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import {
-  Alert,
   Button,
   Modal,
   ModalBody,
@@ -11,13 +10,13 @@ import {
   ModalHeader,
   useDisclosure
 } from '@heroui/react'
-import { Plus } from 'lucide-react'
+import { Plus, TriangleAlert } from 'lucide-react'
 import { kunFetchDelete, kunFetchGet } from '~/utils/kunFetch'
 import { PublishResource } from './publish/PublishResource'
 import { EditResourceDialog } from './edit/EditResourceDialog'
 import { ResourceTabs } from './Tabs'
-import { KunLoading } from '~/components/kun/Loading'
 import { GameDetailAds } from './GameDetailAds'
+import styles from '~/components/patch/header/patch-detail.module.css'
 import toast from 'react-hot-toast'
 import type { PatchResource } from '~/types/api/patch'
 
@@ -78,42 +77,31 @@ export const Resources = ({ id, vndbId }: Props) => {
   }
 
   return (
-    <div className="mt-4 space-y-4">
-      <div className="flex justify-end">
-        <Button
-          color="primary"
-          variant="flat"
-          startContent={<Plus className="size-4" />}
-          onPress={onOpenCreate}
-        >
-          添加资源
-        </Button>
-      </div>
+    <div className={styles.resourcePanel}>
+      <ResourceTabs
+        vndbId={vndbId}
+        resources={resources}
+        loading={loading}
+        toolbarAction={
+          <button
+            type="button"
+            className={styles.addResource}
+            onClick={onOpenCreate}
+          >
+            <Plus className="size-4" aria-hidden="true" />
+            添加资源
+          </button>
+        }
+        setEditResource={setEditResource}
+        onOpenEdit={onOpenEdit}
+        onOpenDelete={onOpenDelete}
+        setDeleteResourceId={setDeleteResourceId}
+      />
 
-      {loading ? (
-        <KunLoading hint="正在获取 Galgame 资源数据..." />
-      ) : (
-        <>
-          <ResourceTabs
-            vndbId={vndbId}
-            resources={resources}
-            setEditResource={setEditResource}
-            onOpenEdit={onOpenEdit}
-            onOpenDelete={onOpenDelete}
-            setDeleteResourceId={setDeleteResourceId}
-          />
-
-          <Alert
-            color="warning"
-            variant="faded"
-            title="使用资源前请认真阅读资源的备注（如果有）, 以免产生问题"
-            classNames={{
-              base: 'shadow-medium',
-              title: 'font-bold'
-            }}
-          />
-        </>
-      )}
+      <p className={styles.resourceNotice}>
+        <TriangleAlert className="size-4" aria-hidden="true" />
+        <span>使用资源前请认真阅读资源的备注（如果有），以免产生问题</span>
+      </p>
 
       <Modal
         size="3xl"

@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState, useTransition } from 'react'
-import { Card, CardBody, Image, Link } from '@heroui/react'
+import { Image } from '@heroui/react'
 import { KunResourceInfo } from './KunResourceInfo'
 import { KunResourceDownload } from './KunResourceDownload'
-import { KunLoading } from '~/components/kun/Loading'
-import { KunNull } from '~/components/kun/Null'
+import styles from '~/components/patch/header/patch-detail.module.css'
 import type {
   HikariResponse,
   KunPatchResourceResponse
@@ -43,46 +42,34 @@ export const KunPatchTab = ({ vndbId }: Props) => {
   return (
     <>
       {isPending ? (
-        <KunLoading hint="正在从鲲 Galgame 补丁获取数据..." />
-      ) : (
-        <div className="space-y-4">
-          {resources.length ? (
-            <>
-              {resources.map((resource) => (
-                <Card key={resource.id}>
-                  <CardBody className="space-y-2">
-                    <div className="flex items-start justify-between">
-                      <KunResourceInfo resource={resource} />
-                    </div>
+        <p className={styles.resourceEmpty}>正在从鲲 Galgame 补丁获取数据...</p>
+      ) : resources.length ? (
+        <div className={styles.resourceList}>
+          {resources.map((resource) => (
+            <article key={resource.id} className={styles.resourceCard}>
+              <KunResourceInfo resource={resource} />
+              <KunResourceDownload resource={resource} />
+            </article>
+          ))}
 
-                    <KunResourceDownload resource={resource} />
-                  </CardBody>
-                </Card>
-              ))}
-
-              <div className="flex flex-wrap justify-center text-default-500">
-                <span>补丁数据由</span>
-                <Link
-                  href="https://www.moyu.moe"
-                  target="_blank"
-                  size="sm"
-                  className="gap-1 mx-1"
-                >
-                  <Image
-                    src="/moyu-moe.webp"
-                    alt="鲲 Galgame 补丁 Logo"
-                    width={20}
-                    height={20}
-                  />
-                  鲲 Galgame 补丁
-                </Link>
-                <span>提供</span>
-              </div>
-            </>
-          ) : (
-            <KunNull message="本游戏在鲲 Galgame 补丁暂无对应补丁" />
-          )}
+          <p className={styles.resourceCredit}>
+            <span>补丁数据由</span>
+            <a
+              className={styles.textLink}
+              href="https://www.moyu.moe"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Image src="/moyu-moe.webp" alt="" width={20} height={20} />鲲
+              Galgame 补丁
+            </a>
+            <span>提供</span>
+          </p>
         </div>
+      ) : (
+        <p className={styles.resourceEmpty}>
+          本游戏在鲲 Galgame 补丁暂无对应补丁
+        </p>
       )}
     </>
   )

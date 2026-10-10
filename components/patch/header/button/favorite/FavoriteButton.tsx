@@ -11,9 +11,16 @@ import { FavoriteModal } from './FavoriteModal'
 interface Props {
   patchId: number
   isFavorite: boolean
+  variant?: 'icon' | 'rail'
+  className?: string
 }
 
-export const FavoriteButton = ({ patchId, isFavorite }: Props) => {
+export const FavoriteButton = ({
+  patchId,
+  isFavorite,
+  variant = 'icon',
+  className
+}: Props) => {
   const { user } = useUserStore((state) => state)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -24,6 +31,27 @@ export const FavoriteButton = ({ patchId, isFavorite }: Props) => {
     }
 
     onOpen()
+  }
+
+  if (variant === 'rail') {
+    return (
+      <>
+        <button
+          type="button"
+          className={className}
+          onClick={toggleLike}
+          aria-label={isFavorite ? '已收藏' : '收藏'}
+          title={isFavorite ? '已收藏' : '收藏'}
+          aria-pressed={isFavorite}
+        >
+          <Heart
+            className="size-4"
+            fill={isFavorite ? 'currentColor' : 'none'}
+          />
+        </button>
+        <FavoriteModal patchId={patchId} isOpen={isOpen} onClose={onClose} />
+      </>
+    )
   }
 
   return (

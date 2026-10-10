@@ -1,7 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { startTransition, useState } from 'react'
+import { startTransition, useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from '~/utils/cn'
 import type { PatchDetailPreviewImage } from './types'
@@ -15,23 +16,61 @@ const PatchDetailLightbox = dynamic(
 interface Props {
   images: PatchDetailPreviewImage[]
   name: string
+  editor?: ReactNode
 }
 
-export const PatchDetailMediaCarousel = ({ images, name }: Props) => {
+const ExpandIcon = () => (
+  <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true">
+    <path
+      d="M3.5 8V3.5H8M12 3.5h4.5V8M16.5 12v4.5H12M8 16.5H3.5V12"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
+
+export const PatchDetailMediaCarousel = ({ images, name, editor }: Props) => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [lightboxIndex, setLightboxIndex] = useState(-1)
   const [hasOpenedLightbox, setHasOpenedLightbox] = useState(false)
+  const scrollerRef = useRef<HTMLDivElement>(null)
+  const thumbRefs = useRef<Array<HTMLButtonElement | null>>([])
 
-  if (!images.length) {
-    return (
-      <div className="rounded-xl border border-dashed border-default-200 p-5 text-sm text-default-500">
-        当前条目暂无可预览图片。
-      </div>
-    )
-  }
-
-  const safeActiveIndex = Math.min(activeIndex, images.length - 1)
+  const safeActiveIndex = images.length
+    ? Math.min(activeIndex, images.length - 1)
+    : 0
   const activeImage = images[safeActiveIndex]
+
+  useEffect(() => {
+    const scroller = scrollerRef.current
+    const thumb = thumbRefs.current[safeActiveIndex]
+    if (!scroller || !thumb) {
+      return
+    }
+
+    const scrollerRect = scroller.getBoundingClientRect()
+    const thumbRect = thumb.getBoundingClientRect()
+    if (
+      thumbRect.left >= scrollerRect.left &&
+      thumbRect.right <= scrollerRect.right
+    ) {
+      return
+    }
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches
+    scroller.scrollTo({
+      left: Math.max(
+        0,
+        scroller.scrollLeft + (thumbRect.left - scrollerRect.left) - 16
+      ),
+      behavior: reducedMotion ? 'auto' : 'smooth'
+    })
+  }, [safeActiveIndex])
 
   const openLightbox = (index: number) => {
     startTransition(() => {
@@ -41,112 +80,113 @@ export const PatchDetailMediaCarousel = ({ images, name }: Props) => {
   }
 
   const goPrev = () => {
-    setActiveIndex((prev) => {
-      if (prev <= 0) {
-        return images.length - 1
-      }
-
-      return prev - 1
-    })
+    setActiveIndex((prev) => (prev <= 0 ? images.length - 1 : prev - 1))
   }
 
   const goNext = () => {
-    setActiveIndex((prev) => {
-      if (prev >= images.length - 1) {
-        return 0
-      }
+    setActiveIndex((prev) => (prev >= images.length - 1 ? 0 : prev + 1))
+  }
 
-      return prev + 1
-    })
+  if (!images.length || !activeImage) {
+    return (
+      <div className={styles.stageEmpty}>
+        {editor}
+        <p>当前条目暂无可预览图片。</p>
+      </div>
+    )
   }
 
   return (
-    <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-large border border-default-200 bg-default-100/80">
-        <div
-          className="aspect-[16/9] cursor-zoom-in overflow-hidden"
+    <div className={styles.gallery}>
+      <div className={styles.stage}>
+        <button
+          type="button"
+          className={styles.stageButton}
           onClick={() => openLightbox(safeActiveIndex)}
+          aria-label="放大查看"
         >
           <img
             src={activeImage.src}
             alt={activeImage.alt || `${name} 预览图 ${safeActiveIndex + 1}`}
-            className="h-full w-full object-cover"
             loading={safeActiveIndex === 0 ? 'eager' : 'lazy'}
             decoding="async"
             fetchPriority={safeActiveIndex === 0 ? 'high' : 'auto'}
           />
-        </div>
-
+        </button>
+        <button
+          type="button"
+          className={styles.expand}
+          onClick={() => openLightbox(safeActiveIndex)}
+          aria-label="全屏查看"
+        >
+          <ExpandIcon />
+        </button>
         {images.length > 1 && (
           <>
             <button
               type="button"
+              className={`${styles.stageNav} ${styles.stageNavPrev}`}
               onClick={goPrev}
               aria-label="查看上一张"
-              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/35 bg-black/45 p-1.5 text-white backdrop-blur transition hover:bg-black/60 sm:left-3 sm:p-2"
             >
-              <ChevronLeft className="size-4" />
+              <ChevronLeft className="size-5" />
             </button>
             <button
               type="button"
+              className={`${styles.stageNav} ${styles.stageNavNext}`}
               onClick={goNext}
               aria-label="查看下一张"
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/35 bg-black/45 p-1.5 text-white backdrop-blur transition hover:bg-black/60 sm:right-3 sm:p-2"
             >
-              <ChevronRight className="size-4" />
+              <ChevronRight className="size-5" />
             </button>
           </>
         )}
-
-        <button
-          type="button"
-          onClick={() => openLightbox(safeActiveIndex)}
-          className="absolute bottom-2 right-2 rounded-md border border-white/30 bg-black/45 px-2 py-1 text-xs font-medium text-white backdrop-blur transition hover:bg-black/60 sm:bottom-3 sm:right-3 sm:px-2.5"
-        >
-          放大查看
-        </button>
-      </div>
-
-      <div className="flex items-center justify-between gap-3">
-        <p className="truncate text-sm text-default-600">
-          {activeImage.alt || ''}
-        </p>
-        <span className="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-default-400">
-          {safeActiveIndex + 1} / {images.length}
-        </span>
+        {editor}
       </div>
 
       {images.length > 1 && (
-        <div className="pb-1 sm:overflow-x-auto">
-          <div
-            className={cn(
-              styles.anchorNav,
-              'grid grid-cols-4 gap-2 sm:flex sm:min-w-max'
-            )}
+        <div className={styles.thumbRow}>
+          <button
+            type="button"
+            className={styles.chevron}
+            onClick={goPrev}
+            aria-label="查看上一张"
           >
+            <ChevronLeft className="size-4" />
+          </button>
+          <div className={styles.thumbScroller} ref={scrollerRef}>
             {images.map((item, index) => (
               <button
                 key={`${item.src}-${index}`}
+                ref={(node) => {
+                  thumbRefs.current[index] = node
+                }}
                 type="button"
-                onClick={() => setActiveIndex(index)}
                 className={cn(
-                  'h-14 w-full overflow-hidden rounded-lg border transition sm:h-16 sm:w-28 sm:shrink-0',
-                  index === safeActiveIndex
-                    ? 'border-primary ring-2 ring-primary/30'
-                    : 'border-default-200 hover:border-default-300'
+                  styles.thumb,
+                  index === safeActiveIndex && styles.thumbActive
                 )}
+                onClick={() => setActiveIndex(index)}
                 aria-label={`预览图片 ${index + 1}`}
+                aria-current={index === safeActiveIndex ? 'true' : undefined}
               >
                 <img
                   src={item.src}
                   alt={item.alt || `${name} 缩略图 ${index + 1}`}
-                  className="h-full w-full object-cover"
                   loading="lazy"
                   decoding="async"
                 />
               </button>
             ))}
           </div>
+          <button
+            type="button"
+            className={styles.chevron}
+            onClick={goNext}
+            aria-label="查看下一张"
+          >
+            <ChevronRight className="size-4" />
+          </button>
         </div>
       )}
 
