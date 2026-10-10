@@ -8,25 +8,31 @@ import type { Patch } from '~/types/api/patch'
 
 interface PatchHeaderBannerProps {
   patch: Patch
+  className?: string
 }
 
-export const EditBanner = ({ patch }: PatchHeaderBannerProps) => {
+export const EditBanner = ({ patch, className }: PatchHeaderBannerProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { user } = useUserStore((state) => state)
 
   return (
     <>
-      {(user.uid === patch.user.id || user.role > 2) && (
-        <Button
-          color="default"
-          variant="shadow"
-          size="sm"
-          className="absolute z-10 bottom-3 left-3 backdrop-blur-sm bg-background/40"
-          onPress={onOpen}
-        >
-          更改图片
-        </Button>
-      )}
+      {(user.uid === patch.user.id || user.role > 2) &&
+        (className ? (
+          <button type="button" className={className} onClick={onOpen}>
+            更改图片
+          </button>
+        ) : (
+          <Button
+            color="default"
+            variant="shadow"
+            size="sm"
+            className="absolute z-10 bottom-3 left-3 backdrop-blur-sm bg-background/40"
+            onPress={onOpen}
+          >
+            更改图片
+          </Button>
+        ))}
 
       <Modal isOpen={isOpen} onClose={onClose} placement="center">
         <ModalContent>

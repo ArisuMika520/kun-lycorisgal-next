@@ -19,9 +19,15 @@ import type { Patch } from '~/types/api/patch'
 
 interface Props {
   patch: Patch
+  appearance?: 'icon' | 'plain'
+  className?: string
 }
 
-export const FeedbackButton = ({ patch }: Props) => {
+export const FeedbackButton = ({
+  patch,
+  appearance = 'icon',
+  className
+}: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [inputValue, setInputValue] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -44,17 +50,29 @@ export const FeedbackButton = ({ patch }: Props) => {
 
   return (
     <>
-      <Tooltip content="游戏反馈">
-        <Button
-          variant="bordered"
-          isIconOnly
+      {appearance === 'plain' ? (
+        <button
+          type="button"
+          className={className}
+          onClick={onOpen}
           aria-label="游戏反馈"
-          onPress={onOpen}
-          size="sm"
+          title="游戏反馈"
         >
           <MessageCircleQuestion className="size-4" />
-        </Button>
-      </Tooltip>
+        </button>
+      ) : (
+        <Tooltip content="游戏反馈">
+          <Button
+            variant="bordered"
+            isIconOnly
+            aria-label="游戏反馈"
+            onPress={onOpen}
+            size="sm"
+          >
+            <MessageCircleQuestion className="size-4" />
+          </Button>
+        </Tooltip>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalContent>

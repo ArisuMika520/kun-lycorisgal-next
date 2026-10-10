@@ -1,12 +1,14 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { startTransition, useEffect, useState } from 'react'
-import type { Dispatch, ReactNode, SetStateAction } from 'react'
-import { Card, CardBody } from '@heroui/card'
-import { Tab, Tabs } from '@heroui/tabs'
-import { FolderOpenDot, MessageSquare, Sparkles } from 'lucide-react'
-import { cn } from '~/utils/cn'
+import {
+  startTransition,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react'
+import type { Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react'
 import { KunAdSlot } from '~/components/kun/ad/KunAdSlot'
 import { kunGameDetailTopAds } from '~/config/ads'
 import {
@@ -23,6 +25,12 @@ const DEFAULT_VISITED_TABS: VisitedTabState = {
   resources: false,
   comments: false
 }
+
+const TABS: Array<{ key: PatchDetailTabKey; label: string }> = [
+  { key: 'info', label: '概述' },
+  { key: 'resources', label: '资源' },
+  { key: 'comments', label: '评论' }
+]
 
 const getTabFromHash = (hash: string): PatchDetailTabKey | null => {
   if (hash === '#resources') {
@@ -50,27 +58,74 @@ const markTabVisited = (
   }
 }
 
+const writeTabHash = (tab: PatchDetailTabKey) => {
+  const { pathname, search, hash: currentHash } = window.location
+  let nextHash = ''
+  if (tab === 'resources') {
+    nextHash = '#resources'
+  } else if (tab === 'comments') {
+    nextHash = '#comments'
+  }
+
+  const next = `${pathname}${search}${nextHash}`
+  const current = `${pathname}${search}${currentHash}`
+  if (next === current) {
+    return
+  }
+
+  window.history.replaceState(window.history.state, '', next)
+}
+
 const selectTab = (
   tab: PatchDetailTabKey,
   setSelectedTab: Dispatch<SetStateAction<PatchDetailTabKey>>,
   setVisitedTabs: Dispatch<SetStateAction<VisitedTabState>>
 ) => {
+  writeTabHash(tab)
   startTransition(() => {
     setSelectedTab(tab)
     setVisitedTabs((currentTabs) => markTabVisited(currentTabs, tab))
   })
 }
 
+const focusTabButton = (tab: PatchDetailTabKey) => {
+  document.getElementById(`patch-detail-tab-${tab}`)?.focus()
+}
+
+const handleTabKeyDown = (
+  event: KeyboardEvent<HTMLButtonElement>,
+  current: PatchDetailTabKey,
+  setSelectedTab: Dispatch<SetStateAction<PatchDetailTabKey>>,
+  setVisitedTabs: Dispatch<SetStateAction<VisitedTabState>>
+) => {
+  const currentIndex = TABS.findIndex((item) => item.key === current)
+  let nextIndex = currentIndex
+
+  if (event.key === 'ArrowLeft') {
+    nextIndex = (currentIndex - 1 + TABS.length) % TABS.length
+  } else if (event.key === 'ArrowRight') {
+    nextIndex = (currentIndex + 1) % TABS.length
+  } else if (event.key === 'Home') {
+    nextIndex = 0
+  } else if (event.key === 'End') {
+    nextIndex = TABS.length - 1
+  } else {
+    return
+  }
+
+  event.preventDefault()
+
+  const nextTab = TABS[nextIndex]
+  selectTab(nextTab.key, setSelectedTab, setVisitedTabs)
+  focusTabButton(nextTab.key)
+}
+
 function PanelLoading({ title }: { title: string }) {
   return (
-    <div className="space-y-3">
-      <div className="h-5 w-32 rounded-full bg-default-200/80" />
-      <div className="space-y-2 rounded-xl border border-default-100 bg-default-50/70 p-4">
-        <div className="h-4 w-3/4 rounded-full bg-default-200/80" />
-        <div className="h-4 w-full rounded-full bg-default-100" />
-        <div className="h-4 w-5/6 rounded-full bg-default-100" />
-      </div>
-      <p className="text-sm text-default-500">{title}</p>
+    <div className={styles.loading}>
+      <div className={styles.loadingBar} />
+      <div className={styles.loadingBlock} />
+      <p className={styles.emptyCopy}>{title}</p>
     </div>
   )
 }
@@ -91,46 +146,76 @@ const LazyComments = dynamic(
   }
 )
 
-const TabSection = ({
-  title,
-  icon,
-  children
-}: {
-  title: string
-  icon: ReactNode
-  children: ReactNode
-}) => {
-  return (
-    <Card
-      className={cn(
-        styles.sectionCard,
-        'overflow-hidden rounded-large border border-default-100 bg-content1/95 shadow-sm'
-      )}
-    >
-      <CardBody className="gap-4 p-4 sm:gap-5 sm:p-5">
-        <div className="min-w-0 space-y-1">
-          <div className="flex items-center gap-2">
-            {icon}
-            <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-              {title}
-            </h2>
-          </div>
-        </div>
-        {children}
-      </CardBody>
-    </Card>
-  )
-}
-
 interface Props {
   data: PatchDetailData
   children: ReactNode
 }
 
 export const PatchDetailTabs = ({ data, children }: Props) => {
+  const tabListRef = useRef<HTMLDivElement>(null)
+  const panelMotion = useRef(false)
+  const [indicator, setIndicator] = useState<{
+    x: number
+    y: number
+    width: number
+    height: number
+  } | null>(null)
+  const [indicatorMotion, setIndicatorMotion] = useState(false)
+
+  useEffect(() => {
+    panelMotion.current = true
+  }, [])
+
+  useEffect(() => {
+    if (!indicator || indicatorMotion) {
+      return
+    }
+
+    setIndicatorMotion(true)
+  }, [indicator, indicatorMotion])
+
   const [selectedTab, setSelectedTab] = useState<PatchDetailTabKey>('info')
   const [visitedTabs, setVisitedTabs] =
     useState<VisitedTabState>(DEFAULT_VISITED_TABS)
+
+  useLayoutEffect(() => {
+    const list = tabListRef.current
+    if (!list) {
+      return
+    }
+
+    const measure = () => {
+      const selected = list.querySelector<HTMLElement>('[aria-selected="true"]')
+      if (!selected) {
+        return
+      }
+
+      const next = {
+        x: selected.offsetLeft,
+        y: selected.offsetTop,
+        width: selected.offsetWidth,
+        height: selected.offsetHeight
+      }
+      setIndicator((current) =>
+        current &&
+        current.x === next.x &&
+        current.y === next.y &&
+        current.width === next.width &&
+        current.height === next.height
+          ? current
+          : next
+      )
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(list)
+    for (const button of list.querySelectorAll('button')) {
+      observer.observe(button)
+    }
+
+    return () => observer.disconnect()
+  }, [selectedTab])
 
   useEffect(() => {
     const syncFromHash = () => {
@@ -158,6 +243,7 @@ export const PatchDetailTabs = ({ data, children }: Props) => {
       }
 
       selectTab(detail.tab, setSelectedTab, setVisitedTabs)
+      focusTabButton(detail.tab)
     }
 
     window.addEventListener(
@@ -210,91 +296,105 @@ export const PatchDetailTabs = ({ data, children }: Props) => {
   }, [])
 
   return (
-    <Card className="overflow-hidden rounded-large border border-default-100 bg-content1/90 shadow-sm backdrop-blur">
-      <CardBody className="p-2 sm:p-3">
-        <Tabs
-          selectedKey={selectedTab}
-          onSelectionChange={(key) =>
-            selectTab(key as PatchDetailTabKey, setSelectedTab, setVisitedTabs)
-          }
-          fullWidth
-          variant="solid"
-          aria-label="游戏详情分区"
-          classNames={{
-            base: 'w-full',
-            tabList:
-              'grid w-full grid-cols-3 gap-1 rounded-large bg-default-100/80 p-1',
-            panel: 'px-2 pb-2 pt-0 sm:px-3 sm:pb-3',
-            cursor: 'w-full rounded-lg bg-content1 shadow-sm',
-            tab: 'h-11 min-w-0 px-1.5 sm:h-14 sm:px-3',
-            tabContent:
-              'truncate text-xs font-semibold text-default-600 group-data-[selected=true]:text-foreground sm:text-sm'
-          }}
-          id="patch-detail-tabs"
-        >
-          <Tab
-            key="info"
-            title={
-              <div className="flex items-center gap-2">
-                <Sparkles className="hidden size-4 sm:block" />
-                <span>游戏信息</span>
-              </div>
+    <div className={styles.tabs} id="patch-detail-tabs">
+      <div
+        ref={tabListRef}
+        className={styles.tabList}
+        role="tablist"
+        aria-label="游戏详情分区"
+      >
+        {indicator ? (
+          <span
+            className={
+              indicatorMotion
+                ? styles.tabIndicator
+                : `${styles.tabIndicator} ${styles.tabIndicatorInstant}`
             }
-            className="p-0"
-          >
-            {children}
-          </Tab>
+            aria-hidden="true"
+            style={{
+              width: indicator.width,
+              height: indicator.height,
+              transform: `translate(${indicator.x}px, ${indicator.y}px)`
+            }}
+          />
+        ) : null}
+        {TABS.map((tab) => {
+          const selected = selectedTab === tab.key
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              role="tab"
+              id={`patch-detail-tab-${tab.key}`}
+              aria-selected={selected}
+              aria-controls={`patch-detail-panel-${tab.key}`}
+              tabIndex={selected ? 0 : -1}
+              className={selected ? styles.tabSelected : styles.tab}
+              onClick={() => selectTab(tab.key, setSelectedTab, setVisitedTabs)}
+              onKeyDown={(event) =>
+                handleTabKeyDown(
+                  event,
+                  tab.key,
+                  setSelectedTab,
+                  setVisitedTabs
+                )
+              }
+            >
+              {tab.label}
+            </button>
+          )
+        })}
+      </div>
 
-          <Tab
-            key="resources"
-            title={
-              <div className="flex items-center gap-2">
-                <FolderOpenDot className="hidden size-4 sm:block" />
-                <span>资源链接</span>
-              </div>
-            }
-            className="p-0"
-          >
-            <div className="space-y-5 pt-5">
-              {/* 资源链接 Tab 顶部广告位(Tab 栏与面板之间, 一行两列) */}
-              <KunAdSlot ads={kunGameDetailTopAds} />
-              <TabSection
-                title="资源链接"
-                icon={<FolderOpenDot className="size-5 text-default-500" />}
-              >
-                {visitedTabs.resources ? (
-                  <LazyResources
-                    id={data.patch.id}
-                    vndbId={data.patch.vndbId || ''}
-                  />
-                ) : null}
-              </TabSection>
-            </div>
-          </Tab>
+      <div
+        role="tabpanel"
+        id="patch-detail-panel-info"
+        aria-labelledby="patch-detail-tab-info"
+        hidden={selectedTab !== 'info'}
+        className={
+          selectedTab === 'info' && panelMotion.current
+            ? `${styles.panel} ${styles.panelIn}`
+            : styles.panel
+        }
+      >
+        {children}
+      </div>
 
-          <Tab
-            key="comments"
-            title={
-              <div className="flex items-center gap-2">
-                <MessageSquare className="hidden size-4 sm:block" />
-                <span>游戏评论</span>
-              </div>
-            }
-            className="p-0"
-          >
-            <div className="pt-5">
-              <TabSection
-                title="游戏评论"
-                icon={<MessageSquare className="size-5 text-default-500" />}
-              >
-                {visitedTabs.comments ? (
-                  <LazyComments id={data.patch.id} />
-                ) : null}
-              </TabSection>
-            </div>
-          </Tab>
-        </Tabs>
-      </CardBody>
-    </Card>
+      <div
+        role="tabpanel"
+        id="patch-detail-panel-resources"
+        aria-labelledby="patch-detail-tab-resources"
+        hidden={selectedTab !== 'resources'}
+        className={
+          selectedTab === 'resources' && panelMotion.current
+            ? `${styles.panel} ${styles.panelIn}`
+            : styles.panel
+        }
+      >
+        {visitedTabs.resources ? (
+          <div className={styles.resourceStack}>
+            <KunAdSlot ads={kunGameDetailTopAds} />
+            <LazyResources
+              id={data.patch.id}
+              vndbId={data.patch.vndbId || ''}
+            />
+          </div>
+        ) : null}
+      </div>
+
+      <div
+        role="tabpanel"
+        id="patch-detail-panel-comments"
+        aria-labelledby="patch-detail-tab-comments"
+        hidden={selectedTab !== 'comments'}
+        className={
+          selectedTab === 'comments' && panelMotion.current
+            ? `${styles.panel} ${styles.panelIn}`
+            : styles.panel
+        }
+      >
+        {visitedTabs.comments ? <LazyComments id={data.patch.id} /> : null}
+      </div>
+    </div>
   )
 }
