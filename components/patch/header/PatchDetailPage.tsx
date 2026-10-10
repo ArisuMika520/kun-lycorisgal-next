@@ -69,10 +69,6 @@ const getOverviewPreviewImages = (
     map.set(src, { ...image, src })
   }
 
-  if (data.patch.banner?.trim()) {
-    push({ src: data.patch.banner.trim(), alt: `${data.patch.name} 封面` })
-  }
-
   parseImagesFromHtml(data.bodyHtml).forEach(push)
   parseImagesFromHtml(data.fullHtml).forEach(push)
   data.screenshots.forEach((item) => push({ src: item.src, alt: item.alt }))
