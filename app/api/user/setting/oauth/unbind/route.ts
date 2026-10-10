@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
 import { hasUsablePassword } from '~/app/api/utils/oauth/placeholderPassword'
 
-// 解绑鲲 OAuth 账号（POST，C6）。返回字符串即错误（与 setting/password 同款约定，
+// 解绑 NextMoe·未萌 OAuth 账号（POST，C6）。返回字符串即错误（与 setting/password 同款约定，
 // 前端 kunErrorHandler 直接 toast）；成功返回空对象。
 // 关键防护：解绑前校验用户已设置可用本地密码，否则解绑后将无任何登录方式 → 锁死（计划 §五·1）。
 const PROVIDER = 'kun-oauth'
@@ -31,7 +31,7 @@ const unbind = async (req: NextRequest) => {
     where: { provider: PROVIDER, user_id: payload.uid }
   })
   if (!account) {
-    return '您尚未绑定鲲 Galgame 账号'
+    return '您尚未绑定 NextMoe·未萌 账号'
   }
 
   await prisma.user_oauth_account.deleteMany({

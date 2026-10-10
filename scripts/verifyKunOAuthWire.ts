@@ -1,14 +1,13 @@
-// 鲲 OAuth 双格式兼容读取器自测（迁移指南 §5）。
-// 兼容读取器是纯函数，不需要等鲲 OAuth 那边切换线格式 —— 现在就能跑：
+// NextMoe·未萌 OAuth 线格式自测。协议端点只回裸 RFC，不测信封解包。
 //
 //   pnpm exec esno scripts/verifyKunOAuthWire.ts
-//
-// 每个用例都成对给出「旧信封」与「标准格式」两组 body，两组必须解析出同一结果。
-// 线格式切换后（迁移指南 §3 第 2 步）这个脚本应当**原样全绿**；如果切换当天
-// 有任何红色，说明兼容分支被误删或映射漏了。
 
 import {
+  KUN_OAUTH_SERVER_URL_DEFAULT,
+  KUN_OAUTH_WEB_URL_DEFAULT,
   KunOAuthError,
+  kunOAuthServerUrl,
+  kunOAuthWebUrl,
   readOAuthBody,
   readOAuthResponse
 } from '../app/api/utils/oauth/kunOAuthClient'
@@ -30,7 +29,6 @@ const check = (name: string, actual: unknown, expected: unknown) => {
   )
 }
 
-// 断言一个 body 会被判成失败，并校验归一后的 reason / transient。
 const checkFailure = (
   name: string,
   body: unknown,
@@ -52,204 +50,153 @@ const checkFailure = (
 }
 
 const main = async () => {
-  // ── §5：token 成功，两组都要解析出 access_token = "TOK" ──────────────────
-  console.log('\n/oauth/token 成功')
-  const legacyToken = {
-    code: 0,
-    message: '成功',
-    data: {
+  const savedServerUrl = process.env.KUN_OAUTH_SERVER_URL
+  const savedWebUrl = process.env.KUN_OAUTH_WEB_URL
+  try {
+    console.log('\n/oauth/token 成功（裸 RFC，不解析 refresh_token）')
+    const opaqueRefresh = 'not.a.jwt.and.must.stay.opaque'
+    const standardToken = {
       access_token: 'TOK',
       token_type: 'Bearer',
       expires_in: 900,
-      refresh_token: 'REF',
+      refresh_token: opaqueRefresh,
       scope: 'openid profile email'
     }
+    const token = readOAuthBody<KunOAuthTokenData>(standardToken, 200)
+    check('标准格式 access_token', token.access_token, 'TOK')
+    check('refresh_token 原样保留、不解析', token.refresh_token, opaqueRefresh)
+
+    const envelope = readOAuthBody<Record<string, unknown>>(
+      { code: 0, data: { access_token: 'TOK' } },
+      200
+    )
+    check('信封不被解成 access_token=TOK', envelope.access_token, undefined)
+    check('信封 code 留在顶层', envelope.code, 0)
+
+    console.log('\n失败映射')
+    checkFailure(
+      'invalid_grant',
+      { error: 'invalid_grant', error_description: '无效的授权码' },
+      400,
+      'invalid_grant',
+      false
+    )
+    checkFailure(
+      'invalid_client',
+      { error: 'invalid_client', error_description: '无效的客户端' },
+      401,
+      'invalid_client',
+      false
+    )
+    checkFailure(
+      'invalid_token',
+      { error: 'invalid_token', error_description: 'token 已失效' },
+      401,
+      'invalid_token',
+      false
+    )
+    checkFailure(
+      '未知 error',
+      { error: 'brand_new_error_code' },
+      400,
+      'unknown',
+      true
+    )
+    checkFailure(
+      '5xx server_error',
+      { error: 'server_error', error_description: '内部故障' },
+      500,
+      'server_error',
+      true
+    )
+
+    console.log('\n403')
+    checkFailure(
+      '403 非 insufficient_scope → banned',
+      { error: 'invalid_token', error_description: '账号已封禁' },
+      403,
+      'banned',
+      false
+    )
+    checkFailure(
+      '403 insufficient_scope',
+      { error: 'insufficient_scope', error_description: 'scope 不足' },
+      403,
+      'invalid_scope',
+      false
+    )
+
+    console.log('\n空 body / 非 JSON')
+    const emptyOk = await readOAuthResponse<undefined>(
+      new Response('', { status: 200 })
+    )
+    check('空 body 200 → undefined', emptyOk, undefined)
+    const okText = await readOAuthResponse<undefined>(
+      new Response('OK', {
+        status: 200,
+        headers: { 'Content-Type': 'text/plain' }
+      })
+    )
+    check('revoke 200 OK → undefined', okText, undefined)
+    const proxy403 = await readOAuthResponse(
+      new Response('<html>403 Forbidden</html>', { status: 403 })
+    ).then(
+      () => null,
+      (error: unknown) => (error instanceof KunOAuthError ? error : null)
+    )
+    check('非 JSON 403 不是 banned', proxy403?.reason, 'unknown')
+    check('非 JSON 403 瞬态', proxy403?.transient, true)
+
+    console.log('\n/oauth/userinfo')
+    const user = readOAuthBody<KunOAuthUserInfo>(
+      { id: 1007, sub: 'uuid-1', roles: ['user'], name: 'kun' },
+      200
+    )
+    check('可缺 email 键', Object.hasOwn(user, 'email'), false)
+    check('保留 id', user.id, 1007)
+    check('保留 roles[0]', user.roles?.[0], 'user')
+    check('保留 sub', user.sub, 'uuid-1')
+
+    console.log('\nkunOAuthServerUrl')
+    delete process.env.KUN_OAUTH_SERVER_URL
+    check('空值回落默认', kunOAuthServerUrl(), KUN_OAUTH_SERVER_URL_DEFAULT)
+    process.env.KUN_OAUTH_SERVER_URL = ''
+    check('空串回落默认', kunOAuthServerUrl(), KUN_OAUTH_SERVER_URL_DEFAULT)
+    process.env.KUN_OAUTH_SERVER_URL = 'https://oauth.kungal.com'
+    check('退役主机回落默认', kunOAuthServerUrl(), KUN_OAUTH_SERVER_URL_DEFAULT)
+    process.env.KUN_OAUTH_SERVER_URL = 'https://oauth.kungal.com/api/v1'
+    check(
+      '退役 /api/v1 回落默认',
+      kunOAuthServerUrl(),
+      KUN_OAUTH_SERVER_URL_DEFAULT
+    )
+    process.env.KUN_OAUTH_SERVER_URL = 'http://127.0.0.1:9277/api/v1'
+    check(
+      '自建地址原样保留',
+      kunOAuthServerUrl(),
+      'http://127.0.0.1:9277/api/v1'
+    )
+    delete process.env.KUN_OAUTH_SERVER_URL
+    delete process.env.KUN_OAUTH_WEB_URL
+    check('生产 Web 源', kunOAuthWebUrl(), KUN_OAUTH_WEB_URL_DEFAULT)
+    process.env.KUN_OAUTH_SERVER_URL = 'http://127.0.0.1:9277/api/v1'
+    check('自建 Web 源', kunOAuthWebUrl(), 'http://127.0.0.1:9420')
+    process.env.KUN_OAUTH_WEB_URL = 'http://127.0.0.1:9421'
+    check('KUN_OAUTH_WEB_URL 覆盖', kunOAuthWebUrl(), 'http://127.0.0.1:9421')
+  } finally {
+    if (savedServerUrl === undefined) {
+      delete process.env.KUN_OAUTH_SERVER_URL
+    } else {
+      process.env.KUN_OAUTH_SERVER_URL = savedServerUrl
+    }
+    if (savedWebUrl === undefined) {
+      delete process.env.KUN_OAUTH_WEB_URL
+    } else {
+      process.env.KUN_OAUTH_WEB_URL = savedWebUrl
+    }
   }
-  const standardToken = {
-    access_token: 'TOK',
-    token_type: 'Bearer',
-    expires_in: 900,
-    refresh_token: 'REF',
-    scope: 'openid profile email'
-  }
-  check(
-    '旧信封 access_token',
-    readOAuthBody<KunOAuthTokenData>(legacyToken, 200).access_token,
-    'TOK'
-  )
-  check(
-    '标准格式 access_token',
-    readOAuthBody<KunOAuthTokenData>(standardToken, 200).access_token,
-    'TOK'
-  )
-  check(
-    '旧信封 refresh_token',
-    readOAuthBody<KunOAuthTokenData>(legacyToken, 200).refresh_token,
-    'REF'
-  )
-  check(
-    '标准格式 refresh_token',
-    readOAuthBody<KunOAuthTokenData>(standardToken, 200).refresh_token,
-    'REF'
-  )
 
-  // ── §5：token 失败，两组都要判成「凭据已死」(invalid_grant，非瞬态) ──────
-  console.log('\n/oauth/token 失败（授权码无效）')
-  checkFailure(
-    '旧信封 15003',
-    { code: 15003, message: '无效的授权码' },
-    400,
-    'invalid_grant',
-    false
-  )
-  checkFailure(
-    '标准格式 invalid_grant',
-    { error: 'invalid_grant', error_description: '无效的授权码' },
-    400,
-    'invalid_grant',
-    false
-  )
-
-  // ── §2.3 警告：封禁必须按 HTTP 403 判定，否则会「重新登录 → 又被拒」死循环 ──
-  console.log('\n封禁（终态，再登无用）')
-  checkFailure(
-    '旧信封 10014',
-    { code: 10014, message: '账号已封禁' },
-    403,
-    'banned',
-    false
-  )
-  checkFailure(
-    '标准格式 403（RFC 6750 无封禁错误码，只能按状态码判）',
-    { error: 'invalid_token', error_description: '账号已封禁' },
-    403,
-    'banned',
-    false
-  )
-  // RFC 6750 §3.1：insufficient_scope 也是 403，但那是 scope 没给够，不能报成封禁。
-  checkFailure(
-    '标准格式 403 insufficient_scope 不判封禁',
-    { error: 'insufficient_scope', error_description: 'scope 不足' },
-    403,
-    'invalid_scope',
-    false
-  )
-
-  // ── §4·1：invalid_token 必须是「凭据已死」，绝不能落进瞬态重试分支 ────────
-  console.log('\n§4·1 invalid_token 不是瞬态')
-  checkFailure(
-    '旧信封 10002',
-    { code: 10002, message: '无效的令牌' },
-    401,
-    'invalid_token',
-    false
-  )
-  checkFailure(
-    '标准格式 invalid_token',
-    { error: 'invalid_token', error_description: 'token 已失效' },
-    401,
-    'invalid_token',
-    false
-  )
-
-  // ── §4·2 / §4·3：只有未知错误和 5xx 算瞬态；server_error 是 500 不是 4xx ──
-  console.log('\n§4·2 §4·3 瞬态判定')
-  checkFailure(
-    '标准格式 server_error（500 → 瞬态）',
-    { error: 'server_error', error_description: '内部故障' },
-    500,
-    'server_error',
-    true
-  )
-  checkFailure(
-    '标准格式 未知 error（→ 瞬态）',
-    { error: 'brand_new_error_code' },
-    400,
-    'unknown',
-    true
-  )
-  checkFailure(
-    '旧信封 未知 code（→ 瞬态）',
-    { code: 19999, message: '？' },
-    400,
-    'unknown',
-    true
-  )
-  checkFailure(
-    '标准格式 invalid_client（401 → 非瞬态）',
-    { error: 'invalid_client', error_description: 'client 凭据错误' },
-    401,
-    'invalid_client',
-    false
-  )
-  checkFailure(
-    '标准格式 unauthorized_client（→ 非瞬态）',
-    { error: 'unauthorized_client' },
-    400,
-    'unauthorized_client',
-    false
-  )
-
-  // ── userinfo：两组都要拿到 sub ──────────────────────────────────────────
-  console.log('\n/oauth/userinfo 成功')
-  const legacyUser = {
-    code: 0,
-    message: '成功',
-    data: { sub: 'uuid-1', name: 'kun', email: 'kun@kungal.com', picture: '' }
-  }
-  const standardUser = {
-    id: 1007,
-    sub: 'uuid-1',
-    name: 'kun',
-    email: 'kun@kungal.com',
-    picture: '',
-    roles: ['user']
-  }
-  check(
-    '旧信封 sub',
-    readOAuthBody<KunOAuthUserInfo>(legacyUser, 200).sub,
-    'uuid-1'
-  )
-  check(
-    '标准格式 sub',
-    readOAuthBody<KunOAuthUserInfo>(standardUser, 200).sub,
-    'uuid-1'
-  )
-
-  // ── §2.4：revoke 切换后是 200 空 body，无条件 res.json() 会抛异常 ────────
-  console.log('\n/oauth/revoke')
-  await readOAuthResponse<void>(
-    new Response(JSON.stringify({ code: 0, message: '成功' }), { status: 200 })
-  )
-  console.log('  ok   旧信封 {code:0} 不抛')
-  await readOAuthResponse<void>(new Response('', { status: 200 }))
-  console.log('  ok   标准格式 200 空 body 不抛（RFC 7009 §2.2）')
-
-  // ── 传输层故障：网关的非 JSON 响应不能被当成鲲 OAuth 的业务判决 ──────────
-  console.log('\n传输层故障（网关 / 代理，非 JSON）')
-  const gateway502 = await readOAuthResponse(
-    new Response('<html>502 Bad Gateway</html>', { status: 502 })
-  ).then(
-    () => null,
-    (error: unknown) => (error instanceof KunOAuthError ? error : null)
-  )
-  check('502 HTML → reason', gateway502?.reason, 'server_error')
-  check('502 HTML → transient', gateway502?.transient, true)
-
-  // 代理返回的 403 HTML 不是「账号封禁」—— 只有解析成功的 OAuth body 才按 403 判封禁。
-  const proxy403 = await readOAuthResponse(
-    new Response('<html>403 Forbidden</html>', { status: 403 })
-  ).then(
-    () => null,
-    (error: unknown) => (error instanceof KunOAuthError ? error : null)
-  )
-  check('403 HTML 不判封禁 → reason', proxy403?.reason, 'unknown')
-
-  console.log(
-    failed === 0
-      ? '\n全部通过：兼容读取器在切换前后都能正确解析。'
-      : `\n${failed} 项失败。`
-  )
+  console.log(failed === 0 ? '\n全部通过。' : `\n${failed} 项失败。`)
   if (failed > 0) {
     process.exitCode = 1
   }

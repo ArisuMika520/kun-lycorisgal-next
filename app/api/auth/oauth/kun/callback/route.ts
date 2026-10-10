@@ -17,7 +17,7 @@ import {
 } from '~/app/api/utils/oauth/cookie'
 import { OAUTH_PLACEHOLDER_PASSWORD } from '~/app/api/utils/oauth/placeholderPassword'
 
-// 鲲 OAuth 回调路由（GET）。严格按开发计划 §四·阶段 2 的 8 步实现：
+// NextMoe·未萌 OAuth 回调路由（GET）。严格按开发计划 §四·阶段 2 的 8 步实现：
 // state 校验 → 换 token → userinfo → 按 (provider,sub) 查绑定决定登录/创建/拒绝
 // → 本地封禁拦截 → 签发本站 JWT 设会话 cookie → revoke 即弃 → 回首页。
 // 边界：不实现 refresh/单飞锁（换完即弃，计划 §二·决策 2）。
@@ -41,13 +41,14 @@ import { OAUTH_PLACEHOLDER_PASSWORD } from '~/app/api/utils/oauth/placeholderPas
 //     • expired            授权失效（reason=invalid_grant：授权码过期或已用、PKCE 不匹配、
 //                          回调地址不匹配），引导用户重新发起登录
 //     • oauth_unavailable  瞬态失败（reason 瞬态：5xx / 未知错误 / 网络 / 网关），稍后重试
-//     • email_exists       KUN 邮箱已被本地账号占用，不静默合并；提示先本地登录再绑定（二期）
+//     • email_exists       授权邮箱已被本地账号占用，不静默合并；提示先本地登录再绑定（二期）
+//     • email_missing      授权结果没有 email 键（或 trim 后为空），不能建号
 //   终态 / 再登无用 → /?error=banned（刻意不落 /login，指南 §7：封号再登无意义）
-//     • banned             本地 status===2 封禁，或 KUN 端封号（reason=banned）
-// C4 在 login 页消费前五类（toast），并对 banned 在落地页给终态提示。
+//     • banned             本地 status===2 封禁，或对端封号（reason==='banned'）
+// C4 在 login 页消费前几类（toast），并对 banned 在落地页给终态提示。
 //
-// 注：分支只认 KunOAuthError.reason（跨新旧线格式归一），不认数字错误码 ——
-// 线格式切换后（迁移指南 §3 第 2 步）此处无需任何改动。
+// 注：协议端点已是裸 RFC（无 {code,message,data} 信封）。分支只认 KunOAuthError.reason，
+// 封禁仍看 reason==='banned'（insufficient_scope 的 403 不是封禁）。缺邮箱走 email_missing，不写库。
 
 const PROVIDER = 'kun-oauth'
 
@@ -118,13 +119,31 @@ const resolveLocalUser = async (
   const picture = userInfo.picture?.trim()
   // avatar 是 varchar(233)，超长 URL 会触发约束错误 → 超长则不写。
   const avatar = picture && picture.length <= 233 ? picture : undefined
-  const desiredName = truncateName(userInfo.name)
+  const desiredName = truncateName(userInfo.name ?? '')
 
   // —— 命中绑定：同步最新 name/avatar 后登录 ——
+  // 旧实现曾把缺邮箱写成 kun-<sub>@oauth.kungal.local。再次授权拿到真邮箱时改回，
+  // 且只改这种占位地址；真邮箱被他人占用则不动，避免接管。
   if (account) {
-    const data: { avatar?: string; name?: string } = {}
+    const data: { avatar?: string; name?: string; email?: string } = {}
     if (avatar !== undefined) {
       data.avatar = avatar
+    }
+    const email = userInfo.email?.trim().toLowerCase()
+    if (
+      email &&
+      account.user.email.toLowerCase().endsWith('@oauth.kungal.local') &&
+      account.user.email.toLowerCase() !== email
+    ) {
+      const emailTaken = await prisma.user.findFirst({
+        where: {
+          email: { equals: email, mode: 'insensitive' },
+          id: { not: account.user_id }
+        }
+      })
+      if (!emailTaken) {
+        data.email = email
+      }
     }
     // 仅当新名空闲（或就是自己）才同步，避免撞他人 @unique 触发 500。
     if (desiredName.toLowerCase() !== account.user.name.toLowerCase()) {
@@ -158,14 +177,17 @@ const resolveLocalUser = async (
 
   // —— 创建用户 + 绑定记录（占位密码哨兵，用户可走"忘记密码"补设可用密码） ——
   // 写哨兵而非随机哈希：解绑接口据此判定「未设密码」以防锁死（计划 §五·1、见 placeholderPassword）。
-  const name = await buildUniqueName(userInfo.name)
-  // 邮箱缺失时合成唯一占位，规避 user.email 的 NOT NULL/@unique 约束。
-  const resolvedEmail = email || `kun-${userInfo.sub}@oauth.kungal.local`
+  // 没有 email 键或 trim 后为空：不写库，不能建号。已绑定登录与 bind 不走这里。
+  if (!email) {
+    return '/login?error=email_missing'
+  }
+
+  const name = await buildUniqueName(userInfo.name ?? '')
 
   return prisma.user.create({
     data: {
       name,
-      email: resolvedEmail,
+      email,
       password: OAUTH_PLACEHOLDER_PASSWORD,
       ip: getRemoteIp(req.headers),
       avatar: avatar ?? undefined,
@@ -251,10 +273,15 @@ export const GET = async (req: NextRequest) => {
     // 绑定模式：为当前登录用户写绑定记录（不签发新会话），同样 revoke 即弃。
     if (isBind) {
       const target = await bindAccount(bindUid, userInfo)
-      try {
-        await revoke(token.refresh_token)
-      } catch {
-        // RFC 7009：吊销结果不影响绑定结果，忽略。
+      if (
+        typeof token.refresh_token === 'string' &&
+        token.refresh_token.length > 0
+      ) {
+        try {
+          await revoke(token.refresh_token)
+        } catch {
+          // RFC 7009：吊销结果不影响绑定结果，忽略。
+        }
       }
       return redirectWithCleanup(req, target)
     }
@@ -280,10 +307,16 @@ export const GET = async (req: NextRequest) => {
     )
 
     // 7. 吊销 refresh_token（换完即弃，best-effort，吊销失败不阻断本站登录）。
-    try {
-      await revoke(token.refresh_token)
-    } catch {
-      // RFC 7009：吊销结果不影响本站会话，忽略。
+    // refresh_token 是不透明随机串，只判断非空字符串，不解析。
+    if (
+      typeof token.refresh_token === 'string' &&
+      token.refresh_token.length > 0
+    ) {
+      try {
+        await revoke(token.refresh_token)
+      } catch {
+        // RFC 7009：吊销结果不影响本站会话，忽略。
+      }
     }
 
     // 8. 设会话 cookie 并回首页。带 `?oauth=success` 标记，由 components/oauth/
