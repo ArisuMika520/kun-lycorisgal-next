@@ -4,6 +4,11 @@ import { getPatchById } from '~/app/api/patch/get'
 import { getPatchIntroduction } from '~/app/api/patch/introduction/route'
 import { markdownToHtmlExtend } from '~/app/api/utils/render/markdownToHtmlExtend'
 import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
+import {
+  collectOfficialHrefs,
+  rewriteOfficialHrefs
+} from '~/lib/nextmoe/affiliateUrl'
+import { resolveOfficialPurchase } from '~/lib/nextmoe/purchaseLink'
 import type {
   PatchDetailData,
   PatchDetailLink,
@@ -172,21 +177,45 @@ export const getPatchDetailData = cache(async (uniqueId: string) => {
   const structured = parseStructuredContent(patch.introduction)
   const shouldUseStructuredBody =
     structured.screenshots.length > 0 || structured.relatedLinks.length > 0
+  const officialHrefs = collectOfficialHrefs({
+    markdown: patch.introduction,
+    links: structured.relatedLinks
+  })
+  const officialPurchasePromise = resolveOfficialPurchase({
+    dlsiteId: extra.dlsite_id,
+    vndbId: patch.vndbId,
+    officialHrefs
+  }).catch(() => null)
 
-  const bodyHtml = shouldUseStructuredBody
-    ? structured.bodyMarkdown
-      ? await markdownToHtmlExtend(structured.bodyMarkdown)
-      : ''
-    : intro.introduction
-
+  const [renderedBody, officialPurchase] = await Promise.all([
+    shouldUseStructuredBody
+      ? structured.bodyMarkdown
+        ? markdownToHtmlExtend(structured.bodyMarkdown)
+        : ''
+      : intro.introduction,
+    officialPurchasePromise
+  ])
+  const purchaseUrl = officialPurchase?.purchaseUrl
+  const relatedLinks = purchaseUrl
+    ? structured.relatedLinks.map((item) =>
+        officialHrefs.includes(item.href)
+          ? { ...item, href: purchaseUrl }
+          : item
+      )
+    : structured.relatedLinks
   const response: PatchDetailData = {
     patch,
     intro,
     dlsiteId: extra.dlsite_id,
-    bodyHtml,
-    fullHtml: intro.introduction,
+    officialPurchase,
+    bodyHtml: purchaseUrl
+      ? rewriteOfficialHrefs(renderedBody, officialHrefs, purchaseUrl)
+      : renderedBody,
+    fullHtml: purchaseUrl
+      ? rewriteOfficialHrefs(intro.introduction, officialHrefs, purchaseUrl)
+      : intro.introduction,
     screenshots: structured.screenshots,
-    relatedLinks: structured.relatedLinks,
+    relatedLinks,
     uid: payload?.uid
   }
 

@@ -30,6 +30,12 @@ import { kunCopy } from '~/utils/kunCopy'
 import { kunFetchDelete } from '~/utils/kunFetch'
 import toast from 'react-hot-toast'
 import { PATCH_DETAIL_TAB_CHANGE_EVENT } from './events'
+import {
+  collectOfficialHrefs,
+  canonicalProductId,
+  dlsiteWorkHref,
+  isAffiliateShortUrl
+} from '~/lib/nextmoe/affiliateUrl'
 import type { PatchDetailData } from './types'
 import styles from './patch-detail.module.css'
 
@@ -76,81 +82,6 @@ const formatPublishedDate = (value?: string | null) => {
   return parsed.format('YYYY年M月D日')
 }
 
-const OFFICIAL_LABELS = new Set([
-  '官网',
-  '官方网站',
-  '官方站点',
-  'official website',
-  'official site'
-])
-
-const isOfficialLabel = (label: string) =>
-  OFFICIAL_LABELS.has(label.split(',')[0].trim().toLowerCase())
-
-const isHttpHref = (href: string) => {
-  try {
-    const url = new URL(href.trim())
-    return url.protocol === 'http:' || url.protocol === 'https:'
-  } catch {
-    return false
-  }
-}
-
-const parseKunLinkAttrs = (blob: string) => {
-  const source = blob.trim()
-  if (!source) {
-    return null
-  }
-
-  const pattern = /\s*([A-Za-z_][\w:.-]*)="([^"]*)"/y
-  const attrs: Record<string, string> = {}
-
-  while (pattern.lastIndex < source.length) {
-    const attr = pattern.exec(source)
-    if (!attr) {
-      return null
-    }
-
-    attrs[attr[1]] = attr[2]
-  }
-
-  return attrs
-}
-
-const resolveOfficialHref = (data: PatchDetailData) => {
-  const related = data.relatedLinks.find(
-    (item) => isOfficialLabel(item.label) && isHttpHref(item.href)
-  )
-  if (related) {
-    return related.href
-  }
-
-  const markdown = data.patch.introduction || ''
-  const kunLinkPattern = /::kun-link\{([^}]+)\}/g
-  let match: RegExpExecArray | null = kunLinkPattern.exec(markdown)
-  while (match) {
-    const attrs = parseKunLinkAttrs(match[1])
-    if (attrs) {
-      const text = attrs.text ?? ''
-      const href = attrs.href ?? ''
-      if (isOfficialLabel(text) && isHttpHref(href)) {
-        return href
-      }
-    }
-    match = kunLinkPattern.exec(markdown)
-  }
-
-  const markdownLinkPattern = /(?<!!)\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g
-  match = markdownLinkPattern.exec(markdown)
-  while (match) {
-    if (isOfficialLabel(match[1]) && isHttpHref(match[2])) {
-      return match[2]
-    }
-    match = markdownLinkPattern.exec(markdown)
-  }
-
-  return null
-}
 
 const toOfficialHref = (href: string) =>
   `/redirect?url=${encodeURIComponent(href)}`
@@ -176,8 +107,27 @@ export const PatchDetailRail = ({ data }: Props) => {
   const { patch, intro } = data
   const company = patch.companies[0]
   const coverSrc = getImageProxySrc(patch.banner)
-  const officialHref = resolveOfficialHref(data)
-  const officialUrl = officialHref ? toOfficialHref(officialHref) : null
+  const purchaseUrl = data.officialPurchase?.purchaseUrl
+  const affiliateHref = isAffiliateShortUrl(purchaseUrl) ? purchaseUrl : null
+  const siteHref =
+    collectOfficialHrefs({
+      markdown: patch.introduction,
+      links: data.relatedLinks
+    })[0] ?? null
+  const officialUrl = affiliateHref
+    ? affiliateHref
+    : siteHref
+      ? toOfficialHref(siteHref)
+      : null
+  const couponUrl = data.officialPurchase?.couponUrl
+  const couponHref = isAffiliateShortUrl(couponUrl) ? couponUrl : null
+  const productId = canonicalProductId(
+    data.officialPurchase?.productId || data.dlsiteId
+  )
+  const dlsiteLabel = productId || data.dlsiteId
+  const dlsiteHref =
+    data.officialPurchase?.storeUrl ||
+    (productId ? dlsiteWorkHref(productId) : null)
   const ageLabel =
     GALGAME_AGE_LIMIT_MAP[patch.contentLimit] || patch.contentLimit
   const languages = patch.language.filter((item) => item && item !== 'all')
@@ -262,10 +212,21 @@ export const PatchDetailRail = ({ data }: Props) => {
           )}
           <div className={styles.ctaStack}>
             {officialUrl ? (
-              <Link className={styles.primaryButton} href={officialUrl}>
-                <ExternalLink className="size-4" aria-hidden="true" />
-                支持正版
-              </Link>
+              affiliateHref ? (
+                <a
+                  className={styles.primaryButton}
+                  href={affiliateHref}
+                  title="前往 DLsite 购买正版"
+                >
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                  支持正版
+                </a>
+              ) : (
+                <Link className={styles.primaryButton} href={officialUrl}>
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                  支持正版
+                </Link>
+              )
             ) : (
               <button
                 type="button"
@@ -276,6 +237,15 @@ export const PatchDetailRail = ({ data }: Props) => {
                 <ExternalLink className="size-4" aria-hidden="true" />
                 支持正版
               </button>
+            )}
+            {couponHref && (
+              <a
+                className={styles.couponLink}
+                href={couponHref}
+                title={data.officialPurchase?.campaignName || undefined}
+              >
+                领取优惠券
+              </a>
             )}
             <div className={styles.buttonRow}>
               <button
@@ -392,14 +362,14 @@ export const PatchDetailRail = ({ data }: Props) => {
                 </KunExternalLink>
               </DetailRow>
             )}
-            {data.dlsiteId && (
+            {(data.dlsiteId || data.officialPurchase) && dlsiteLabel && dlsiteHref && (
               <DetailRow label="DLsite">
                 <KunExternalLink
-                  link={`https://www.dlsite.com/home/work/=/product_id/${data.dlsiteId}.html`}
+                  link={dlsiteHref}
                   showAnchorIcon={false}
                   className={styles.detailLink}
                 >
-                  {data.dlsiteId}
+                  {dlsiteLabel}
                 </KunExternalLink>
               </DetailRow>
             )}

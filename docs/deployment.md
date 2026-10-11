@@ -193,9 +193,13 @@ REDIS_PASSWORD=""
   URL 字段填写完整 HTTPS 地址。
 - Cloudflare、IndexNow 等未启用功能可以保留空值，但不要保留示例
   凭据。
-- `NEXTMOE_API_KEY` 可选。留空则匿名读取 NextMoe 目录；若填写必须以 `nmk_`
-  开头，且不要提交。非 `nmk_` 密钥不会发送，服务器会拒绝该值。切勿把该密钥
-  放进客户端打包产物。
+- `NEXTMOE_API_KEY` 可选。留空则匿名读取 NextMoe 目录，游戏页「支持正版」
+  保持官网链接。已有条目不必先补 `dlsite_id`：有 VNDB id 时，页面用目录反查
+  这部作品自己的 DLsite 商品（优先简体中文发行），铸造 `s.imoe.uk` 短链，并
+  用它替换「支持正版」和标成官网的链接。没有 VNDB、没有可解析的 DLsite
+  商品号、官网也不是 DLsite 商品页时，链接保持原样。密钥必须带 `store:read`；
+  401/403/429 会暂停铸造，页面照常打开。若填写必须以 `nmk_` 开头，且不要
+  提交。非 `nmk_` 密钥不会发送。切勿把该密钥放进客户端打包产物。
 - 正式站点应删除或留空 `KUN_VISUAL_NOVEL_TEST_SITE_LABEL`，否则会禁止搜索引擎
   索引。
 
