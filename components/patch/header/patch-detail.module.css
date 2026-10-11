@@ -607,6 +607,19 @@
   color: var(--fab-accent-text-hover);
 }
 
+.couponLink {
+  align-self: center;
+  color: var(--fab-accent-text);
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.couponLink:hover {
+  color: var(--fab-accent-text-hover);
+}
+
 .rail {
   display: flex;
   flex-direction: column;
