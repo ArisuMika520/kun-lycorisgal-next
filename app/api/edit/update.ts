@@ -6,6 +6,7 @@ import {
   getPatchUniqueConstraintErrorMessage,
   normalizePatchExternalId
 } from './_externalIds'
+import { parseVndbWorkId } from '~/utils/vndbId'
 
 export const updateGalgame = async (
   input: z.infer<typeof patchUpdateSchema>,
@@ -21,7 +22,27 @@ export const updateGalgame = async (
     }
     console.log('找到游戏记录')
 
-    const normalizedVndbId = normalizePatchExternalId(input.vndbId)
+    const trimmedVndbId = input.vndbId.trim()
+    let normalizedVndbId = patch.vndb_id
+    if (trimmedVndbId) {
+      const parsedVndbId = parseVndbWorkId(trimmedVndbId)
+      if (!parsedVndbId.ok) {
+        return parsedVndbId.message
+      }
+
+      const duplicatePatch = await prisma.patch.findFirst({
+        where: {
+          id: { not: patch.id },
+          vndb_id: { equals: parsedVndbId.id, mode: 'insensitive' }
+        },
+        select: { name: true, unique_id: true }
+      })
+      if (duplicatePatch) {
+        return `VNDB ID 与游戏「${duplicatePatch.name}」（/${duplicatePatch.unique_id}）重复`
+      }
+
+      normalizedVndbId = parsedVndbId.id
+    }
     const normalizedDlsiteId = normalizePatchExternalId(input.dlsiteId)
 
     const { id, name, alias, introduction, contentLimit, released } = input

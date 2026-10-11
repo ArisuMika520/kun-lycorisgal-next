@@ -2,6 +2,7 @@ import crypto from 'crypto'
 import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { uploadPatchBanner, uploadPatchImages } from './_upload'
+import { rehostPatchImages } from './_rehostImages'
 import { patchCreateSchema } from '~/validations/edit'
 import { handleBatchPatchTags } from './batchTag'
 import { handleBatchPatchCompanies } from './batchCompany'
@@ -11,6 +12,7 @@ import {
   getPatchUniqueConstraintErrorMessage,
   normalizePatchExternalId
 } from './_externalIds'
+import { parseVndbWorkId } from '~/utils/vndbId'
 
 interface CreateGalgameSuccess {
   uniqueId: string
@@ -41,8 +43,23 @@ export const createGalgame = async (
       contentLimit
     } = input
 
-    const normalizedVndbId = normalizePatchExternalId(vndbId)
+    const parsedVndbId = parseVndbWorkId(vndbId)
+    if (!parsedVndbId.ok) {
+      return parsedVndbId.message
+    }
+    const normalizedVndbId = parsedVndbId.id
     const normalizedDlsiteId = normalizePatchExternalId(dlsiteId)
+
+    const existingVndbPatch = await prisma.patch.findFirst({
+      where: {
+        vndb_id: { equals: normalizedVndbId, mode: 'insensitive' }
+      },
+      select: { name: true, unique_id: true }
+    })
+    if (existingVndbPatch) {
+      return `VNDB ID 与游戏「${existingVndbPatch.name}」（/${existingVndbPatch.unique_id}）重复`
+    }
+
     const galgameUniqueId = crypto.randomBytes(4).toString('hex')
 
     console.log('游戏信息:', {
@@ -92,13 +109,18 @@ export const createGalgame = async (
         let developers: string[] = []
 
         if (input.gameCGUrls) {
+          let parsedCgUrls: string[] | null = null
           try {
             const parsed = JSON.parse(input.gameCGUrls) as string[]
             if (Array.isArray(parsed)) {
-              cgs = cgs.concat(parsed)
+              parsedCgUrls = parsed.filter((url) => typeof url === 'string')
             }
           } catch (e) {
             console.error('Error parsing gameCGUrls', e)
+          }
+          if (parsedCgUrls) {
+            const hosted = await rehostPatchImages(parsedCgUrls, newId)
+            cgs = cgs.concat(hosted)
           }
         }
 
@@ -110,6 +132,9 @@ export const createGalgame = async (
           if (filesToUpload.length > 0) {
             console.log('开始上传游戏CG, 数量:', filesToUpload.length)
             const uploadedUrls = await uploadPatchImages(filesToUpload, newId)
+            if (uploadedUrls.length === 0) {
+              throw new Error('游戏截图上传失败')
+            }
             cgs = cgs.concat(uploadedUrls)
           }
         }

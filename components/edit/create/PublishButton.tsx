@@ -11,6 +11,7 @@ import {
   ModalHeader
 } from '@heroui/react'
 import localforage from 'localforage'
+import { clearGameCGFiles } from './persistGameCG'
 import { useCreatePatchStore } from '~/store/editStore'
 import toast from 'react-hot-toast'
 import {
@@ -164,8 +165,12 @@ export const PublishButton = ({ setErrors }: Props) => {
         }>
       >('/api/edit', formDataToSend)
       kunErrorHandler(res, async (value) => {
+        for (const item of data.gameCG) {
+          if (typeof item !== 'string') URL.revokeObjectURL(item.preview)
+        }
         resetData()
         await localforage.removeItem('kun-patch-banner')
+        await clearGameCGFiles()
         router.push(`/${value.uniqueId}`)
       })
       toast.success('发布完成, 正在为您跳转到资源介绍页面')

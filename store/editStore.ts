@@ -52,6 +52,12 @@ export const useCreatePatchStore = create<StoreState>()(
       name: 'kun-patch-edit-store',
       storage: createJSONStorage(() => localStorage),
       version: 1,
+      partialize: (state) => ({
+        data: {
+          ...state.data,
+          gameCG: state.data.gameCG.filter((item) => typeof item === 'string')
+        }
+      }),
       migrate: (persistedState: any, version: number) => {
         // 确保所有字段都存在，合并默认值
         if (persistedState && typeof persistedState === 'object') {
