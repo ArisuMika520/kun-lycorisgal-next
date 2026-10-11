@@ -3,7 +3,7 @@
 import { Button, Input } from '@heroui/react'
 import { useRewritePatchStore } from '~/store/rewriteStore'
 import toast from 'react-hot-toast'
-import type { VNDBResponse } from '../VNDB'
+import { parseVndbWorkId } from '~/utils/vndbId'
 
 interface Props {
   vndbId: string
@@ -20,37 +20,48 @@ export const VNDBInput = ({ vndbId, setVNDBId, errors }: Props) => {
       return
     }
 
-    toast('正在从 VNDB 获取数据...')
-    const vndbResponse = await fetch(`https://api.vndb.org/kana/vn`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        filters: ['id', '=', data.vndbId],
-        fields: 'title, titles.lang, titles.title, aliases, released'
+    const parsed = parseVndbWorkId(data.vndbId)
+    if (!parsed.ok) {
+      toast.error(parsed.message)
+      return
+    }
+
+    toast('正在从 NextMoe 获取别名与发售日...')
+    try {
+      const spiderResponse = await fetch('/api/spider', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ vndbId: parsed.id })
       })
-    })
 
-    const vndbData: VNDBResponse = await vndbResponse.json()
-    const allTitles = vndbData.results.flatMap((vn) => {
-      const jaTitle = vn.titles.find((t) => t.lang === 'ja')?.title
-      const titlesArray = [
-        ...(jaTitle ? [jaTitle] : []),
-        vn.title,
-        ...vn.titles.filter((t) => t.lang !== 'ja').map((t) => t.title),
-        ...vn.aliases
-      ]
-      return titlesArray
-    })
+      if (!spiderResponse.ok) {
+        let message = '获取失败'
+        try {
+          const errBody = await spiderResponse.json()
+          if (errBody?.error) message = errBody.error
+        } catch {
+          // ignore non-JSON error bodies
+        }
+        toast.error(message)
+        return
+      }
 
-    setData({
-      ...data,
-      alias: [...new Set(allTitles)],
-      released: vndbData.results[0].released
-    })
+      const meta = await spiderResponse.json()
+      const nextVndbId = meta.vndbId || parsed.id
+      setVNDBId(nextVndbId)
+      setData({
+        ...data,
+        vndbId: nextVndbId,
+        alias: meta.alias && meta.alias.length ? meta.alias : data.alias,
+        released: meta.released || data.released
+      })
+      toast.success('获取数据成功! 已为您自动添加游戏别名')
+    } catch {
+      toast.error('获取失败')
+    }
 
-    toast.success('获取数据成功! 已为您自动添加游戏别名')
   }
 
   return (

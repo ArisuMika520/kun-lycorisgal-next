@@ -118,7 +118,7 @@ node -e "require('sharp'); console.log('sharp ok')"
 pnpm exec puppeteer browsers list
 ```
 
-只有蜘蛛抓取或性能测试功能需要启动浏览器。如果 Puppeteer 报
+只有性能测试功能需要启动浏览器；蜘蛛抓取不再启动 Chrome。如果 Puppeteer 报
 `Could not find Chrome`，运行：
 
 ```bash
@@ -191,8 +191,11 @@ REDIS_PASSWORD=""
 - S3：Access Key、Secret、Bucket、Endpoint、Region 和公开 CDN 地址。
 - 图床：`KUN_VISUAL_NOVEL_IMAGE_BED_HOST` 只填写主机名，不带 `https://` 和路径；
   URL 字段填写完整 HTTPS 地址。
-- Cloudflare、IndexNow、DLsite、Steam 等未启用功能可以保留空值，但不要保留示例
+- Cloudflare、IndexNow 等未启用功能可以保留空值，但不要保留示例
   凭据。
+- `NEXTMOE_API_KEY` 可选。留空则匿名读取 NextMoe 目录；若填写必须以 `nmk_`
+  开头，且不要提交。非 `nmk_` 密钥不会发送，服务器会拒绝该值。切勿把该密钥
+  放进客户端打包产物。
 - 正式站点应删除或留空 `KUN_VISUAL_NOVEL_TEST_SITE_LABEL`，否则会禁止搜索引擎
   索引。
 

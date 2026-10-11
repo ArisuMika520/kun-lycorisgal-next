@@ -92,7 +92,10 @@ export const POST = async (req: NextRequest) => {
     console.log('createGalgame调用完成')
 
     if (typeof response === 'string') {
-      const status = isPatchDuplicateErrorMessage(response) ? 409 : 500
+      const status =
+        response.includes('重复') || isPatchDuplicateErrorMessage(response)
+          ? 409
+          : 500
       return NextResponse.json({ error: response }, { status })
     }
 

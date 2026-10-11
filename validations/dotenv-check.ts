@@ -52,7 +52,9 @@ export const envSchema = z.object({
 
   KUN_VISUAL_NOVEL_INDEX_NOW_KEY: z.string(),
 
-  KUN_VISUAL_NOVEL_TEST_SITE_LABEL: z.string().optional()
+  KUN_VISUAL_NOVEL_TEST_SITE_LABEL: z.string().optional(),
+
+  NEXTMOE_API_KEY: z.string().optional()
 })
 
 export const env = envSchema.safeParse(process.env)
