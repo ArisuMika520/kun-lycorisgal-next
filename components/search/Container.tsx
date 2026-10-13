@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { KunLoading } from '~/components/kun/Loading'
 import { kunFetchPost } from '~/utils/kunFetch'
 import { KunHeader } from '~/components/kun/Header'
@@ -21,6 +22,8 @@ import type { SortField, SortOrder } from '~/components/galgame/_sort'
 const MAX_HISTORY_ITEMS = 10
 
 export const SearchPage = () => {
+  const searchParams = useSearchParams()
+  const presetQuery = searchParams.get('q')?.trim() ?? ''
   const [query, setQuery] = useState('')
   const [debouncedQuery] = useDebounce(query, 500)
   const [hasSearched, setHasSearched] = useState(false)
@@ -29,7 +32,7 @@ export const SearchPage = () => {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedSuggestions, setSelectedSuggestions] = useState<
     SearchSuggestionType[]
-  >([])
+  >(presetQuery ? [{ type: 'keyword', name: presetQuery }] : [])
 
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
@@ -130,6 +133,22 @@ export const SearchPage = () => {
     searchData.searchInIntroduction,
     searchData.searchInTag
   ])
+
+  const seenPreset = useRef(presetQuery)
+  useEffect(() => {
+    if (seenPreset.current === presetQuery) {
+      return
+    }
+    seenPreset.current = presetQuery
+    if (!presetQuery) {
+      return
+    }
+    setPage(1)
+    setQuery('')
+    setShowSuggestions(false)
+    setShowHistory(false)
+    setSelectedSuggestions([{ type: 'keyword', name: presetQuery }])
+  }, [presetQuery])
 
   return (
     <div className="relative w-full my-4 space-y-6">

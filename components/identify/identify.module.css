@@ -1,0 +1,116 @@
+.resultPanel {
+  animation: identify-reveal 240ms ease-out both;
+}
+
+.resultCard {
+  animation: identify-reveal 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.detectionBox {
+  animation: identify-box 280ms ease-out both;
+}
+
+.frameShade {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.42);
+  pointer-events: none;
+}
+
+.frameCorner {
+  position: absolute;
+  width: min(28px, 30%);
+  height: min(28px, 30%);
+  border-color: #fff;
+  border-style: solid;
+  pointer-events: none;
+}
+
+.frameTl {
+  top: 0;
+  left: 0;
+  border-width: 3px 0 0 3px;
+  border-top-left-radius: 6px;
+}
+
+.frameTr {
+  top: 0;
+  right: 0;
+  border-width: 3px 3px 0 0;
+  border-top-right-radius: 6px;
+}
+
+.frameBl {
+  bottom: 0;
+  left: 0;
+  border-width: 0 0 3px 3px;
+  border-bottom-left-radius: 6px;
+}
+
+.frameBr {
+  right: 0;
+  bottom: 0;
+  border-width: 0 3px 3px 0;
+  border-bottom-right-radius: 6px;
+}
+
+@keyframes identify-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes identify-box {
+  from {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.scan {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 24%;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(247 145 169 / 0.08) 28%,
+    rgb(247 145 169 / 0.85) 50%,
+    rgb(247 145 169 / 0.08) 72%,
+    transparent
+  );
+  animation: identify-scan 1.7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes identify-scan {
+  from {
+    transform: translateY(-120%);
+  }
+  to {
+    transform: translateY(520%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resultPanel,
+  .resultCard,
+  .detectionBox {
+    animation: none;
+  }
+
+  .scan {
+    animation: none;
+    opacity: 0;
+  }
+}
