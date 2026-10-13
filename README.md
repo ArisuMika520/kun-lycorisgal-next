@@ -10,12 +10,6 @@ LyCorisGAL 是一个面向 Galgame 用户的资源与信息引导站，提供游
 生产环境因数据库备份迁移兼容要求，PostgreSQL 和 psql 暂时固定为 **17.0**。
 安装依赖、配置环境变量、恢复数据库和上线前检查请完整阅读部署文档。
 
-## 详情页背景
-
-Galgame 详情页采用项目深色主题的统一黑色（`--heroui-background`），
-不使用图片、模糊或渐变背景。对应样式位于
-`components/patch/header/patch-detail.module.css`。
-
 ## 开源协议
 
 项目基于 Next.js、TypeScript、Prisma、PostgreSQL 和 Redis 构建，由
