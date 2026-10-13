@@ -25,7 +25,8 @@ import {
   Shield,
   ExternalLink,
   Star,
-  ClipboardList
+  ClipboardList,
+  ScanSearch
 } from 'lucide-react'
 import { Button } from '@heroui/button'
 import { Tooltip } from '@heroui/tooltip'
@@ -97,6 +98,12 @@ const navSections = [
         description: '游戏补丁与存档',
         href: '/resource',
         icon: FileText
+      },
+      {
+        name: '以图识Gal',
+        description: '上传图片识别作品',
+        href: '/identify',
+        icon: ScanSearch
       }
     ]
   },

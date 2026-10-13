@@ -17,6 +17,10 @@ export const kunMobileNavItem: KunNavItem[] = [
     href: '/resource'
   },
   {
+    name: '以图识Gal',
+    href: '/identify'
+  },
+  {
     name: '标签列表',
     href: '/tag'
   },
