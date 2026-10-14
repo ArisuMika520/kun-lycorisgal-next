@@ -192,9 +192,8 @@ export const VNDBInput = ({ errors, onFetched }: Props) => {
 
   return (
     <div className="w-full space-y-2">
-      <h2 className="text-xl">VNDB ID (必选)</h2>
+      <h2 className="text-xl">VNDB ID (可选)</h2>
       <Input
-        isRequired
         variant="underlined"
         labelPlacement="outside"
         placeholder="请输入 VNDB ID, 例如 v19658"
@@ -209,7 +208,7 @@ export const VNDBInput = ({ errors, onFetched }: Props) => {
         https://vndb.org/v19658) 中的 v19658 就是 VNDB ID
       </p>
       <p className="text-sm text-default-500">
-        发布游戏必须填写 VNDB ID。点击获取并填入后，字段从 NextMoe
+        可不填。填写后点击获取并填入，字段从 NextMoe
         获取，中文优先，其次日文，最后英文。
       </p>
       <Link

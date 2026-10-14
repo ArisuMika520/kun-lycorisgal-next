@@ -43,22 +43,26 @@ export const createGalgame = async (
       contentLimit
     } = input
 
-    const parsedVndbId = parseVndbWorkId(vndbId)
-    if (!parsedVndbId.ok) {
-      return parsedVndbId.message
-    }
-    const normalizedVndbId = parsedVndbId.id
-    const normalizedDlsiteId = normalizePatchExternalId(dlsiteId)
+    const trimmedVndbId = vndbId.trim()
+    let normalizedVndbId: string | null = null
+    if (trimmedVndbId) {
+      const parsedVndbId = parseVndbWorkId(trimmedVndbId)
+      if (!parsedVndbId.ok) {
+        return parsedVndbId.message
+      }
+      normalizedVndbId = parsedVndbId.id
 
-    const existingVndbPatch = await prisma.patch.findFirst({
-      where: {
-        vndb_id: { equals: normalizedVndbId, mode: 'insensitive' }
-      },
-      select: { name: true, unique_id: true }
-    })
-    if (existingVndbPatch) {
-      return `VNDB ID 与游戏「${existingVndbPatch.name}」（/${existingVndbPatch.unique_id}）重复`
+      const existingVndbPatch = await prisma.patch.findFirst({
+        where: {
+          vndb_id: { equals: normalizedVndbId, mode: 'insensitive' }
+        },
+        select: { name: true, unique_id: true }
+      })
+      if (existingVndbPatch) {
+        return `VNDB ID 与游戏「${existingVndbPatch.name}」（/${existingVndbPatch.unique_id}）重复`
+      }
     }
+    const normalizedDlsiteId = normalizePatchExternalId(dlsiteId)
 
     const galgameUniqueId = crypto.randomBytes(4).toString('hex')
 
