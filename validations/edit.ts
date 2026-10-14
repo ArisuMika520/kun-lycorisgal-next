@@ -8,7 +8,7 @@ const booleanFormField = z
 export const patchCreateSchema = z.object({
   banner: z.any(),
   name: z.string().trim().min(1, { message: '游戏名称是必填项' }),
-  vndbId: z.string().trim().min(1, { message: 'VNDB ID 是必填项' }).max(200),
+  vndbId: z.string().trim().max(200),
   dlsiteId: z.string().trim().max(20).optional().or(z.literal('')),
   forceOverwrite: booleanFormField,
   introduction: z
