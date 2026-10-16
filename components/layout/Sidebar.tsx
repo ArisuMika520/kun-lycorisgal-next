@@ -80,6 +80,28 @@ const navSections = [
           description: 'SoulAI',
           image: 'https://r2.sakinori.top/mumu/soulai.gif'
         }
+      },
+      {
+        name: '免费黄油大全❤️',
+        description: '瑟瑟资源齐全游戏合辑',
+        href: 'https://l1.ldlisgx.com/dh1035',
+        icon: HeartIcon,
+        popover: {
+          title: '广告',
+          description: '免费黄油大全❤️',
+          image: 'https://r2.sakinori.top/QQNeko/EowmdX.gif'
+        }
+      },
+      {
+        name: 'AI创角小说👄',
+        description: '各种主题满足你各种性癖',
+        href: 'https://l1.ldlisgx.com/dh1035L2',
+        icon: HeartIcon,
+        popover: {
+          title: '广告',
+          description: 'AI创角小说👄',
+          image: 'https://r2.sakinori.top/QQNeko/dh1035L2.gif'
+        }
       }
     ]
   },

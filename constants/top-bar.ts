@@ -64,5 +64,16 @@ export const kunMobileNavItem: KunNavItem[] = [
     name: 'SoulAI',
     href: 'https://sch.isco5.com?platId=7&channel=7018',
     rel: 'nofollow'
+  },
+  {
+    name: '免费黄油大全❤️',
+    href: 'https://l1.ldlisgx.com/dh1035',
+    rel: 'nofollow'
+  },
+  {
+    name: 'AI创角小说👄',
+    href: 'https://l1.ldlisgx.com/dh1035L2',
+    rel: 'nofollow'
   }
+
 ]

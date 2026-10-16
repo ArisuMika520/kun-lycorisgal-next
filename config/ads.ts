@@ -28,18 +28,18 @@ export const kunHomeAds: KunAdBanner[] = [
 // 注意: 以下为占位素材, 售出后请替换为新合作方的 1200x200 创意与专属链接
 export const kunGameDetailTopAds: KunAdBanner[] = [
   {
-    id: 'game-detail-top-ad1', // Null
+    id: 'game-detail-top-ad1', // 免费黄油大全❤️
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: '#'
+    image: 'https://r2.sakinori.top/QQNeko/EowmdX.gif',
+    link: 'https://l1.ldlisgx.com/dh1035'
   },
   {
-    id: 'game-detail-top-ad2', // Null
+    id: 'game-detail-top-ad2', // AI创角小说👄
     title: '',
     description: '',
-    image: 'https://r2.sakinori.top/1200x200.png',
-    link: '#'
+    image: 'https://r2.sakinori.top/QQNeko/dh1035L2.gif',
+    link: 'https://l1.ldlisgx.com/dh1035L2'
   }
 ]
 
