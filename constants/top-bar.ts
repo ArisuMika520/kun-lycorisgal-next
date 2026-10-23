@@ -67,12 +67,12 @@ export const kunMobileNavItem: KunNavItem[] = [
   },
   {
     name: '免费黄油大全❤️',
-    href: 'https://l1.ldlisgx.com/dh1035',
+    href: 'https://l1.szvku.com/dh1035',
     rel: 'nofollow'
   },
   {
     name: 'AI创角小说👄',
-    href: 'https://l1.ldlisgx.com/dh1035L2',
+    href: 'https://l1.szvku.com/dh1035L2',
     rel: 'nofollow'
   }
 

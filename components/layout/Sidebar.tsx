@@ -84,7 +84,7 @@ const navSections = [
       {
         name: '免费黄油大全❤️',
         description: '瑟瑟资源齐全游戏合辑',
-        href: 'https://l1.ldlisgx.com/dh1035',
+        href: 'https://l1.szvku.com/dh1035',
         icon: HeartIcon,
         popover: {
           title: '广告',
@@ -95,7 +95,7 @@ const navSections = [
       {
         name: 'AI创角小说👄',
         description: '各种主题满足你各种性癖',
-        href: 'https://l1.ldlisgx.com/dh1035L2',
+        href: 'https://l1.szvku.com/dh1035L2',
         icon: HeartIcon,
         popover: {
           title: '广告',

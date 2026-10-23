@@ -32,14 +32,14 @@ export const kunGameDetailTopAds: KunAdBanner[] = [
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/QQNeko/EowmdX.gif',
-    link: 'https://l1.ldlisgx.com/dh1035'
+    link: 'https://l1.szvku.com/dh1035'
   },
   {
     id: 'game-detail-top-ad2', // AI创角小说👄
     title: '',
     description: '',
     image: 'https://r2.sakinori.top/QQNeko/dh1035L2.gif',
-    link: 'https://l1.ldlisgx.com/dh1035L2'
+    link: 'https://l1.szvku.com/dh1035L2'
   }
 ]
 
