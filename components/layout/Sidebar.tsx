@@ -39,7 +39,7 @@ const navSections = [
     items: [
       {
         name: 'Ai女友💋（在线游玩）',
-        description: 'Ai女友💋',
+        description: '多角色场景R18禁性癖待你开发！💋',
         href: 'https://afengyue.video?ref_id=88f10d5a-aa3a-47a1-b850-94927bf7ba2f',
         icon: HeartIcon,
         popover: {
