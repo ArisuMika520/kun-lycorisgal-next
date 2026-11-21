@@ -1,9 +1,0 @@
-   ▲ Next.js 15.4.8
-   - Local:        http://127.0.0.1:3000
-   - Network:      http://127.0.0.1:3000
-
- ✓ Starting...
-[dotenv@17.2.1] injecting env (0) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
- ⚠ "next start" does not work with "output: standalone" configuration. Use "node .next/standalone/server.js" instead.
- ✓ Ready in 428ms
-

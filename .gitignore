@@ -57,6 +57,12 @@ next-env.d.ts
 # report
 perf-results/**
 
+# Node 编译缓存（NODE_COMPILE_CACHE 生成）
+/node-compile-cache/
+
+# 根目录临时试验脚本
+/.tmp-*
+
 # dev
 /components/design
 /app/(main)/design
