@@ -6,6 +6,7 @@ LyCorisGAL 是一个面向 Galgame 用户的资源与信息引导站，提供游
 ## 文档
 
 - [生产部署与依赖安装](docs/deployment.md)
+- [架构文档](docs/architecture/overview.md)：完整文档地图见 [AGENTS.md](AGENTS.md)
 
 生产环境因数据库备份迁移兼容要求，PostgreSQL 和 psql 暂时固定为 **17.0**。
 安装依赖、配置环境变量、恢复数据库和上线前检查请完整阅读部署文档。
