@@ -299,7 +299,8 @@ export const DELETE = async (req: NextRequest) => {
       return NextResponse.json({ message: '评论不存在' }, { status: 404 })
     }
 
-    if (existingComment.user_id !== payload.uid && payload.role !== 4) {
+    // 作者本人或管理员（role >= 3）可删除，与条目评论删除规则一致。
+    if (existingComment.user_id !== payload.uid && payload.role < 3) {
       return NextResponse.json({ message: '无权限删除此评论' }, { status: 403 })
     }
 

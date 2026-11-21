@@ -3,6 +3,7 @@ import { setKv } from '~/lib/redis'
 import { prisma } from '~/prisma/index'
 import { KUN_PATCH_PERMANENT_BAN_USER_KEY } from '~/config/redis'
 import { deleteResource } from '../resource/delete'
+import { deleteKunToken } from '~/app/api/utils/jwt'
 
 const userIdSchema = z.object({
   uid: z.coerce.number({ message: '用户 ID 必须为数字' }).min(1).max(9999999)
@@ -38,7 +39,7 @@ export const deleteUser = async (
   })
   const resourceIds = patchResourceS3Ids.map((s) => s.id)
 
-  return prisma.$transaction(
+  const result = await prisma.$transaction(
     async (prisma) => {
       if (resourceIds.length) {
         for (const res of resourceIds) {
@@ -62,4 +63,10 @@ export const deleteUser = async (
     },
     { timeout: 60000 }
   )
+
+  // 用户删除后立即吊销其会话白名单。否则旧 JWT 在 30 天内仍能通过
+  // verifyKunToken，后续请求会带着已不存在的 uid 访问数据库。
+  await deleteKunToken(input.uid)
+
+  return result
 }

@@ -418,11 +418,14 @@ export const TopicCommentList = ({ topicId }: Props) => {
               </DropdownTrigger>
               <DropdownMenu
                 aria-label="Comment actions"
-                disabledKeys={
-                  user?.uid !== comment.user.id && user?.role < 3
-                    ? ['edit', 'delete']
-                    : ['report']
-                }
+                // 与 /api/topic/comment 一致：编辑仅限作者本人；
+                // 删除限作者本人或管理员（role >= 3）；可删除者不显示举报。
+                disabledKeys={[
+                  ...(user?.uid === comment.user.id ? [] : ['edit']),
+                  ...(user?.uid === comment.user.id || (user?.role ?? 0) >= 3
+                    ? ['report']
+                    : ['delete'])
+                ]}
               >
                 <DropdownItem
                   key="edit"

@@ -267,8 +267,8 @@ export const TopicDetail = ({
                 </Button>
               )}
               
-              {/* 管理员删除按钮 */}
-              {user && user.role >= 2 && (
+              {/* 管理员删除按钮：与 DELETE /api/topic/[id] 的 role >= 3 校验保持一致 */}
+              {user && user.role >= 3 && (
                 <Button
                   color="danger"
                   variant="bordered"

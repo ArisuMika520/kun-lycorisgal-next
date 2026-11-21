@@ -155,13 +155,14 @@ export const DELETE = async (
       return NextResponse.json({ error: '未登录' }, { status: 401 })
     }
 
-    // 检查用户是否为管理员
+    // 检查用户是否为管理员（role 3 管理员、4 超级管理员；2 是创作者，无删除权限）。
+    // 这里从数据库读取最新角色，而不是用 JWT 中签发时的角色。
     const user = await prisma.user.findUnique({
       where: { id: payload.uid },
       select: { role: true }
     })
 
-    if (!user || user.role < 2) {
+    if (!user || user.role < 3) {
       return NextResponse.json({ error: '权限不足，只有管理员可以删除话题' }, { status: 403 })
     }
 
