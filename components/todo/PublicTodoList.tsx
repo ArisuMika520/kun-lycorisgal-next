@@ -82,7 +82,7 @@ export const PublicTodoList = () => {
           page?: number
           limit?: number
           status?: string
-        }>('/api/admin/todo', {
+        }>('/api/todo', {
           status: statusKey,
           page: currentPage,
           limit: DEFAULT_PAGE_SIZE
