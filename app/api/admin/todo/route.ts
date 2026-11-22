@@ -8,73 +8,29 @@ import {
 } from '~/app/api/utils/parseQuery'
 import {
   todoCreateSchema,
-  todoUpdateSchema,
-  todoListQuerySchema
+  todoListQuerySchema,
+  todoUpdateSchema
 } from '~/validations/todo'
-import { formatAdminTodo, mapAdminTodoList } from '~/lib/todo'
+import { formatAdminTodo } from '~/lib/todo'
+import { getTodoList } from './get'
 import type { PrismaAdminTodo } from '~/lib/todo'
 
+// 后台待办列表，仅管理员可读。公开页 /todo 使用只读的 GET /api/todo。
 export async function GET(req: NextRequest) {
+  const payload = await verifyHeaderCookie(req)
+  if (!payload) {
+    return NextResponse.json('用户未登录')
+  }
+  if (payload.role < 3) {
+    return NextResponse.json('本页面仅管理员可访问')
+  }
+
   const query = kunParseGetQuery(req, todoListQuerySchema)
   if (typeof query === 'string') {
     return NextResponse.json(query)
   }
 
-  const statusKey = query.status ?? 'all'
-  const requestedPage = query.page ?? 1
-  const limit = query.limit
-
-  const where =
-    statusKey === 'in_progress'
-      ? { status: 0 }
-      : statusKey === 'completed'
-        ? { status: 1 }
-        : {}
-
-  const total = await prisma.admin_todo.count({ where })
-
-  let currentPage = requestedPage
-  let take: number | undefined
-  let skip: number | undefined
-
-  if (limit !== undefined) {
-    const totalPages = Math.max(1, Math.ceil(total / limit))
-    currentPage = Math.min(Math.max(requestedPage, 1), totalPages)
-    take = limit
-    skip = (currentPage - 1) * limit
-  } else {
-    currentPage = 1
-  }
-
-  const todos = await prisma.admin_todo.findMany({
-    where,
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true
-        }
-      }
-    },
-    orderBy: {
-      created: 'desc'
-    },
-    ...(take !== undefined
-      ? {
-          take,
-          skip
-        }
-      : {})
-  })
-
-  return NextResponse.json({
-    todos: mapAdminTodoList(todos as PrismaAdminTodo[]),
-    total,
-    page: take !== undefined ? currentPage : 1,
-    limit: take ?? total,
-    status: statusKey
-  })
+  return NextResponse.json(await getTodoList(query))
 }
 
 export async function POST(req: NextRequest) {
