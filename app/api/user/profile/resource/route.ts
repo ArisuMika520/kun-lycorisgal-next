@@ -16,6 +16,6 @@ export async function GET(req: NextRequest) {
   }
   const nsfwEnable = getNSFWHeader(req)
 
-  const response = await getUserPatchResource(input, nsfwEnable)
+  const response = await getUserPatchResource(input, nsfwEnable, payload)
   return NextResponse.json(response)
 }

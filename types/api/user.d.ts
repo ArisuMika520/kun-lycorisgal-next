@@ -12,6 +12,9 @@ export interface UserInfo {
   follower: number
   following: number
   isFollow: boolean
+  // 已伪删除 / 已 shadow ban。仅管理员访问时如实返回，其他人（包括本人）恒为 false
+  isDeleted: boolean
+  isShadowBanned: boolean
   _count: {
     patch: number
     patch_resource: number

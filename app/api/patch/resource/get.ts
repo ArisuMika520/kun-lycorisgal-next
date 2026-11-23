@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { renderMarkdownToHtml } from '~/app/api/utils/render/renderMarkdownToHtml'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { PatchResource } from '~/types/api/patch'
 
 const patchIdSchema = z.object({
@@ -14,7 +15,8 @@ export const getPatchResource = async (
   const { patchId } = input
 
   const data = await prisma.patch_resource.findMany({
-    where: { patch_id: patchId },
+    // 伪删除 / shadow ban 用户的资源不对他人展示，本人可见
+    where: { patch_id: patchId, user: visibleAuthorWhere(uid) },
     include: {
       patch: { select: { unique_id: true } },
       user: {

@@ -20,7 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  const topic = await getTopic(id, undefined, false)
+  // 传入访问者，使 shadow ban 用户本人打开自己的话题时标题正常
+  const payload = await verifyHeaderCookie()
+  const topic = await getTopic(id, payload?.uid, false)
   if (!topic) {
     return {
       title: `话题不存在 - ${kunMoyuMoe.title}`,

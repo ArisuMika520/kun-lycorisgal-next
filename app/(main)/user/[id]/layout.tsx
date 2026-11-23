@@ -26,7 +26,7 @@ export const generateMetadata = async ({
 
 export default async function Kun({ params, children }: Props) {
   const { id } = await params
-  if (isNaN(Number(1))) {
+  if (isNaN(Number(id))) {
     return <ErrorComponent error={'提取页面参数错误'} />
   }
 
@@ -41,7 +41,7 @@ export default async function Kun({ params, children }: Props) {
     <div className="w-full py-8 mx-auto">
       {payload?.uid ? (
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <UserProfile user={user} />
+          <UserProfile user={user} viewerRole={payload.role} />
 
           <div className="space-y-6 lg:col-span-2">
             <UserStats user={user} />

@@ -5,6 +5,7 @@ import { safeParseSchema } from '~/utils/actions/safeParseSchema'
 import { resourceSchema } from '~/validations/resource'
 import { getPatchResource } from '~/app/api/resource/route'
 import { getNSFWHeader } from '~/utils/actions/getNSFWHeader'
+import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
 
 export const kunGetActions = async (params: z.infer<typeof resourceSchema>) => {
   const input = safeParseSchema(resourceSchema, params)
@@ -14,6 +15,7 @@ export const kunGetActions = async (params: z.infer<typeof resourceSchema>) => {
 
   const nsfwEnable = await getNSFWHeader()
 
-  const response = await getPatchResource(input, nsfwEnable)
+  const payload = await verifyHeaderCookie()
+  const response = await getPatchResource(input, nsfwEnable, payload?.uid ?? 0)
   return response
 }

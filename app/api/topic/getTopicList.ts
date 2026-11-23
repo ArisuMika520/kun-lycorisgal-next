@@ -3,15 +3,20 @@ import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { markdownToText } from '~/utils/markdownToText'
 import { topicListSchema } from '~/validations/topic'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { TopicCard } from '~/types/api/topic'
 
+/** 话题列表。viewerUid 用于过滤伪删除 / shadow ban 用户的话题和评论计数（本人可见自己的） */
 export const getTopicList = async (
-  input: z.infer<typeof topicListSchema>
+  input: z.infer<typeof topicListSchema>,
+  viewerUid: number
 ) => {
   const { sortField, sortOrder, page, limit, is_pinned } = input
+  const authorWhere = visibleAuthorWhere(viewerUid)
 
   const where: Prisma.topicWhereInput = {
-    status: 0
+    status: 0,
+    user: authorWhere
   }
 
   if (is_pinned !== undefined) {
@@ -40,7 +45,7 @@ export const getTopicList = async (
         _count: {
           select: {
             topic_likes: true,
-            topic_comments: true
+            topic_comments: { where: { user: authorWhere } }
           }
         }
       }

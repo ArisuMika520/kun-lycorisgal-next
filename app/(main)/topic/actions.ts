@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { safeParseSchema } from '~/utils/actions/safeParseSchema'
 import { topicListSchema } from '~/validations/topic'
 import { getTopicList } from '~/app/api/topic/getTopicList'
+import { verifyHeaderCookie } from '~/utils/actions/verifyHeaderCookie'
 
 export const kunGetTopicListActions = async (
   params: z.infer<typeof topicListSchema>
@@ -13,5 +14,6 @@ export const kunGetTopicListActions = async (
     return input
   }
 
-  return getTopicList(input)
+  const payload = await verifyHeaderCookie()
+  return getTopicList(input, payload?.uid ?? 0)
 }

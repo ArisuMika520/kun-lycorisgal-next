@@ -5,10 +5,16 @@ import { prisma } from '~/prisma/index'
 import { commentSchema } from '~/validations/comment'
 import { markdownToText } from '~/utils/markdownToText'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { PatchComment } from '~/types/api/comment'
 
-export const getComment = async (input: z.infer<typeof commentSchema>) => {
+/** 全站最新评论。viewerUid 用于过滤伪删除 / shadow ban 用户的评论（本人可见自己的） */
+export const getComment = async (
+  input: z.infer<typeof commentSchema>,
+  viewerUid: number
+) => {
   const { sortField, sortOrder, page, limit } = input
+  const where = { user: visibleAuthorWhere(viewerUid) }
 
   const offset = (page - 1) * limit
 
@@ -19,6 +25,7 @@ export const getComment = async (input: z.infer<typeof commentSchema>) => {
 
   const [commentsData, total] = await Promise.all([
     prisma.patch_comment.findMany({
+      where,
       take: limit,
       skip: offset,
       orderBy: orderByField,
@@ -43,7 +50,7 @@ export const getComment = async (input: z.infer<typeof commentSchema>) => {
         }
       }
     }),
-    prisma.patch_comment.count()
+    prisma.patch_comment.count({ where })
   ])
 
   const comments: PatchComment[] = commentsData.map((comment) => ({
@@ -70,6 +77,6 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json('用户登陆失效')
   }
 
-  const response = await getComment(input)
+  const response = await getComment(input, payload.uid)
   return NextResponse.json(response)
 }

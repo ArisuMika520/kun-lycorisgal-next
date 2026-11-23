@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { renderMarkdownToHtml } from '~/app/api/utils/render/renderMarkdownToHtml'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { TopicComment } from '~/types/api/topic-comment'
 
 export const getTopicCommentsSchema = z.object({
@@ -27,6 +28,9 @@ export const getTopicComments = async (
   userId?: number
 ) => {
   const orderBy = buildOrderBy(input.sortField, input.sortOrder)
+  // 伪删除 / shadow ban 用户的评论不对他人展示（本人可见）；
+  // 被隐藏评论不会进入下一轮 parentIds，其下的回复也随之略去。
+  const authorWhere = visibleAuthorWhere(userId)
   type CommentRecord = {
     id: number
     content: string
@@ -58,7 +62,8 @@ export const getTopicComments = async (
     prisma.topic_comment.findMany({
       where: {
         topic_id: input.topicId,
-        parent_id: null
+        parent_id: null,
+        user: authorWhere
       },
       include: {
         user: {
@@ -82,7 +87,8 @@ export const getTopicComments = async (
     prisma.topic_comment.count({
       where: {
         topic_id: input.topicId,
-        parent_id: null
+        parent_id: null,
+        user: authorWhere
       }
     })
   ])
@@ -97,7 +103,8 @@ export const getTopicComments = async (
         topic_id: input.topicId,
         parent_id: {
           in: parentIds
-        }
+        },
+        user: authorWhere
       },
       include: {
         user: {
@@ -140,16 +147,18 @@ export const getTopicComments = async (
     parentIds = batch.map((comment) => comment.id)
   }
 
-  const topLevelWithParent: CommentRecord[] = topLevelComments.map((comment) => ({
-    ...comment,
-    parent: null
-  }))
+  const topLevelWithParent: CommentRecord[] = topLevelComments.map(
+    (comment) => ({
+      ...comment,
+      parent: null
+    })
+  )
   const allComments: CommentRecord[] = [...topLevelWithParent, ...descendants]
   const htmlEntries = await Promise.all(
-    allComments.map(async (comment) => [
-      comment.id,
-      await renderMarkdownToHtml(comment.content)
-    ] as const)
+    allComments.map(
+      async (comment) =>
+        [comment.id, await renderMarkdownToHtml(comment.content)] as const
+    )
   )
   const htmlMap = new Map<number, string>(htmlEntries)
   type CommentNode = CommentRecord & { replies: CommentNode[] }
@@ -204,7 +213,7 @@ export const getTopicComments = async (
     content: comment.content,
     contentHtml: htmlMap.get(comment.id) ?? '',
     parentContentHtml: comment.parent
-      ? htmlMap.get(comment.parent.id) ?? ''
+      ? (htmlMap.get(comment.parent.id) ?? '')
       : undefined,
     like_count: comment.like_count,
     user: comment.user,

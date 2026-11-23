@@ -83,6 +83,19 @@ app/api/patch/resource/
 - 计数类字段（下载量、浏览量、点赞数）用 Prisma `increment`，多表计数放进
   `prisma.$transaction`。
 
+## 用户内容可见性
+
+新增展示用户发布内容（资源、评论、话题、站内消息等）的 **公开** 查询时，必须对作者关系
+加上 `app/api/utils/userVisibility.ts` 的过滤条件，否则伪删除和 shadow ban 用户的内容会泄露：
+
+- 列表：`where: { ..., user: visibleAuthorWhere(viewerUid) }`，`viewerUid` 传当前访问者
+  （未登录为 0），让 shadow ban 用户本人仍能看到自己的内容；
+- 个人主页类接口：查询前用 `canViewUserContent` / `canViewUserContentById` 拦截；
+- 站内消息：合并 `VISIBLE_MESSAGE_SENDER_WHERE`；
+- 后台管理查询放在 `app/api/admin/**` 自己的 `get.ts` 中，不加过滤。
+
+规则详情见 [community-admin.md](./community-admin.md#用户内容可见性)。
+
 ## 外部请求
 
 - 服务端 `fetch` 已被 `instrumentation.ts` 强制 IPv4；axios 必须使用 `spiderHttp`。

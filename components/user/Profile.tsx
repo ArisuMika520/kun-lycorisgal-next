@@ -9,12 +9,21 @@ import { Calendar, Link as LinkIcon } from 'lucide-react'
 import { UserFollow } from './follow/Follow'
 import { Stats } from './follow/Stats'
 import { SelfButton } from './SelfButton'
+import { UserAdminPanel } from './admin/AdminPanel'
 import { USER_ROLE_MAP } from '~/constants/user'
 import type { UserInfo } from '~/types/api/user'
 
-export const UserProfile = ({ user }: { user: UserInfo }) => {
+interface Props {
+  user: UserInfo
+  // 当前访问者角色（未登录为 0），用于决定是否显示管理员快捷操作
+  viewerRole: number
+}
+
+export const UserProfile = ({ user, viewerRole }: Props) => {
+  const isShowAdminPanel = viewerRole >= 3 && user.id !== user.requestUserUid
+
   return (
-    <div className="lg:col-span-1">
+    <div className="space-y-6 lg:col-span-1">
       <Card className="w-full">
         <CardHeader className="justify-center pt-8">
           <div className="flex flex-col items-center gap-3">
@@ -98,6 +107,15 @@ export const UserProfile = ({ user }: { user: UserInfo }) => {
           </div>
         </CardBody>
       </Card>
+
+      {isShowAdminPanel && (
+        // key 带上状态：切换到其他用户或 router.refresh 拿到新状态时重置面板内部状态
+        <UserAdminPanel
+          key={`${user.id}:${user.status}:${user.isShadowBanned}:${user.isDeleted}`}
+          user={user}
+          viewerRole={viewerRole}
+        />
+      )}
     </div>
   )
 }

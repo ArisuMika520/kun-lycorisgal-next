@@ -57,7 +57,10 @@ export const UserEdit = ({ initialUser }: Props) => {
     }
 
     setUpdating(true)
-    const res = await kunFetchPut<KunResponse<{}>>('/api/admin/user', requestData)
+    const res = await kunFetchPut<KunResponse<{}>>(
+      '/api/admin/user',
+      requestData
+    )
     kunErrorHandler(res, () => {
       toast.success('更新用户信息成功')
     })
@@ -72,7 +75,11 @@ export const UserEdit = ({ initialUser }: Props) => {
         size="sm"
         variant="light"
         onPress={onOpen}
-        isDisabled={currentUser.role < 3}
+        // 与后端 guardManageUser 一致：只能编辑权限严格低于自己的用户。
+        // 用 initialUser：user 是弹窗内的编辑草稿，改角色时不应影响按钮
+        isDisabled={
+          currentUser.role < 3 || currentUser.role <= initialUser.role
+        }
       >
         <Edit2 size={16} />
       </Button>

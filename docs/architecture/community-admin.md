@@ -17,12 +17,52 @@
 
 - 个人主页 `app/(main)/user/[id]/**`：资源、评论、收藏夹三个分页，数据来自
   `app/api/user/profile/**`。浮动用户卡片数据来自 `app/api/user/profile/floating`。
+- 管理员快捷操作：管理员（`role >= 3`）查看他人主页时，资料卡下方显示
+  “管理员操作”卡片（`components/user/admin/`），免去去后台搜索用户。访问者角色由
+  `layout.tsx` 从服务端会话传入，只决定是否显示，权限仍由接口校验。
+  所有操作都经 `ConfirmActionButton` 二次确认，权限规则见
+  [auth.md](./auth.md#角色与状态) 的 `guardManageUser`；按钮在无权限时禁用并给出说明。
+  每个操作成功后写 `admin_log`，状态未变化时接口返回 409。
+
+  | 操作 | 接口 | 角色 | 说明 |
+  | --- | --- | --- | --- |
+  | 封禁 / 解封 | `PUT /api/admin/user/status` | ≥ 3 | 只改 `status`（0 ↔ 2），吊销会话 |
+  | Shadow Ban / 解除 | `PUT /api/admin/user/shadow-ban` | ≥ 3 | 写 / 清 `shadow_ban_time`，不吊销会话、不通知本人 |
+  | 删除 | `DELETE /api/admin/user` | 4 | 伪删除：写 `delete_time`、禁止邮箱与 IP 注册、吊销会话；需输入完整用户名确认 |
+  | 恢复 | `PUT /api/admin/user/restore` | 4 | 清 `delete_time` 并解除注册限制，仅对已删除用户显示 |
+
+  面板标题旁用 Chip 标出“已删除”“Shadow Ban”和封禁状态。这两个标记来自
+  `UserInfo.isDeleted` / `isShadowBanned`，只有管理员访问时才如实返回。
 - 设置页 `app/(main)/settings/user`：头像（裁剪后上传）、用户名、简介、邮箱、密码、
   邮件通知、2FA、OAuth 绑定/解绑，对应 `app/api/user/setting/**`。
 - 签到 `app/api/user/status/check-in`：每日一次，随机增加 1～7 萌萌点。
 - `GET /api/user/status` 返回当前登录用户信息，前端据此刷新 `userStore`。
 - 创作者申请：`app/apply/**` 与 `app/api/apply/**`，提交后生成 `apply` 消息，
   管理员在后台审批，详见 [auth.md](./auth.md#角色与状态)。
+
+## 用户内容可见性
+
+伪删除和 shadow ban 都不删除数据，而是在查询时隐藏用户发布的内容。规则集中在
+`app/api/utils/userVisibility.ts`：
+
+| 状态 | 字段 | 登录 | 内容对他人 | 本人 | 管理员 |
+| --- | --- | --- | --- | --- | --- |
+| 伪删除 | `user.delete_time` | 拒绝 | 隐藏，主页显示“未找到用户” | 无法登录 | 在其主页查看并恢复 |
+| shadow ban | `user.shadow_ban_time` | 正常 | 隐藏，主页正常但内容为空、计数为 0 | 一切如常，看不到任何标记 | 只在其主页查看 |
+
+- “内容”指资源、条目评论、话题、话题评论和该用户发出的站内消息（提及、回复、关注等）。
+  **Galgame 条目（`patch`）属于站点资料，不受影响。**
+- 公开列表用 `visibleAuthorWhere(viewerUid)` 过滤作者，已接入：首页最新资源与话题、
+  资源列表、全站评论流、条目详情的资源与评论、话题列表与详情、话题评论（含评论计数）。
+  管理员浏览这些公开页面时同样看不到被隐藏内容。
+- 被隐藏评论下的回复会一起隐藏，因为条目评论和话题评论都是从父评论开始组装楼中楼的。
+- 站内消息用 `VISIBLE_MESSAGE_SENDER_WHERE` 过滤，消息列表和未读提示都生效。
+  过滤只发生在读取时，所以恢复后历史消息会重新出现。
+- 个人主页（资料、资源 / 评论 / 收藏夹标签、悬浮卡片）用 `canViewUserContent` 判断，
+  只有本人（仅限 shadow ban）和管理员能看到内容。
+- 已删除用户不出现在 @ 候选和关注 / 粉丝列表中。
+- 后台各内容管理页（`admin/comment`、`admin/resource`、`admin/topic`）使用各自的查询，
+  不做过滤，管理员能看到全部内容。
 
 ## 管理后台
 
@@ -33,7 +73,7 @@
 | --- | --- |
 | `admin`（首页） | 统计概览，`app/api/admin/stats/**` |
 | `admin/galgame`、`resource`、`comment`、`topic` | 内容管理（编辑、删除） |
-| `admin/user` | 用户管理。修改用户信息会吊销其会话；永久删除（仅超级管理员）会写入禁止重新注册的 Redis 键并吊销会话 |
+| `admin/user` | 用户管理。修改用户信息会吊销其会话；删除（伪删除，仅超级管理员）会写入禁止重新注册的 Redis 键并吊销会话。编辑和删除只能作用于权限低于自己的用户。状态列标出“已删除”“Shadow Ban”；封禁、shadow ban、恢复在用户主页的管理员快捷操作里完成，见上文 |
 | `admin/creator` | 创作者申请审批（`approve` / `decline`） |
 | `admin/feedback`、`report` | 处理用户反馈与举报，处理结果以消息通知用户 |
 | `admin/email` | 群发邮件，模板在 `constants/email/group-templates.ts` 与 `constants/email/templates/` |

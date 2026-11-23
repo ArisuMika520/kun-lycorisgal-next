@@ -19,6 +19,28 @@ export const adminUpdateUserSchema = z.object({
   bio: z.string().trim().max(107, { message: '签名不能超过 107 个字符' })
 })
 
+/**
+ * 管理员快捷封禁 / 解封用户（用户主页的管理员操作面板使用）。
+ * status 只接受 0（正常）与 2（封禁）；1（限制）尚未实现，不允许通过此接口设置。
+ */
+export const adminUpdateUserStatusSchema = z.object({
+  uid: z.coerce.number().min(1).max(9999999),
+  status: z.coerce.number().refine((value) => value === 0 || value === 2, {
+    message: '用户状态只能设置为正常或封禁'
+  })
+})
+
+/** 按 uid 操作单个用户（伪删除、恢复） */
+export const adminUserIdSchema = z.object({
+  uid: z.coerce.number({ message: '用户 ID 必须为数字' }).min(1).max(9999999)
+})
+
+/** 开启 / 解除 shadow ban */
+export const adminShadowBanUserSchema = z.object({
+  uid: z.coerce.number().min(1).max(9999999),
+  enabled: z.boolean()
+})
+
 export const approveCreatorSchema = z.object({
   messageId: z.coerce.number().min(1).max(9999999),
   uid: z.coerce.number().min(1).max(9999999)

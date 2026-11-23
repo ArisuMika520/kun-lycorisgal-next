@@ -27,6 +27,10 @@ model user {
   enable_2fa            Boolean                             @default(false)
   two_factor_secret     String                              @default("")
   two_factor_backup     String[]                            @default([])
+  // 伪删除时间：非空表示账号已被删除（无法登录、内容对所有人隐藏），置空即恢复
+  delete_time           DateTime?
+  // shadow ban 时间：非空表示其内容只对本人和管理员可见，本人无感知
+  shadow_ban_time       DateTime?
   created               DateTime                            @default(now())
   updated               DateTime                            @updatedAt
   admin_log             admin_log[]

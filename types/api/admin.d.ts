@@ -39,6 +39,9 @@ export interface AdminUser {
   status: number
   dailyImageCount: number
   created: Date | string
+  // 已伪删除 / 已 shadow ban，仅管理员接口返回
+  isDeleted: boolean
+  isShadowBanned: boolean
   _count: {
     patch: number
     patch_resource: number

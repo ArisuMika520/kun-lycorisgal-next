@@ -2,12 +2,27 @@ import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { adminUpdateUserSchema } from '~/validations/admin'
 import { deleteKunToken } from '~/app/api/utils/jwt'
+import { guardManageUser } from './_guard'
 
+/**
+ * 后台整表单修改用户信息（旧式错误返回：失败时返回字符串）。
+ * 权限走 `guardManageUser`：只能修改权限严格低于自己的用户，
+ * 防止管理员互相降级 / 封禁，也防止误改自己的角色。
+ */
 export const updateUser = async (
   input: z.infer<typeof adminUpdateUserSchema>,
   adminUid: number
 ) => {
   const { uid, dailyImageCount, ...rest } = input
+
+  const guard = await guardManageUser(adminUid, uid, 3)
+  if (!guard.ok) {
+    return guard.error
+  }
+  const { admin } = guard
+  if (rest.role >= 3 && admin.role < 4) {
+    return '设置用户为管理员仅限超级管理员可用'
+  }
 
   const user = await prisma.user.findUnique({
     where: { id: uid },
@@ -22,16 +37,6 @@ export const updateUser = async (
   })
   if (!user) {
     return '未找到该用户'
-  }
-
-  const admin = await prisma.user.findUnique({
-    where: { id: adminUid }
-  })
-  if (!admin) {
-    return '未找到该管理员'
-  }
-  if (rest.role >= 3 && admin.role < 4) {
-    return '设置用户为管理员仅限超级管理员可用'
   }
 
   await deleteKunToken(uid)

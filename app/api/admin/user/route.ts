@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { NextRequest, NextResponse } from 'next/server'
 import {
   kunParseDeleteQuery,
@@ -8,15 +7,12 @@ import {
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
 import {
   adminPaginationSchema,
-  adminUpdateUserSchema
+  adminUpdateUserSchema,
+  adminUserIdSchema
 } from '~/validations/admin'
 import { getUserInfo } from './get'
 import { updateUser } from './update'
 import { deleteUser } from './delete'
-
-const userIdSchema = z.object({
-  uid: z.coerce.number({ message: '用户 ID 必须为数字' }).min(1).max(9999999)
-})
 
 export const GET = async (req: NextRequest) => {
   const input = kunParseGetQuery(req, adminPaginationSchema)
@@ -53,7 +49,8 @@ export const PUT = async (req: NextRequest) => {
 }
 
 export const DELETE = async (req: NextRequest) => {
-  const input = kunParseDeleteQuery(req, userIdSchema)
+  // 伪删除用户，见 ./delete.ts
+  const input = kunParseDeleteQuery(req, adminUserIdSchema)
   if (typeof input === 'string') {
     return NextResponse.json(input)
   }

@@ -15,6 +15,9 @@ export const kunGetActions = async (id: number) => {
   }
   const payload = await verifyHeaderCookie()
 
-  const user = await getUserProfile(input, payload?.uid ?? 0)
+  const user = await getUserProfile(input, {
+    uid: payload?.uid ?? 0,
+    role: payload?.role ?? 0
+  })
   return user
 }

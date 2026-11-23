@@ -10,6 +10,9 @@ export async function GET(req: NextRequest) {
   }
   const payload = await verifyHeaderCookie(req)
 
-  const user = await getUserProfile(input, payload?.uid ?? 0)
+  const user = await getUserProfile(input, {
+    uid: payload?.uid ?? 0,
+    role: payload?.role ?? 0
+  })
   return NextResponse.json(user)
 }

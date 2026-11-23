@@ -34,9 +34,21 @@ export const RenderCell = (user: AdminUserType, columnKey: string) => {
       )
     case 'status':
       return (
-        <Chip color={USER_STATUS_COLOR_MAP[user.status]} variant="flat">
-          {USER_STATUS_MAP[user.status]}
-        </Chip>
+        <div className="flex flex-wrap gap-1">
+          <Chip color={USER_STATUS_COLOR_MAP[user.status]} variant="flat">
+            {USER_STATUS_MAP[user.status]}
+          </Chip>
+          {user.isDeleted && (
+            <Chip color="danger" variant="solid">
+              已删除
+            </Chip>
+          )}
+          {user.isShadowBanned && (
+            <Chip color="warning" variant="flat">
+              Shadow Ban
+            </Chip>
+          )}
+        </div>
       )
     case 'actions':
       return (

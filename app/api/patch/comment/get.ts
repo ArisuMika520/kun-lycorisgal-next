@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { prisma } from '~/prisma/index'
 import { nestComments } from './_helpers'
 import { markdownToHtml } from '~/app/api/utils/render/markdownToHtml'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { PatchComment } from '~/types/api/patch'
 
 const patchIdSchema = z.object({
@@ -15,7 +16,9 @@ export const getPatchComment = async (
   const { patchId } = input
 
   const data = await prisma.patch_comment.findMany({
-    where: { patch_id: patchId },
+    // 伪删除 / shadow ban 用户的评论不对他人展示，本人可见。
+    // 被隐藏评论下的回复会因找不到父评论而被 nestComments 一并略去。
+    where: { patch_id: patchId, user: visibleAuthorWhere(uid) },
     include: {
       user: true,
       patch: {

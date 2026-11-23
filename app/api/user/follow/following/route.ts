@@ -14,7 +14,8 @@ export const getUserFollowing = async (
   currentUserUid: number | undefined
 ) => {
   const relations = await prisma.user_follow_relation.findMany({
-    where: { follower_id: uid },
+    // 已伪删除的用户不出现在关注列表中
+    where: { follower_id: uid, following: { delete_time: null } },
     include: {
       following: {
         include: {
