@@ -1,5 +1,6 @@
 import { prisma } from '~/prisma/index'
 import { renderMarkdownToHtml } from '~/app/api/utils/render/renderMarkdownToHtml'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { Topic } from '~/types/api/topic'
 
 export const getTopic = async (
@@ -7,8 +8,9 @@ export const getTopic = async (
   userId?: number,
   incrementView: boolean = true
 ) => {
+  // 伪删除 / shadow ban 用户的话题对他人视为不存在，本人可见
   const topic = await prisma.topic.findUnique({
-    where: { id, status: 0 },
+    where: { id, status: 0, user: visibleAuthorWhere(userId) },
     include: {
       user: {
         select: {

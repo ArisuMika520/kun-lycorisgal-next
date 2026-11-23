@@ -9,7 +9,9 @@ export const searchUser = async (input: z.infer<typeof searchUserSchema>) => {
 
   const users: KunUser[] = await prisma.user.findMany({
     where: {
-      name: { contains: query, mode: 'insensitive' }
+      name: { contains: query, mode: 'insensitive' },
+      // 已伪删除的用户不出现在 @ 候选中
+      delete_time: null
     },
     select: {
       id: true,

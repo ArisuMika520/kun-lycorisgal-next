@@ -5,13 +5,20 @@ import { prisma } from '~/prisma/index'
 import { getUserInfoSchema } from '~/validations/user'
 import { markdownToText } from '~/utils/markdownToText'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { canViewUserContentById } from '~/app/api/utils/userVisibility'
 import type { UserComment } from '~/types/api/user'
 
+/** 个人主页评论标签。被隐藏用户（伪删除 / shadow ban）对非本人、非管理员返回空列表 */
 export const getUserComment = async (
-  input: z.infer<typeof getUserInfoSchema>
+  input: z.infer<typeof getUserInfoSchema>,
+  viewer: { uid: number; role: number }
 ) => {
   const { uid, page, limit } = input
   const offset = (page - 1) * limit
+
+  if (!(await canViewUserContentById(uid, viewer))) {
+    return { comments: [], total: 0 }
+  }
 
   const [data, total] = await Promise.all([
     prisma.patch_comment.findMany({
@@ -65,6 +72,6 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json('用户登陆失效')
   }
 
-  const response = await getUserComment(input)
+  const response = await getUserComment(input, payload)
   return NextResponse.json(response)
 }

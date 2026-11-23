@@ -4,6 +4,7 @@ import { kunParseGetQuery } from '~/app/api/utils/parseQuery'
 import { prisma } from '~/prisma/index'
 import { getMessageSchema } from '~/validations/message'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { VISIBLE_MESSAGE_SENDER_WHERE } from '~/app/api/utils/userVisibility'
 import type { Message } from '~/types/api/message'
 
 export const getMessage = async (
@@ -13,10 +14,12 @@ export const getMessage = async (
   const { type, page, limit } = input
   const offset = (page - 1) * limit
 
+  // 来自伪删除 / shadow ban 用户的消息（提及、回复、关注等）不展示给收件人
   const where = type
-    ? { recipient_id: uid, type }
+    ? { recipient_id: uid, type, ...VISIBLE_MESSAGE_SENDER_WHERE }
     : {
-        recipient_id: uid
+        recipient_id: uid,
+        ...VISIBLE_MESSAGE_SENDER_WHERE
         // type: { in: ['like', 'favorite', 'comment', 'pr'] }
       }
 

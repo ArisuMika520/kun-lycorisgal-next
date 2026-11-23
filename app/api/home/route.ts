@@ -4,10 +4,18 @@ import { HomeResource } from '~/types/api/home'
 import { GalgameCardSelectField } from '~/constants/api/select'
 import { getNSFWHeader } from '~/app/api/utils/getNSFWHeader'
 import { TopicCard } from '~/types/api/topic'
+import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 
+/**
+ * 首页数据。viewerUid 用于内容可见性：伪删除 / shadow ban 用户的资源和话题
+ * 不对他人展示，shadow ban 用户本人仍能看到自己的内容。
+ */
 export const getHomeData = async (
-  nsfwEnable: Record<string, string | undefined>
+  nsfwEnable: Record<string, string | undefined>,
+  viewerUid = 0
 ) => {
+  const authorWhere = visibleAuthorWhere(viewerUid)
   const [data, resourcesData, topicsData] = await Promise.all([
     prisma.patch.findMany({
       orderBy: { created: 'desc' },
@@ -17,7 +25,7 @@ export const getHomeData = async (
     }),
     prisma.patch_resource.findMany({
       orderBy: { created: 'desc' },
-      where: { patch: nsfwEnable, section: 'patch' },
+      where: { patch: nsfwEnable, section: 'patch', user: authorWhere },
       include: {
         patch: {
           select: {
@@ -42,12 +50,10 @@ export const getHomeData = async (
     }),
     prisma.topic.findMany({
       where: {
-        status: 0 // 只显示未删除的话题
+        status: 0, // 只显示未删除的话题
+        user: authorWhere
       },
-      orderBy: [
-        { is_pinned: 'desc' },
-        { created: 'desc' }
-      ],
+      orderBy: [{ is_pinned: 'desc' }, { created: 'desc' }],
       include: {
         user: {
           select: {
@@ -59,7 +65,7 @@ export const getHomeData = async (
         _count: {
           select: {
             topic_likes: true,
-            topic_comments: true
+            topic_comments: { where: { user: authorWhere } }
           }
         }
       },
@@ -124,7 +130,8 @@ export const getHomeData = async (
 
 export const GET = async (req: NextRequest) => {
   const nsfwEnable = getNSFWHeader(req)
+  const payload = await verifyHeaderCookie(req)
 
-  const response = await getHomeData(nsfwEnable)
+  const response = await getHomeData(nsfwEnable, payload?.uid ?? 0)
   return NextResponse.json(response)
 }

@@ -4,13 +4,22 @@ import { kunParseGetQuery } from '../utils/parseQuery'
 import { prisma } from '~/prisma/index'
 import { resourceSchema } from '~/validations/resource'
 import { getNSFWHeader } from '~/app/api/utils/getNSFWHeader'
+import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { visibleAuthorWhere } from '~/app/api/utils/userVisibility'
 import type { PatchResource } from '~/types/api/resource'
 
+/** 资源列表页。viewerUid 用于过滤伪删除 / shadow ban 用户的资源（本人可见自己的） */
 export const getPatchResource = async (
   input: z.infer<typeof resourceSchema>,
-  nsfwEnable: Record<string, string | undefined>
+  nsfwEnable: Record<string, string | undefined>,
+  viewerUid: number
 ) => {
   const { sortField, sortOrder, page, limit } = input
+  const where = {
+    patch: nsfwEnable,
+    section: 'patch',
+    user: visibleAuthorWhere(viewerUid)
+  }
 
   const offset = (page - 1) * limit
 
@@ -24,7 +33,7 @@ export const getPatchResource = async (
       take: limit,
       skip: offset,
       orderBy: orderByField,
-      where: { patch: nsfwEnable, section: 'patch' },
+      where,
       include: {
         patch: {
           select: {
@@ -46,9 +55,7 @@ export const getPatchResource = async (
         }
       }
     }),
-    prisma.patch_resource.count({
-      where: { patch: nsfwEnable, section: 'patch' }
-    })
+    prisma.patch_resource.count({ where })
   ])
 
   const resources: PatchResource[] = resourcesData.map((resource) => ({
@@ -84,7 +91,8 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json(input)
   }
   const nsfwEnable = getNSFWHeader(req)
+  const payload = await verifyHeaderCookie(req)
 
-  const response = await getPatchResource(input, nsfwEnable)
+  const response = await getPatchResource(input, nsfwEnable, payload?.uid ?? 0)
   return NextResponse.json(response)
 }

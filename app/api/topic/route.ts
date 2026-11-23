@@ -12,17 +12,26 @@ export async function GET(request: NextRequest) {
     sortOrder: searchParams.get('sortOrder') || 'desc',
     page: parseInt(searchParams.get('page') || '1'),
     limit: parseInt(searchParams.get('limit') || '10'),
-    is_pinned: searchParams.get('is_pinned') === 'true' ? true : searchParams.get('is_pinned') === 'false' ? false : undefined
+    is_pinned:
+      searchParams.get('is_pinned') === 'true'
+        ? true
+        : searchParams.get('is_pinned') === 'false'
+          ? false
+          : undefined
   })
 
   const { sortField, sortOrder, page, limit, is_pinned } = validatedData
-  const response = await getTopicList({
-    sortField,
-    sortOrder,
-    page,
-    limit,
-    is_pinned
-  })
+  const payload = await verifyHeaderCookie(request)
+  const response = await getTopicList(
+    {
+      sortField,
+      sortOrder,
+      page,
+      limit,
+      is_pinned
+    },
+    payload?.uid ?? 0
+  )
 
   return Response.json(response)
 }
@@ -55,22 +64,25 @@ export async function POST(request: NextRequest) {
     }
   })
 
-  return Response.json({
-    message: 'Topic created successfully',
-    topic: {
-      id: topic.id,
-      title: topic.title,
-      content: topic.content,
-      is_pinned: topic.is_pinned,
-      view_count: topic.view_count,
-      like_count: topic.like_count,
-      user: {
-        id: topic.user.id,
-        name: topic.user.name,
-        avatar: topic.user.avatar
-      },
-      created: topic.created.toISOString(),
-      updated: topic.updated.toISOString()
-    }
-  }, { status: 201 })
+  return Response.json(
+    {
+      message: 'Topic created successfully',
+      topic: {
+        id: topic.id,
+        title: topic.title,
+        content: topic.content,
+        is_pinned: topic.is_pinned,
+        view_count: topic.view_count,
+        like_count: topic.like_count,
+        user: {
+          id: topic.user.id,
+          name: topic.user.name,
+          avatar: topic.user.avatar
+        },
+        created: topic.created.toISOString(),
+        updated: topic.updated.toISOString()
+      }
+    },
+    { status: 201 }
+  )
 }

@@ -17,7 +17,7 @@
 
 | 领域 | 模型 | 说明 |
 | --- | --- | --- |
-| 用户 | `user` | 角色 `role`、状态 `status`、萌萌点 `moemoepoint`、每日计数（`daily_*`，每天 0 点由 cron 清零）、2FA 字段 |
+| 用户 | `user` | 角色 `role`、状态 `status`、萌萌点 `moemoepoint`、每日计数（`daily_*`，每天 0 点由 cron 清零）、2FA 字段；`delete_time`（伪删除）、`shadow_ban_time`（shadow ban）为可空时间，NULL 表示未处于该状态，见 [community-admin.md](./community-admin.md#用户内容可见性) |
 | | `user_oauth_account` | 第三方账号绑定，`(provider, provider_user_id)` 唯一，当前 provider 为 `kun-oauth` |
 | | `user_follow_relation` | 关注关系 |
 | | `user_message` | 站内通知，`type` 取值见 `constants/message.ts`，`status` 0 未读 |

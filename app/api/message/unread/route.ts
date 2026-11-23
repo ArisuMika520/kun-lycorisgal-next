@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '~/prisma/index'
 import { verifyHeaderCookie } from '~/middleware/_verifyHeaderCookie'
+import { VISIBLE_MESSAGE_SENDER_WHERE } from '~/app/api/utils/userVisibility'
 
 export const getMessage = async (uid: number) => {
   const unread = await prisma.user_message.findFirst({
-    where: { recipient_id: uid, status: 0 }
+    // 与消息列表保持一致，隐藏用户发来的消息不触发未读提示
+    where: { recipient_id: uid, status: 0, ...VISIBLE_MESSAGE_SENDER_WHERE }
   })
   return unread
 }
