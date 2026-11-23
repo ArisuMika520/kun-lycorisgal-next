@@ -17,6 +17,22 @@
 
 - 个人主页 `app/(main)/user/[id]/**`：资源、评论、收藏夹三个分页，数据来自
   `app/api/user/profile/**`。浮动用户卡片数据来自 `app/api/user/profile/floating`。
+- 管理员快捷操作：管理员（`role >= 3`）查看他人主页时，资料卡下方显示
+  “管理员操作”卡片（`components/user/admin/`），免去去后台搜索用户。访问者角色由
+  `layout.tsx` 从服务端会话传入，只决定是否显示，权限仍由接口校验。
+  所有操作都经 `ConfirmActionButton` 二次确认，权限规则见
+  [auth.md](./auth.md#角色与状态) 的 `guardManageUser`；按钮在无权限时禁用并给出说明。
+  每个操作成功后写 `admin_log`，状态未变化时接口返回 409。
+
+  | 操作 | 接口 | 角色 | 说明 |
+  | --- | --- | --- | --- |
+  | 封禁 / 解封 | `PUT /api/admin/user/status` | ≥ 3 | 只改 `status`（0 ↔ 2），吊销会话 |
+  | Shadow Ban / 解除 | `PUT /api/admin/user/shadow-ban` | ≥ 3 | 写 / 清 `shadow_ban_time`，不吊销会话、不通知本人 |
+  | 删除 | `DELETE /api/admin/user` | 4 | 伪删除：写 `delete_time`、禁止邮箱与 IP 注册、吊销会话；需输入完整用户名确认 |
+  | 恢复 | `PUT /api/admin/user/restore` | 4 | 清 `delete_time` 并解除注册限制，仅对已删除用户显示 |
+
+  面板标题旁用 Chip 标出“已删除”“Shadow Ban”和封禁状态。这两个标记来自
+  `UserInfo.isDeleted` / `isShadowBanned`，只有管理员访问时才如实返回。
 - 设置页 `app/(main)/settings/user`：头像（裁剪后上传）、用户名、简介、邮箱、密码、
   邮件通知、2FA、OAuth 绑定/解绑，对应 `app/api/user/setting/**`。
 - 签到 `app/api/user/status/check-in`：每日一次，随机增加 1～7 萌萌点。
@@ -57,7 +73,7 @@
 | --- | --- |
 | `admin`（首页） | 统计概览，`app/api/admin/stats/**` |
 | `admin/galgame`、`resource`、`comment`、`topic` | 内容管理（编辑、删除） |
-| `admin/user` | 用户管理。修改用户信息会吊销其会话；永久删除（仅超级管理员）会写入禁止重新注册的 Redis 键并吊销会话 |
+| `admin/user` | 用户管理。修改用户信息会吊销其会话；删除（伪删除，仅超级管理员）会写入禁止重新注册的 Redis 键并吊销会话。编辑和删除只能作用于权限低于自己的用户。状态列标出“已删除”“Shadow Ban”；封禁、shadow ban、恢复在用户主页的管理员快捷操作里完成，见上文 |
 | `admin/creator` | 创作者申请审批（`approve` / `decline`） |
 | `admin/feedback`、`report` | 处理用户反馈与举报，处理结果以消息通知用户 |
 | `admin/email` | 群发邮件，模板在 `constants/email/group-templates.ts` 与 `constants/email/templates/` |
