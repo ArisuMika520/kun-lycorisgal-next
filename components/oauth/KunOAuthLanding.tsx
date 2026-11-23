@@ -5,6 +5,7 @@ import { useRouter } from '@bprogress/next'
 import toast from 'react-hot-toast'
 import { kunFetchGet } from '~/utils/kunFetch'
 import { useUserStore } from '~/store/userStore'
+import { REGISTER_BANNED_MESSAGE, USER_DELETED_MESSAGE } from '~/constants/user'
 import type { UserState } from '~/store/userStore'
 
 // NextMoe·未萌 OAuth 回调落地处理（仅挂在首页 `/`）。
@@ -14,8 +15,9 @@ import type { UserState } from '~/store/userStore'
 // 故 callback 成功后改跳 `/?oauth=success`，此处补齐前端登录态：
 //   拉 /api/user/status → setUser 写入持久化 store（对齐本地登录成功后的写法）→ 跳用户资源页。
 //
-// 另：本地/NextMoe·未萌 端封禁(`?error=banned`)刻意落首页而非 /login（指南 §7：封号再登无意义），
-// 在此给终态提示。其余 error 落 /login，由 components/login/Login.tsx 消费。
+// 另：本地/NextMoe·未萌 端封禁(`?error=banned`)、本地账号已删除(`?error=deleted`)、
+// 新建账号命中禁止注册名单(`?error=register_banned`)刻意落首页而非 /login
+// （指南 §7：再登无意义），在此给终态提示。其余 error 落 /login，由 components/login/Login.tsx 消费。
 export const KunOAuthLanding = () => {
   const router = useRouter()
   const { setUser } = useUserStore((state) => state)
@@ -45,9 +47,15 @@ export const KunOAuthLanding = () => {
       return
     }
 
-    if (params.get('error') === 'banned') {
+    const terminalErrorMessage: Record<string, string> = {
+      banned: '您的账号已被封禁，无法登录',
+      deleted: USER_DELETED_MESSAGE,
+      register_banned: REGISTER_BANNED_MESSAGE
+    }
+    const message = terminalErrorMessage[params.get('error') ?? '']
+    if (message) {
       handled.current = true
-      toast.error('您的账号已被封禁，无法登录', { duration: 6000 })
+      toast.error(message, { duration: 6000 })
       router.replace('/', { scroll: false })
     }
   }, [router, setUser])

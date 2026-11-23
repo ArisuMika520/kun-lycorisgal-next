@@ -4,6 +4,7 @@ import { kunParsePostBody } from '~/app/api/utils/parseQuery'
 import { stepOneSchema } from '~/validations/forgot'
 import { prisma } from '~/prisma/index'
 import { sendVerificationCodeEmail } from '~/app/api/utils/sendVerificationCodeEmail'
+import { USER_DELETED_MESSAGE } from '~/constants/user'
 
 export const stepOne = async (
   input: z.infer<typeof stepOneSchema>,
@@ -21,6 +22,9 @@ export const stepOne = async (
   if (!user) {
     return '用户未找到'
   }
+  if (user.delete_time) {
+    return USER_DELETED_MESSAGE
+  }
 
   const result = await sendVerificationCodeEmail(headers, user.email, 'forgot')
   if (result) {
@@ -36,7 +40,7 @@ export const POST = async (req: NextRequest) => {
 
   const response = await stepOne(input, req.headers)
   if (typeof response === 'string') {
-    return NextResponse.json(input)
+    return NextResponse.json(response)
   }
 
   return NextResponse.json({})

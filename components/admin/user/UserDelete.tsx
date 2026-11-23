@@ -32,7 +32,7 @@ export const UserDelete = ({ user }: Props) => {
       uid: user.id
     })
     kunErrorHandler(res, () => {
-      toast.success('永久删除用户成功')
+      toast.success('删除用户成功，可在其个人主页恢复')
     })
     setDeleting(false)
     onClose()
@@ -47,7 +47,8 @@ export const UserDelete = ({ user }: Props) => {
           color="danger"
           variant="light"
           onPress={onOpen}
-          isDisabled={currentUser.role < 3}
+          // 与后端 guardManageUser 一致：不能删除同级用户；已删除的用户请到其主页恢复
+          isDisabled={user.isDeleted || currentUser.role <= user.role}
         >
           <Trash2 size={16} />
         </Button>
@@ -57,23 +58,26 @@ export const UserDelete = ({ user }: Props) => {
         <ModalContent>
           <ModalHeader>删除用户: {user.name}</ModalHeader>
           <ModalBody>
-            <div>
-              <h2 className="text-2xl text-danger">严重警告</h2>
-              <p>您确定要永久删除用户 {user.name} 吗?</p>
-              <p>该操作将会抹消用户的一切痕迹, 该操作不可撤销</p>
+            <div className="space-y-1">
+              <p>您确定要删除用户 {user.name} 吗?</p>
+              <p>
+                该用户将无法登录，其资源、评论、话题和站内消息对所有人隐藏（数据保留），
+                邮箱和注册 IP 将被永久禁止注册。
+              </p>
+              <p>之后可以在该用户的个人主页恢复。</p>
             </div>
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" variant="light" onPress={onClose}>
+            <Button variant="light" onPress={onClose}>
               取消
             </Button>
             <Button
-              color="primary"
+              color="danger"
               isDisabled={deleting}
               isLoading={deleting}
               onPress={handleUpdateUserInfo}
             >
-              永久删除用户
+              删除用户
             </Button>
           </ModalFooter>
         </ModalContent>

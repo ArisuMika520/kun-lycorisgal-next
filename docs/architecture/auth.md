@@ -19,7 +19,12 @@
   JWT 里的 `role` 是签发时的快照，不会自动刷新，因此角色和状态变更必须配合吊销会话：
   - 后台修改用户（`app/api/admin/user/update.ts`，含改角色、封禁）会先 `deleteKunToken`，
     对方需重新登录，新 token 带最新角色；
-  - 后台永久删除用户（`app/api/admin/user/delete.ts`）在事务完成后 `deleteKunToken`；
+  - 后台删除用户（伪删除，`app/api/admin/user/delete.ts`）写入 `delete_time` 后 `deleteKunToken`；
+  - 用户主页快捷封禁 / 解封（`app/api/admin/user/status/update.ts`）写入状态后
+    `deleteKunToken`。已签发的 JWT 不检查 `status` / `delete_time`，只有删除白名单
+    才能让封禁和删除立即生效；
+  - shadow ban（`app/api/admin/user/shadow-ban/update.ts`）**刻意不吊销会话**，
+    被 shadow ban 的用户应当察觉不到变化；
   - 创作者审批（`app/api/admin/creator/approve`）只把角色从 1 改为 2，不吊销会话。
     这是安全的，因为所有“创作者及以上”判断（对象存储上传、图片上传限额）都从数据库读角色。
   - 新增修改 `role` / `status` 的代码时，要么调用 `deleteKunToken`，要么让相关权限判断
@@ -47,11 +52,11 @@
 | 流程 | 入口 | 说明 |
 | --- | --- | --- |
 | 人机验证 | `app/api/auth/captcha/` | 从 `server/image/auth/white`、`other` 随机抽图，用户选出“白毛女孩子”。通过后发一次性码 `captcha:verify:<code>`（1 小时，用后即删） |
-| 注册验证码 | `app/api/auth/send-register-code/` | 检查注册开关 `admin:setting:register`、永久封禁键 `admin:delete:user:<email/ip>`；同邮箱、同 IP 60 秒限流（`limit:email:*`、`limit:ip:*`） |
+| 注册验证码 | `app/api/auth/send-register-code/` | 检查注册开关 `admin:setting:register`、禁止注册键 `admin:delete:user:<email/ip>`（OAuth 建号同样检查）；同邮箱、同 IP 60 秒限流（`limit:email:*`、`limit:ip:*`） |
 | 注册 | `app/api/auth/register/` | 校验邮件验证码后建号 |
-| 登录 | `app/api/auth/login/` | 用户名或邮箱（大小写不敏感）+ 密码 + 验证码；`status === 2` 拒绝登录 |
-| 两步验证 | `app/api/auth/verify-2fa/` | 开启 2FA 的账号登录时先发 10 分钟临时 Cookie `kun-galgame-patch-moe-2fa-token`，再校验 TOTP 或备用码 |
-| 找回密码 | `app/api/forgot/one`、`two` | 邮件验证码重置 |
+| 登录 | `app/api/auth/login/` | 用户名或邮箱（大小写不敏感）+ 密码 + 验证码；`delete_time` 非空（已删除）或 `status === 2`（封禁）拒绝登录，已删除账号提示邮箱与注册 IP 已被永久禁止注册（`USER_DELETED_MESSAGE`） |
+| 两步验证 | `app/api/auth/verify-2fa/` | 开启 2FA 的账号登录时先发 10 分钟临时 Cookie `kun-galgame-patch-moe-2fa-token`，再校验 TOTP 或备用码；签发会话前再次检查删除与封禁状态 |
+| 找回密码 | `app/api/forgot/one`、`two` | 邮件验证码重置；已删除账号在第一步拒绝发码 |
 
 密码用 argon2id（`@noble/hashes`）哈希，存储格式 `salt:hash`，见
 `app/api/utils/algorithm.ts`。
@@ -68,6 +73,9 @@
   按 `(provider, provider_user_id)` 查 `user_oauth_account` 决定登录、建号或拒绝 →
   签发本站会话 → `revoke` 即弃。**不保存、不刷新** 第三方 token。
 - 授权邮箱已被本地账号占用时不自动合并，回跳 `/login?error=email_exists`。
+- 已绑定账号被删除时回跳 `/?error=deleted`；新建账号前检查禁止注册键
+  `admin:delete:user:<email/ip>`，命中回跳 `/?error=register_banned`，防止被删除的用户
+  换一个 OAuth 账号从同一 IP 重新建号。两者与 `banned` 一样由 `KunOAuthLanding` 提示。
   错误码约定写在 callback 文件头注释里，前端 `/login` 与 `/settings/user` 据此提示。
 - OAuth 建号的用户密码字段写占位值 `OAUTH_PLACEHOLDER_PASSWORD`，
   `hasUsablePassword` 用来判断能否解绑（`app/api/utils/oauth/placeholderPassword.ts`）。
@@ -85,18 +93,26 @@
 | 1 | 用户 | 评论、收藏、发帖；发布补丁类资源（不能用 `lycorisgal` 资源盘、不能发 `galgame` 分区）；每日图片上传 50 张上限 |
 | 2 | 创作者 | 上传文件到对象存储（每次需人机验证，单文件 ≤100MB，每日 5GB）；图片上传不限次 |
 | 3 | 管理员 | 创建/编辑/删除 Galgame 条目、导入元数据、管理后台、管理他人资源 |
-| 4 | 超级管理员 | 管理员权限外加：永久删除用户（`DELETE /api/admin/user`）、群发邮件（`app/api/admin/mail`）、把用户设为管理员 |
+| 4 | 超级管理员 | 管理员权限外加：删除 / 恢复用户（伪删除，`DELETE /api/admin/user`、`PUT /api/admin/user/restore`）、群发邮件（`app/api/admin/mail`）、把用户设为管理员 |
 
 - 角色判断写在各路由里，约定如下，新增代码沿用同一阈值，前端按钮的显示条件要与后端一致：
   - 仅管理员：`payload.role < 3` 时拒绝；
   - 创作者及以上：`role >= 2`，用于对象存储上传、图片上传不限次；
   - 仅超级管理员：`role < 4` 时拒绝；
+  - 管理他人账号（`app/api/admin/user/**` 的编辑、封禁、shadow ban、删除、恢复）统一走
+    `app/api/admin/user/_guard.ts` 的 `guardManageUser`：不能操作自己，操作者角色从数据库读取，
+    且必须 **严格高于** 目标用户（同级之间、包括超级管理员之间不能互相操作）。
+    编辑、封禁、shadow ban 要求 `role >= 3`，删除、恢复要求 `role >= 4`；
   - 删除条目评论、话题评论：作者本人或 `role >= 3`；删除话题仅限 `role >= 3`
     （作者也不能删）；
   - 编辑话题、编辑话题评论仅限作者本人，编辑条目评论允许作者或 `role >= 3`。
 - 用户至少发布 3 个资源后可在 `/apply` 申请成为创作者，管理员在后台
   `admin/creator` 审批。
 - `user.status`：0 正常，1 限制（未完成），2 封禁。封禁用户无法登录，OAuth
-  回调同样拦截。
-- 永久删除用户时，其邮箱和 IP 写入 `admin:delete:user:*`，阻止重新注册。
+  回调同样拦截；已发布内容仍对外显示。
+- `user.delete_time`（伪删除）与 `user.shadow_ban_time`（shadow ban）独立于 `status`，
+  影响内容可见性，规则见 [community-admin.md](./community-admin.md#用户内容可见性)。
+  恢复删除时保留原有的 `status` 和 shadow ban 状态。
+- 删除用户时，其邮箱和注册 IP 写入 `admin:delete:user:*`，阻止重新注册；恢复时解除
+  （同一 IP 下还有其他已删除用户时保留 IP 键），见 `app/api/admin/user/_registerBan.ts`。
   本地开发误封时可用 `scripts/unban-local-ip.ts` 解除 `127.0.0.1`。

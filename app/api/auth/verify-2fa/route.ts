@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { kunParsePostBody } from '~/app/api/utils/parseQuery'
 import { generateKunToken } from '~/app/api/utils/jwt'
+import { USER_DELETED_MESSAGE } from '~/constants/user'
 import { prisma } from '~/prisma/index'
 import { getRedirectConfig } from '~/app/api/admin/setting/redirect/getRedirectConfig'
 import { Totp } from 'time2fa'
@@ -28,6 +29,13 @@ export const verifyLogin2FA = async (
 
   if (!user || !user.enable_2fa) {
     return '用户未启用 2FA'
+  }
+  // 临时令牌有效期 10 分钟，期间账号可能已被删除或封禁，签发会话前再确认一次
+  if (user.delete_time) {
+    return USER_DELETED_MESSAGE
+  }
+  if (user.status === 2) {
+    return '该用户已被封禁, 如果您觉得有任何问题, 请联系我们'
   }
 
   let isValid = false

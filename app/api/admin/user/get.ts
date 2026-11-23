@@ -45,6 +45,8 @@ export const getUserInfo = async (
     created: user.created,
     status: user.status,
     dailyImageCount: user.daily_image_count,
+    isDeleted: user.delete_time !== null,
+    isShadowBanned: user.shadow_ban_time !== null,
     _count: user._count
   }))
 

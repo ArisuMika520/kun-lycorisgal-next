@@ -11,6 +11,7 @@ import {
   KUN_PATCH_DISABLE_REGISTER_KEY,
   KUN_PATCH_PERMANENT_BAN_USER_KEY
 } from '~/config/redis'
+import { REGISTER_BANNED_MESSAGE } from '~/constants/user'
 
 export const sendRegisterCode = async (
   input: z.infer<typeof sendRegisterEmailVerificationCodeSchema>,
@@ -30,14 +31,14 @@ export const sendRegisterCode = async (
     `${KUN_PATCH_PERMANENT_BAN_USER_KEY}:${input.email}`
   )
   if (isDeletedUserEmail) {
-    return '您的邮箱已被永久封禁'
+    return REGISTER_BANNED_MESSAGE
   }
   const authUserIp = getRemoteIp(headers)
   const isDeletedUserIp = await getKv(
     `${KUN_PATCH_PERMANENT_BAN_USER_KEY}:${authUserIp}`
   )
   if (isDeletedUserIp) {
-    return '您的 IP 地址已被永久封禁'
+    return REGISTER_BANNED_MESSAGE
   }
 
   const normalizedName = input.name.toLowerCase()

@@ -11,6 +11,7 @@ import { loginSchema } from '~/validations/auth'
 import { prisma } from '~/prisma/index'
 import { checkKunCaptchaExist } from '~/app/api/utils/verifyKunCaptcha'
 import { getRedirectConfig } from '~/app/api/admin/setting/redirect/getRedirectConfig'
+import { USER_DELETED_MESSAGE } from '~/constants/user'
 import type { UserState } from '~/store/userStore'
 
 export const login = async (
@@ -33,6 +34,9 @@ export const login = async (
   })
   if (!user) {
     return '用户未找到'
+  }
+  if (user.delete_time) {
+    return USER_DELETED_MESSAGE
   }
   if (user.status === 2) {
     return '该用户已被封禁, 如果您觉得有任何问题, 请联系我们'

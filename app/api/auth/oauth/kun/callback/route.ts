@@ -16,6 +16,8 @@ import {
   KUN_OAUTH_BIND_COOKIE
 } from '~/app/api/utils/oauth/cookie'
 import { OAUTH_PLACEHOLDER_PASSWORD } from '~/app/api/utils/oauth/placeholderPassword'
+import { getKv } from '~/lib/redis'
+import { KUN_PATCH_PERMANENT_BAN_USER_KEY } from '~/config/redis'
 
 // NextMoe·未萌 OAuth 回调路由（GET）。严格按开发计划 §四·阶段 2 的 8 步实现：
 // state 校验 → 换 token → userinfo → 按 (provider,sub) 查绑定决定登录/创建/拒绝
@@ -43,8 +45,10 @@ import { OAUTH_PLACEHOLDER_PASSWORD } from '~/app/api/utils/oauth/placeholderPas
 //     • oauth_unavailable  瞬态失败（reason 瞬态：5xx / 未知错误 / 网络 / 网关），稍后重试
 //     • email_exists       授权邮箱已被本地账号占用，不静默合并；提示先本地登录再绑定（二期）
 //     • email_missing      授权结果没有 email 键（或 trim 后为空），不能建号
-//   终态 / 再登无用 → /?error=banned（刻意不落 /login，指南 §7：封号再登无意义）
+//   终态 / 再登无用 → /?error=<code>（刻意不落 /login，指南 §7：封号再登无意义）
 //     • banned             本地 status===2 封禁，或对端封号（reason==='banned'）
+//     • deleted            本地账号已被管理员删除（user.delete_time 非空）
+//     • register_banned    新建账号时邮箱或 IP 命中禁止注册名单（admin:delete:user:*）
 // C4 在 login 页消费前几类（toast），并对 banned 在落地页给终态提示。
 //
 // 注：协议端点已是裸 RFC（无 {code,message,data} 信封）。分支只认 KunOAuthError.reason，
@@ -163,8 +167,18 @@ const resolveLocalUser = async (
     return prisma.user.update({ where: { id: account.user_id }, data })
   }
 
-  // —— 未命中：先做邮箱撞车检测 ——
+  // —— 未命中：先检查禁止注册名单（与邮箱注册 send-register-code 同一套 Redis 键），
+  //    否则被删除的用户换个 OAuth 账号就能从同一 IP 重新建号 ——
   const email = userInfo.email?.trim().toLowerCase()
+  const [isBannedEmail, isBannedIp] = await Promise.all([
+    email ? getKv(`${KUN_PATCH_PERMANENT_BAN_USER_KEY}:${email}`) : null,
+    getKv(`${KUN_PATCH_PERMANENT_BAN_USER_KEY}:${getRemoteIp(req.headers)}`)
+  ])
+  if (isBannedEmail || isBannedIp) {
+    return '/?error=register_banned'
+  }
+
+  // —— 邮箱撞车检测 ——
   if (email) {
     const emailOwner = await prisma.user.findFirst({
       where: { email: { equals: email, mode: 'insensitive' } }
@@ -293,7 +307,10 @@ export const GET = async (req: NextRequest) => {
       return redirectWithCleanup(req, localUser)
     }
 
-    // 5. 本地封禁拦截：跳错误页而非登录页（再登无用，指南 §7）。
+    // 5. 本地删除 / 封禁拦截：跳错误页而非登录页（再登无用，指南 §7）。
+    if (localUser.delete_time) {
+      return redirectWithCleanup(req, '/?error=deleted')
+    }
     if (localUser.status === 2) {
       return redirectWithCleanup(req, '/?error=banned')
     }

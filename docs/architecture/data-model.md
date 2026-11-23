@@ -33,7 +33,8 @@
 | 管理 | `admin_log`、`admin_todo` | 管理操作日志、后台待办 |
 
 所有关系外键都是 `onDelete: Cascade`（`admin_todo.user_id` 为 `SetNull`），
-删除用户会级联删除其创建的条目、资源和评论。
+物理删除用户会级联删除其创建的条目、资源和评论。因此后台的“删除用户”是伪删除，
+只写 `user.delete_time`，应用代码中没有物理删除用户的入口。
 
 ## `patch` 关键字段
 
@@ -70,7 +71,7 @@
 | `<email>` | 10 分钟 | 邮件验证码 |
 | `limit:email:<email>`、`limit:ip:<ip>` | 60 秒 | 验证码发送限流 |
 | `admin:setting:register` | 永久 | 关闭注册开关 |
-| `admin:delete:user:<email/ip>` | 永久 | 被删除用户禁止重新注册 |
+| `admin:delete:user:<email/ip>` | 永久 | 被删除用户的邮箱与注册 IP 禁止重新注册（邮箱注册与 OAuth 建号都检查），恢复用户时删除 |
 | `admin:config:redirect` | 1 天 | 外链跳转配置，回源 `config/redirect.json` |
 | `patch:<uniqueId>`、`patch:introduction:<uniqueId>` | 30 秒 | 详情数据短缓存（`config/cache.ts`） |
 | `<fileHash>` | 1 天 | 已上传临时文件路径，发布资源时取用 |
